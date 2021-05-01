@@ -17,7 +17,7 @@ public class MapLoaderEditor : Editor
     Texture2D mapDisplay;
     bool isOutside = false;
     BlockData data;
-    string levelColor = string.Empty;
+    Color levelColor = Color.white;
 
     private void OnEnable()
     {
@@ -38,7 +38,7 @@ public class MapLoaderEditor : Editor
         EditorGUI.BeginChangeCheck();
         selectedLevel = EditorGUILayout.Popup("Level", selectedLevel, mapNames.ToArray());
         data = EditorGUILayout.ObjectField("Block data", data, typeof(BlockData), true) as BlockData;
-        levelColor = EditorGUILayout.TextField("Level Color", levelColor);
+        levelColor = EditorGUILayout.ColorField("Level Color", levelColor);
 
         if (EditorGUI.EndChangeCheck())
         {
@@ -76,8 +76,9 @@ public class MapLoaderEditor : Editor
                     {
                         //Floor
                         GameObject plane = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y, offset.z + (1 * y)), map.transform);
+                        plane.name = "Floor";
                         Block block = plane.GetComponent<Block>();
-                        block.color = pixel;
+                        block.color = !isOutside ? levelColor : Color.white; // pixel
                         block.type = Block.BlockType.FLOOR;
                         block.hex = hex;
                         Texture texture = GetTexture(hex);
@@ -92,7 +93,7 @@ public class MapLoaderEditor : Editor
                         // Spawn the floor the entity will stand on
                         GameObject plane = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y, offset.z + (1 * y)), map.transform);
                         Block block = plane.GetComponent<Block>();
-                        block.color = pixel;
+                        block.color = levelColor; // pixel
                         block.type = Block.BlockType.FLOOR;
                         block.hex = hex;
                         block.loadProperties();
@@ -100,8 +101,9 @@ public class MapLoaderEditor : Editor
                         // Spawn entity
                         string entity = hexToEntity(hex);
                         plane = PlaceEntityAt(new Vector3(offset.x + (1 * x), offset.y + 0.5f, offset.z + (1 * y)), map.transform, entity);
+                        plane.name = "Entity";
                         block = plane.GetComponent<Block>();
-                        block.color = pixel;
+                        block.color = levelColor; // pixel
                         block.type = Block.BlockType.ENTITY;
                         block.hex = hex;
                         block.loadProperties();
@@ -110,7 +112,7 @@ public class MapLoaderEditor : Editor
                     {
                         GameObject cube = PlaceBlockAt(new Vector3(offset.x + (1 * x), offset.y + 0.5f, offset.z + (1 * y)), map.transform);
                         Block block = cube.GetComponent<Block>();
-                        block.color = pixel;
+                        block.color = levelColor; // pixel
                         block.type = Block.BlockType.WALL;
                         block.hex = hex;
                         Texture texture = GetTexture(hex);
@@ -124,9 +126,11 @@ public class MapLoaderEditor : Editor
                     // Spawn the ceiling
                     if (!isOutdoors)
                     {
-                        GameObject roof = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y, offset.z + (1 * y)), map.transform, 180);
+                        Debug.Log("Adding ceiling");
+                        GameObject roof = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y + 1f, offset.z + (1 * y)), map.transform, 180);
+                        roof.name = "Roof";
                         Block roofBlock = roof.GetComponent<Block>();
-                        roofBlock.color = pixel;
+                        roofBlock.color = levelColor;
                         roofBlock.type = Block.BlockType.FLOOR;
                         roofBlock.hex = hex;
                         roofBlock.loadProperties();
