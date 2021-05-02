@@ -304,7 +304,7 @@ public class MapLoaderEditor : Editor
         return hex.Equals("4C4C4C") || hex.Equals("FF3A02") || hex.Equals("FF0000") ||
                hex.Equals("AA5500") || hex.Equals("9E009E") || hex.Equals("009380") ||
                hex.Equals("FF66FF") || hex.Equals("FFFF64") || hex.Equals("C1C14D") ||
-               hex.Equals("FFFF00") || hex.Equals("FF0001");
+               hex.Equals("FFFF00") || hex.Equals("FF0001") || hex.Equals("00FFFF") ;
     }
 
     string hexToEntity(string hex)
@@ -333,6 +333,8 @@ public class MapLoaderEditor : Editor
                 return "Loot";
             case "FFFF00":
                 return "Spawn";
+            case "00FFFF":
+                return "BreakableBlock";
             default:
                 throw new ArgumentException("Found hex marked as entity but found no assosiated entity");
         }
@@ -353,7 +355,15 @@ public class MapLoaderEditor : Editor
         foreach (BlockEntry entry in MapLoader.data.blocks)
         {
             if (entry.hex.Equals(hex))
-                return entry.overlayColor;
+            {
+                if (!entry.useWallColor)
+                {
+                    return entry.overlayColor;
+                } else
+                {
+                    return MapLoader.wallColor;
+                }
+            }
         }
         return Color.white;
     }

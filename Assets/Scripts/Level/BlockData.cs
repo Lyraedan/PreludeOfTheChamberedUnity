@@ -14,6 +14,7 @@ public class BlockEntry
     public string id = string.Empty;
     public string hex = string.Empty;
     public Texture texture;
+    public bool useWallColor = false;
     public Color overlayColor = Color.white;
     public bool hasTrigger = false;
 }
