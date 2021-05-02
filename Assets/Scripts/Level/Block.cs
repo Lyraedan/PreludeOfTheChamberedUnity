@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 public class Block : MonoBehaviour
@@ -9,12 +12,13 @@ public class Block : MonoBehaviour
         UNDEFINED, WALL, FLOOR, ENTITY
     }
 
-    public Color color;
+    public Color color = Color.white;
     public string hex = string.Empty;
     public BlockType type = BlockType.UNDEFINED;
     public Texture texture;
     public new Collider collider;
     public string displayColor;
+    public int renderMode = 0;
 
     public void loadProperties()
     {
@@ -43,6 +47,10 @@ public class Block : MonoBehaviour
                             render.material.color = newCol;
                     }
                 }
+                render.material.SetFloat("_Mode", renderMode);
+#if UNITY_EDITOR
+                EditorUtility.SetDirty(this);
+#endif
             }
         } catch(Exception e)
         {

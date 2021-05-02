@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleJSON;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +18,9 @@ public class MapLoaderEditor : Editor
     Texture2D mapDisplay;
     bool isOutside = false;
     BlockData data;
-    Color levelColor = Color.white;
+    Color wallColor = Color.white;
+    Color floorColor = Color.white;
+    Color ceilColor = Color.white;
 
     private void OnEnable()
     {
@@ -38,7 +41,9 @@ public class MapLoaderEditor : Editor
         EditorGUI.BeginChangeCheck();
         selectedLevel = EditorGUILayout.Popup("Level", selectedLevel, mapNames.ToArray());
         data = EditorGUILayout.ObjectField("Block data", data, typeof(BlockData), true) as BlockData;
-        levelColor = EditorGUILayout.ColorField("Level Color", levelColor);
+        wallColor = EditorGUILayout.ColorField("Wall Color", wallColor);
+        floorColor = EditorGUILayout.ColorField("Floor Color", floorColor);
+        ceilColor = EditorGUILayout.ColorField("Ceil Color", ceilColor);
 
         if (EditorGUI.EndChangeCheck())
         {
@@ -46,15 +51,59 @@ public class MapLoaderEditor : Editor
             mapDisplay = Resources.Load<Texture2D>(file);
             mapDisplay.filterMode = FilterMode.Point;
             mapDisplay.alphaIsTransparency = true;
+            LoadProfile();
         }
 
         int previewScale = 2;
-        EditorGUI.DrawPreviewTexture(new Rect(10, 130, 100 * previewScale, 100 * previewScale), mapDisplay);
+        EditorGUI.DrawPreviewTexture(new Rect(10, 170, 100 * previewScale, 100 * previewScale), mapDisplay);
         GUILayout.Space((100 * previewScale) + 20);
+        bool profile = GUILayout.Button("Load Level profile");
+        if(profile)
+        {
+            LoadProfile();
+        }
         bool load = GUILayout.Button("Load Level into scene");
         if (load)
         {
             LoadLevelIntoScene(offset, isOutside);
+        }
+    }
+
+    void LoadProfile()
+    {
+        string level = maps[selectedLevel].fileName;
+        TextAsset file = Resources.Load<TextAsset>($"profiles/{level}");
+        if (file != null)
+        {
+            Debug.Log("Loading profile for " + level);
+            JSONNode node = JSON.Parse(file.text);
+            string wallCol = "#" + node["wallCol"];
+            string floorCol = "#" + node["floorCol"];
+            string ceilCol = "#" + node["ceilCol"];
+            Debug.Log(wallCol);
+            Debug.Log(floorCol);
+            Debug.Log(ceilCol);
+            Color wall, floor, ceil;
+            if (ColorUtility.TryParseHtmlString(wallCol, out wall))
+            {
+                wallColor = wall;
+            }
+            if (ColorUtility.TryParseHtmlString(floorCol, out floor))
+            {
+                floorColor = floor;
+            }
+            if (ColorUtility.TryParseHtmlString(ceilCol, out ceil))
+            {
+                ceilColor = ceil;
+            }
+            Debug.Log("Successfully loaded profile for " + level);
+        }
+        else
+        {
+            Debug.LogError("Failed to find profile for " + level);
+            wallColor = Color.white;
+            floorColor = Color.white;
+            ceilColor = Color.white;
         }
     }
 
@@ -78,7 +127,7 @@ public class MapLoaderEditor : Editor
                         GameObject plane = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y, offset.z + (1 * y)), map.transform);
                         plane.name = "Floor";
                         Block block = plane.GetComponent<Block>();
-                        block.color = !isOutside ? levelColor : Color.white; // pixel
+                        block.color = !isOutside ? floorColor : Color.white; // pixel
                         block.type = Block.BlockType.FLOOR;
                         block.hex = hex;
                         Texture texture = GetTexture(hex);
@@ -93,9 +142,15 @@ public class MapLoaderEditor : Editor
                         // Spawn the floor the entity will stand on
                         GameObject plane = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y, offset.z + (1 * y)), map.transform);
                         Block block = plane.GetComponent<Block>();
-                        block.color = levelColor; // pixel
+                        block.color = floorColor; // pixel
                         block.type = Block.BlockType.FLOOR;
                         block.hex = hex;
+                        Texture texture = GetTexture("000000"); // Floor hex
+                        if (texture != null)
+                        {
+                            block.texture = texture;
+                            block.renderMode = 3;
+                        }
                         block.loadProperties();
 
                         // Spawn entity
@@ -103,16 +158,22 @@ public class MapLoaderEditor : Editor
                         plane = PlaceEntityAt(new Vector3(offset.x + (1 * x), offset.y + 0.5f, offset.z + (1 * y)), map.transform, entity);
                         plane.name = "Entity";
                         block = plane.GetComponent<Block>();
-                        block.color = levelColor; // pixel
+                        block.color = Color.white; // pixel
                         block.type = Block.BlockType.ENTITY;
                         block.hex = hex;
+                        texture = GetTexture(hex);
+                        if (texture != null)
+                        {
+                            block.texture = texture;
+                            block.renderMode = 1;
+                        }
                         block.loadProperties();
                     }
                     else
                     {
                         GameObject cube = PlaceBlockAt(new Vector3(offset.x + (1 * x), offset.y + 0.5f, offset.z + (1 * y)), map.transform);
                         Block block = cube.GetComponent<Block>();
-                        block.color = levelColor; // pixel
+                        block.color = wallColor; // pixel
                         block.type = Block.BlockType.WALL;
                         block.hex = hex;
                         Texture texture = GetTexture(hex);
@@ -130,9 +191,14 @@ public class MapLoaderEditor : Editor
                         GameObject roof = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y + 1f, offset.z + (1 * y)), map.transform, 180);
                         roof.name = "Roof";
                         Block roofBlock = roof.GetComponent<Block>();
-                        roofBlock.color = levelColor;
+                        roofBlock.color = ceilColor;
                         roofBlock.type = Block.BlockType.FLOOR;
                         roofBlock.hex = hex;
+                        Texture texture = GetTexture("000000"); // Floor hex
+                        if (texture != null)
+                        {
+                            roofBlock.texture = texture;
+                        }
                         roofBlock.loadProperties();
                     }
                 }
@@ -192,7 +258,7 @@ public class MapLoaderEditor : Editor
 
     bool hexIsEntity(string hex)
     {
-        return /*hex.Equals("FF0000") || */hex.Equals("FF3A02")/* || hex.Equals("AA5500")*/;
+        return hex.Equals("4C4C4C") || hex.Equals("FF3A02") || hex.Equals("FF0000") || hex.Equals("AA5500") || hex.Equals("009300");
     }
 
     string hexToEntity(string hex)
@@ -201,6 +267,14 @@ public class MapLoaderEditor : Editor
         {
             case "FF3A02": // Torch
                 return "Light";
+            case "4C4C4C":
+                return "Bars";
+            case "FF0000":
+                return "Bat";
+            case "AA5500":
+                return "Bolder";
+            case "009300":
+                return "BolderHole";
             default:
                 throw new ArgumentException("Found hex marked as entity but found no assosiated entity");
         }
