@@ -80,9 +80,6 @@ public class MapLoaderEditor : Editor
             string wallCol = "#" + node["wallCol"];
             string floorCol = "#" + node["floorCol"];
             string ceilCol = "#" + node["ceilCol"];
-            Debug.Log(wallCol);
-            Debug.Log(floorCol);
-            Debug.Log(ceilCol);
             Color wall, floor, ceil;
             if (ColorUtility.TryParseHtmlString(wallCol, out wall))
             {
@@ -135,6 +132,14 @@ public class MapLoaderEditor : Editor
                         {
                             block.texture = texture;
                         }
+
+                        bool hasTrigger = HasTrigger(hex);
+                        if(hasTrigger)
+                        {
+                            GameObject trigger = PlaceTriggerAt(new Vector3(offset.x + (1 * x), offset.y, offset.z + (1 * y)), plane.transform);
+                            trigger.name = "Trigger";
+                        }
+
                         block.loadProperties();
 
                         if (!isOutdoors)
@@ -243,6 +248,14 @@ public class MapLoaderEditor : Editor
         return cube;
     }
 
+    GameObject PlaceTriggerAt(Vector3 pos, Transform parent)
+    {
+        GameObject trigger = Instantiate(Resources.Load("prefabs/Trigger") as GameObject, parent);
+        trigger.transform.position = new Vector3(pos.x, pos.y + 0.5f, pos.z);
+        trigger.transform.localScale = new Vector3(10f, 1f, 10f);
+        return trigger;
+    }
+
     GameObject PlaceEntityAt(Vector3 pos, Transform parent, string entity)
     {
         GameObject cube = Instantiate(Resources.Load("prefabs/" + entity) as GameObject, parent);
@@ -284,15 +297,15 @@ public class MapLoaderEditor : Editor
     bool hexIsPlane(string hex)
     {
         return hex.Equals("000000") || hex.Equals("3F3F60") || hex.Equals("0000FF") ||
-               hex.Equals("653A00") || hex.Equals("009300");
+               hex.Equals("653A00") || hex.Equals("009300") || hex.Equals("009380");
     }
 
     bool hexIsEntity(string hex)
     {
         return hex.Equals("4C4C4C") || hex.Equals("FF3A02") || hex.Equals("FF0000") ||
-               hex.Equals("AA5500") || hex.Equals("009300") || hex.Equals("9E009E") ||
+               hex.Equals("AA5500") || hex.Equals("9E009E") || hex.Equals("009380") ||
                hex.Equals("FF66FF") || hex.Equals("FFFF64") || hex.Equals("C1C14D") ||
-               hex.Equals("FFFF00");
+               hex.Equals("FFFF00") || hex.Equals("FF0001");
     }
 
     string hexToEntity(string hex)
@@ -305,6 +318,8 @@ public class MapLoaderEditor : Editor
                 return "Bars";
             case "FF0000":
                 return "Bat";
+            case "FF0001":
+                return "BossBat";
             case "AA5500":
                 return "Bolder";
             case "009300":
@@ -342,6 +357,16 @@ public class MapLoaderEditor : Editor
                 return entry.overlayColor;
         }
         return Color.white;
+    }
+
+    bool HasTrigger(string hex)
+    {
+        foreach (BlockEntry entry in data.blocks)
+        {
+            if (entry.hex.Equals(hex))
+                return entry.hasTrigger;
+        }
+        return false;
     }
 }
 

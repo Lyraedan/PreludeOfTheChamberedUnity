@@ -17,47 +17,69 @@ MonoBehaviour:
     hex: 000000
     texture: {fileID: 2800000, guid: b95df335cae97624cb8e6e0e0dc7f6ee, type: 3}
     overlayColor: {r: 1, g: 1, b: 1, a: 1}
+    hasTrigger: 0
   - id: Wall
     hex: FFFFFF
     texture: {fileID: 2800000, guid: 349b53f171bb35d458533b00f13921e0, type: 3}
     overlayColor: {r: 1, g: 1, b: 1, a: 1}
+    hasTrigger: 0
   - id: Breakable Wall
     hex: 00FFFF
     texture: {fileID: 2800000, guid: dbbb926be5a6ff8409141025a4651de4, type: 3}
     overlayColor: {r: 1, g: 1, b: 1, a: 1}
+    hasTrigger: 0
   - id: Bars
     hex: 4C4C4C
     texture: {fileID: 2800000, guid: c4a921e79cbb55e4ba12c68400640b31, type: 3}
     overlayColor: {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
+    hasTrigger: 0
   - id: Bat
     hex: FF0000
     texture: {fileID: 2800000, guid: eccda3bd7ec08b2498f0b55a3eee6e31, type: 3}
     overlayColor: {r: 0.50980395, g: 0.4, b: 0.43137255, a: 1}
+    hasTrigger: 0
   - id: Bolder
     hex: AA5500
     texture: {fileID: 2800000, guid: a5ba5ed59e7981546ac30c67184a21e8, type: 3}
     overlayColor: {r: 0.6862745, g: 0.63529414, b: 0.5764706, a: 1}
+    hasTrigger: 0
   - id: BolderHole
     hex: 009300
     texture: {fileID: 2800000, guid: 1e21aaba6816e964dba83e086db461e9, type: 3}
     overlayColor: {r: 1, g: 1, b: 1, a: 1}
+    hasTrigger: 1
   - id: LadderUp
     hex: 9E009E
     texture: {fileID: 2800000, guid: b079c67913752b64c915bd4d0576d11a, type: 3}
     overlayColor: {r: 0.85882354, g: 0.5568628, b: 0.3254902, a: 1}
+    hasTrigger: 1
   - id: Torch
     hex: FF3A02
     texture: {fileID: 2800000, guid: 6c00f744d2e331f4aa14747ee60d9381, type: 3}
     overlayColor: {r: 1, g: 1, b: 0, a: 1}
+    hasTrigger: 0
   - id: LadderDown
     hex: FF66FF
     texture: {fileID: 2800000, guid: 239622a27d25047419432c0e5f3611ca, type: 3}
     overlayColor: {r: 0.85882354, g: 0.5568628, b: 0.3254902, a: 1}
+    hasTrigger: 1
   - id: Chest
     hex: FFFF64
     texture: {fileID: 2800000, guid: b6910f08ee867c749b6a9960de643abc, type: 3}
     overlayColor: {r: 1, g: 1, b: 0, a: 1}
+    hasTrigger: 0
   - id: Loot
     hex: C1C14D
     texture: {fileID: 2800000, guid: a03377fc07e51fa4ea3325ae696444d9, type: 3}
     overlayColor: {r: 1, g: 1, b: 0, a: 1}
+    hasTrigger: 1
+  - id: BossBat
+    hex: FF0001
+    texture: {fileID: 2800000, guid: eccda3bd7ec08b2498f0b55a3eee6e31, type: 3}
+    overlayColor: {r: 1, g: 1, b: 0, a: 1}
+    hasTrigger: 0
+  - id: PressurePlate
+    hex: 009380
+    texture: {fileID: 2800000, guid: c9e34f1fc2351f94689b3f9edac84f55, type: 3}
+    overlayColor: {r: 1, g: 1, b: 0, a: 1}
+    hasTrigger: 1

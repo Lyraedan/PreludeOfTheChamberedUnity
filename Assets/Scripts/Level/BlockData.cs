@@ -15,4 +15,5 @@ public class BlockEntry
     public string hex = string.Empty;
     public Texture texture;
     public Color overlayColor = Color.white;
+    public bool hasTrigger = false;
 }
