@@ -54,6 +54,8 @@ public class Bolder : MonoBehaviour
             animator.isPlayingAnim = false;
             source.clip = slottedSfx;
             source.Play();
+            body.useGravity = false;
+            collider.enabled = false;
             body.velocity = Vector3.zero;
             GetComponent<Renderer>().material.mainTexture = slotted;
         }

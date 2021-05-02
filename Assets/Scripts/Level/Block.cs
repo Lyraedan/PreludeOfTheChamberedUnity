@@ -34,29 +34,30 @@ public class Block : MonoBehaviour
         try
         {
             Renderer render = GetComponent<Renderer>();
+            Material mat = render.material;
             if (render)
             {
-                render.material.color = color;
+                mat.color = color;
                 if (texture)
                 {
-                    render.material.mainTexture = texture;
+                    mat.mainTexture = texture;
                     if (!string.IsNullOrEmpty(displayColor))
                     {
                         Color newCol;
                         if (ColorUtility.TryParseHtmlString(displayColor, out newCol))
-                            render.material.color = newCol;
+                            mat.color = newCol;
                     }
                 }
                 if (renderMode != 0)
                 {
-                    render.material.SetFloat("_Mode", renderMode);
-                    render.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-                    render.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-                    render.material.SetInt("_ZWrite", 0);
-                    render.material.DisableKeyword("_ALPHATEST_ON");
-                    render.material.EnableKeyword("_ALPHABLEND_ON");
-                    render.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-                    render.material.renderQueue = 3000;
+                    mat.SetFloat("_Mode", renderMode);
+                    mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                    mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                    mat.SetInt("_ZWrite", 0);
+                    mat.DisableKeyword("_ALPHATEST_ON");
+                    mat.EnableKeyword("_ALPHABLEND_ON");
+                    mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                    mat.renderQueue = 3000;
                 }
 #if UNITY_EDITOR
                 EditorUtility.SetDirty(this);
