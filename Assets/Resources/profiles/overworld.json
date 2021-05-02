@@ -1,0 +1,6 @@
+{
+ "name":"Overworld",
+ "wallCol": "a0a0a0",
+ "floorCol": "508253",
+ "ceilCol": "FFFFFF"
+}

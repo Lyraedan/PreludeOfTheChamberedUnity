@@ -119,7 +119,8 @@ public class MapLoaderEditor : Editor
                         GameObject plane = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y, offset.z + (1 * y)), map.transform);
                         plane.name = "Floor";
                         Block block = plane.GetComponent<Block>();
-                        block.color = !MapLoader.isOutside ? MapLoader.floorColor : Color.white; // pixel
+                        bool hasEntry = HasEntry(hex);
+                        block.color = hasEntry ? GetOverlayColor(hex) : MapLoader.floorColor; // pixel
                         block.type = Block.BlockType.FLOOR;
                         block.hex = hex;
                         Texture texture = GetTexture(hex);
@@ -225,7 +226,8 @@ public class MapLoaderEditor : Editor
                     {
                         GameObject cube = PlaceBlockAt(new Vector3(offset.x + (1 * x), offset.y + 0.5f, offset.z + (1 * y)), map.transform);
                         Block block = cube.GetComponent<Block>();
-                        block.color = MapLoader.wallColor; // pixel
+                        bool hasEntry = HasEntry(hex);
+                        block.color = hasEntry ? GetOverlayColor(hex) : MapLoader.wallColor; // pixel
                         block.type = Block.BlockType.WALL;
                         block.hex = hex;
                         Texture texture = GetTexture(hex);
@@ -296,7 +298,8 @@ public class MapLoaderEditor : Editor
     bool hexIsPlane(string hex)
     {
         return hex.Equals("000000") || hex.Equals("3F3F60") || hex.Equals("0000FF") ||
-               hex.Equals("653A00") || hex.Equals("009300") || hex.Equals("009380");
+               hex.Equals("653A00") || hex.Equals("009300") || hex.Equals("009380") ||
+               hex.Equals("0000FF") || hex.Equals("653A00") || hex.Equals("3F3F60");
     }
 
     bool hexIsEntity(string hex)
@@ -356,16 +359,37 @@ public class MapLoaderEditor : Editor
         {
             if (entry.hex.Equals(hex))
             {
-                if (!entry.useWallColor)
-                {
-                    return entry.overlayColor;
-                } else
+                if (entry.useWallColor)
                 {
                     return MapLoader.wallColor;
+                }
+                else if(entry.useFloorColor)
+                {
+                    return MapLoader.floorColor;
+                }
+                else if(entry.useCeilingColor)
+                {
+                    return MapLoader.ceilColor;
+                }
+                else
+                {
+                    return entry.overlayColor;
                 }
             }
         }
         return Color.white;
+    }
+
+    bool HasEntry(string hex)
+    {
+        foreach (BlockEntry entry in MapLoader.data.blocks)
+        {
+            if (entry.hex.Equals(hex))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     bool HasTrigger(string hex)

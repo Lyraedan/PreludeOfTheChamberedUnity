@@ -15,9 +15,10 @@ public class Bolder : MonoBehaviour
     public AudioClip pushedSfx;
     private AudioSource source;
     [Header("Physics")]
-    public float pushForce = 2500f;
+    public float pushForce = 100f; // 2500
     public new SphereCollider collider;
     public Rigidbody body;
+    public bool inHole = false;
 
     // Start is called before the first frame update
     void Start()
@@ -30,10 +31,6 @@ public class Bolder : MonoBehaviour
     void Update()
     {
         animator.isPlayingAnim = IsMoving();
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            StartCoroutine(doRoll());
-        }
     }
 
     public bool IsMoving()
@@ -42,8 +39,20 @@ public class Bolder : MonoBehaviour
         return body.velocity.magnitude > 0;
     }
 
+    public void Slot()
+    {
+        source.clip = slottedSfx;
+        source.Play();
+        body.velocity = Vector3.zero;
+        GetComponent<Renderer>().material.mainTexture = slotted;
+        inHole = true;
+    }
+
     public IEnumerator doRoll()
     {
+        if (inHole)
+            yield return null;
+
         if (IsMoving())
         {
             body.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
@@ -53,6 +62,7 @@ public class Bolder : MonoBehaviour
         body.constraints = RigidbodyConstraints.None;
         body.constraints = RigidbodyConstraints.FreezeRotation;
 
+        //                               Swap out for player position
         var force = transform.position - Camera.main.transform.position;
         force.Normalize();
         body.AddForce(force * pushForce);
