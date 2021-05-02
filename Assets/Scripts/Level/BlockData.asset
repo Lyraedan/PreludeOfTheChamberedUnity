@@ -28,15 +28,15 @@ MonoBehaviour:
   - id: Bars
     hex: 4C4C4C
     texture: {fileID: 2800000, guid: c4a921e79cbb55e4ba12c68400640b31, type: 3}
-    overlayColor: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
+    overlayColor: {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
   - id: Bat
     hex: FF0000
-    texture: {fileID: 0}
-    overlayColor: {r: 1, g: 1, b: 1, a: 1}
+    texture: {fileID: 2800000, guid: eccda3bd7ec08b2498f0b55a3eee6e31, type: 3}
+    overlayColor: {r: 0.50980395, g: 0.4, b: 0.43137255, a: 1}
   - id: Bolder
     hex: AA5500
     texture: {fileID: 2800000, guid: a5ba5ed59e7981546ac30c67184a21e8, type: 3}
-    overlayColor: {r: 0.509434, g: 0.22899427, b: 0, a: 1}
+    overlayColor: {r: 0.6862745, g: 0.63529414, b: 0.5764706, a: 1}
   - id: BolderHole
     hex: 009300
     texture: {fileID: 2800000, guid: 1e21aaba6816e964dba83e086db461e9, type: 3}
@@ -44,8 +44,20 @@ MonoBehaviour:
   - id: LadderUp
     hex: 9E009E
     texture: {fileID: 2800000, guid: b079c67913752b64c915bd4d0576d11a, type: 3}
-    overlayColor: {r: 0.6886792, g: 0.31238616, b: 0, a: 1}
+    overlayColor: {r: 0.85882354, g: 0.5568628, b: 0.3254902, a: 1}
+  - id: Torch
+    hex: FF3A02
+    texture: {fileID: 2800000, guid: 6c00f744d2e331f4aa14747ee60d9381, type: 3}
+    overlayColor: {r: 1, g: 1, b: 0, a: 1}
   - id: LadderDown
     hex: FF66FF
     texture: {fileID: 2800000, guid: 239622a27d25047419432c0e5f3611ca, type: 3}
-    overlayColor: {r: 0.6901961, g: 0.3137255, b: 0, a: 1}
+    overlayColor: {r: 0.85882354, g: 0.5568628, b: 0.3254902, a: 1}
+  - id: Chest
+    hex: FFFF64
+    texture: {fileID: 2800000, guid: b6910f08ee867c749b6a9960de643abc, type: 3}
+    overlayColor: {r: 1, g: 1, b: 0, a: 1}
+  - id: Loot
+    hex: C1C14D
+    texture: {fileID: 2800000, guid: a03377fc07e51fa4ea3325ae696444d9, type: 3}
+    overlayColor: {r: 1, g: 1, b: 0, a: 1}

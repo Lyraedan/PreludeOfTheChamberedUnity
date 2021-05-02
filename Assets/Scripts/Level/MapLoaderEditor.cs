@@ -291,14 +291,15 @@ public class MapLoaderEditor : Editor
     {
         return hex.Equals("4C4C4C") || hex.Equals("FF3A02") || hex.Equals("FF0000") ||
                hex.Equals("AA5500") || hex.Equals("009300") || hex.Equals("9E009E") ||
-               hex.Equals("FF66FF");
+               hex.Equals("FF66FF") || hex.Equals("FFFF64") || hex.Equals("C1C14D") ||
+               hex.Equals("FFFF00");
     }
 
     string hexToEntity(string hex)
     {
         switch (hex)
         {
-            case "FF3A02": // Torch
+            case "FF3A02":
                 return "Light";
             case "4C4C4C":
                 return "Bars";
@@ -312,6 +313,12 @@ public class MapLoaderEditor : Editor
                 return "LadderUp";
             case "FF66FF":
                 return "LadderDown";
+            case "FFFF64":
+                return "Chest";
+            case "C1C14D":
+                return "Loot";
+            case "FFFF00":
+                return "Spawn";
             default:
                 throw new ArgumentException("Found hex marked as entity but found no assosiated entity");
         }
