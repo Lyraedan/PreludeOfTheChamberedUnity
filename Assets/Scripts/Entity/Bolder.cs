@@ -39,13 +39,17 @@ public class Bolder : MonoBehaviour
         return body.velocity.magnitude > 0;
     }
 
-    public void Slot()
+    public void Slot(Collider collider)
     {
-        source.clip = slottedSfx;
-        source.Play();
-        body.velocity = Vector3.zero;
-        GetComponent<Renderer>().material.mainTexture = slotted;
-        inHole = true;
+        Debug.Log("Slot");
+        if (collider.gameObject.GetInstanceID().Equals(gameObject.GetInstanceID()))
+        {
+            source.clip = slottedSfx;
+            source.Play();
+            body.velocity = Vector3.zero;
+            GetComponent<Renderer>().material.mainTexture = slotted;
+            inHole = true;
+        }
     }
 
     public IEnumerator doRoll()
