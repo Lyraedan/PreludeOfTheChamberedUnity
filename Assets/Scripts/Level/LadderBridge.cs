@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class LadderBridge : MonoBehaviour
 {
+    public enum Direction
+    {
+        UP, DOWN
+    }
+
     public Transform entrance;
     public Transform exit;
+    public Direction direction;
+    [Tooltip("Texture that replaces the floor or ceiling")] public Texture texture;
 
     private void OnDrawGizmos()
     {

@@ -47,7 +47,17 @@ public class Block : MonoBehaviour
                             render.material.color = newCol;
                     }
                 }
-                render.material.SetFloat("_Mode", renderMode);
+                if (renderMode != 0)
+                {
+                    render.material.SetFloat("_Mode", renderMode);
+                    render.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                    render.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                    render.material.SetInt("_ZWrite", 0);
+                    render.material.DisableKeyword("_ALPHATEST_ON");
+                    render.material.EnableKeyword("_ALPHABLEND_ON");
+                    render.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                    render.material.renderQueue = 3000;
+                }
 #if UNITY_EDITOR
                 EditorUtility.SetDirty(this);
 #endif

@@ -58,7 +58,7 @@ public class MapLoaderEditor : Editor
         EditorGUI.DrawPreviewTexture(new Rect(10, 170, 100 * previewScale, 100 * previewScale), mapDisplay);
         GUILayout.Space((100 * previewScale) + 20);
         bool profile = GUILayout.Button("Load Level profile");
-        if(profile)
+        if (profile)
         {
             LoadProfile();
         }
@@ -136,9 +136,42 @@ public class MapLoaderEditor : Editor
                             block.texture = texture;
                         }
                         block.loadProperties();
+
+                        if (!isOutdoors)
+                        {
+                            // Roof
+                            GameObject roof = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y + 1f, offset.z + (1 * y)), map.transform, 180);
+                            roof.name = "Roof";
+                            Block roofBlock = roof.GetComponent<Block>();
+                            roofBlock.color = ceilColor;
+                            roofBlock.type = Block.BlockType.FLOOR;
+                            roofBlock.hex = hex;
+                            texture = GetTexture("000000"); // Floor hex
+                            if (texture != null)
+                            {
+                                roofBlock.texture = texture;
+                            }
+                            roofBlock.loadProperties();
+                        }
                     }
                     else if (hexIsEntity(hex))
                     {
+                        // Spawn entity
+                        string entity = hexToEntity(hex);
+                        GameObject e = PlaceEntityAt(new Vector3(offset.x + (1 * x), offset.y + 0.5f, offset.z + (1 * y)), map.transform, entity);
+                        e.name = "Entity";
+                        Block entityBlock = e.GetComponent<Block>();
+                        entityBlock.color = GetOverlayColor(hex); // pixel
+                        entityBlock.type = Block.BlockType.ENTITY;
+                        entityBlock.hex = hex;
+                        Texture entityTexture = GetTexture(hex);
+                        if (entityTexture != null)
+                        {
+                            entityBlock.texture = entityTexture;
+                            entityBlock.renderMode = 1;
+                        }
+                        entityBlock.loadProperties();
+
                         // Spawn the floor the entity will stand on
                         GameObject plane = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y, offset.z + (1 * y)), map.transform);
                         Block block = plane.GetComponent<Block>();
@@ -148,26 +181,41 @@ public class MapLoaderEditor : Editor
                         Texture texture = GetTexture("000000"); // Floor hex
                         if (texture != null)
                         {
-                            block.texture = texture;
-                            block.renderMode = 3;
+                            if (entityBlock.GetComponent<LadderBridge>())
+                            {
+                                LadderBridge ladder = entityBlock.GetComponent<LadderBridge>();
+                                if (ladder.direction.Equals(LadderBridge.Direction.DOWN))
+                                    block.texture = ladder.texture;
+                                else
+                                    block.texture = texture;
+                            }
+                            else
+                                block.texture = texture;
                         }
                         block.loadProperties();
 
-                        // Spawn entity
-                        string entity = hexToEntity(hex);
-                        plane = PlaceEntityAt(new Vector3(offset.x + (1 * x), offset.y + 0.5f, offset.z + (1 * y)), map.transform, entity);
-                        plane.name = "Entity";
-                        block = plane.GetComponent<Block>();
-                        block.color = Color.white; // pixel
-                        block.type = Block.BlockType.ENTITY;
-                        block.hex = hex;
-                        texture = GetTexture(hex);
-                        if (texture != null)
+                        // Spawn the ceiling if any
+                        if (!isOutdoors)
                         {
-                            block.texture = texture;
-                            block.renderMode = 1;
+                            GameObject roof = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y + 1f, offset.z + (1 * y)), map.transform, 180);
+                            roof.name = "Roof";
+                            Block roofBlock = roof.GetComponent<Block>();
+                            roofBlock.color = ceilColor;
+                            roofBlock.type = Block.BlockType.FLOOR;
+                            roofBlock.hex = hex;
+                            texture = GetTexture("000000"); // Floor hex
+                            if (entityBlock.GetComponent<LadderBridge>())
+                            {
+                                LadderBridge ladder = entityBlock.GetComponent<LadderBridge>();
+                                if (ladder.direction.Equals(LadderBridge.Direction.UP))
+                                    roofBlock.texture = ladder.texture;
+                                else
+                                    roofBlock.texture = texture;
+                            }
+                            else
+                                roofBlock.texture = texture;
+                            roofBlock.loadProperties();
                         }
-                        block.loadProperties();
                     }
                     else
                     {
@@ -182,24 +230,6 @@ public class MapLoaderEditor : Editor
                             block.texture = texture;
                         }
                         block.loadProperties();
-                    }
-
-                    // Spawn the ceiling
-                    if (!isOutdoors)
-                    {
-                        Debug.Log("Adding ceiling");
-                        GameObject roof = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y + 1f, offset.z + (1 * y)), map.transform, 180);
-                        roof.name = "Roof";
-                        Block roofBlock = roof.GetComponent<Block>();
-                        roofBlock.color = ceilColor;
-                        roofBlock.type = Block.BlockType.FLOOR;
-                        roofBlock.hex = hex;
-                        Texture texture = GetTexture("000000"); // Floor hex
-                        if (texture != null)
-                        {
-                            roofBlock.texture = texture;
-                        }
-                        roofBlock.loadProperties();
                     }
                 }
             }
@@ -253,12 +283,15 @@ public class MapLoaderEditor : Editor
 
     bool hexIsPlane(string hex)
     {
-        return hex.Equals("000000") || hex.Equals("3F3F60") || hex.Equals("0000FF") || hex.Equals("653A00") || hex.Equals("009300");
+        return hex.Equals("000000") || hex.Equals("3F3F60") || hex.Equals("0000FF") ||
+               hex.Equals("653A00") || hex.Equals("009300");
     }
 
     bool hexIsEntity(string hex)
     {
-        return hex.Equals("4C4C4C") || hex.Equals("FF3A02") || hex.Equals("FF0000") || hex.Equals("AA5500") || hex.Equals("009300");
+        return hex.Equals("4C4C4C") || hex.Equals("FF3A02") || hex.Equals("FF0000") ||
+               hex.Equals("AA5500") || hex.Equals("009300") || hex.Equals("9E009E") ||
+               hex.Equals("FF66FF");
     }
 
     string hexToEntity(string hex)
@@ -275,6 +308,10 @@ public class MapLoaderEditor : Editor
                 return "Bolder";
             case "009300":
                 return "BolderHole";
+            case "9E009E":
+                return "LadderUp";
+            case "FF66FF":
+                return "LadderDown";
             default:
                 throw new ArgumentException("Found hex marked as entity but found no assosiated entity");
         }
@@ -288,6 +325,16 @@ public class MapLoaderEditor : Editor
                 return entry.texture;
         }
         return null;
+    }
+
+    Color GetOverlayColor(string hex)
+    {
+        foreach (BlockEntry entry in data.blocks)
+        {
+            if (entry.hex.Equals(hex))
+                return entry.overlayColor;
+        }
+        return Color.white;
     }
 }
 
