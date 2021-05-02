@@ -9,25 +9,15 @@ using UnityEngine;
 [CustomEditor(typeof(MapLoader))]
 public class MapLoaderEditor : Editor
 {
-
-    string map = string.Empty;
-    int selectedLevel = 0;
-    Vector3 offset = Vector3.zero;
     List<LevelEditor> maps = new List<LevelEditor>();
     List<string> mapNames = new List<string>();
-    Texture2D mapDisplay;
-    bool isOutside = false;
-    BlockData data;
-    Color wallColor = Color.white;
-    Color floorColor = Color.white;
-    Color ceilColor = Color.white;
 
     private void OnEnable()
     {
-        if (mapDisplay == null)
+        if (MapLoader.mapDisplay == null)
         {
-            mapDisplay = Resources.Load<Texture2D>("nomap");
-            mapDisplay.filterMode = FilterMode.Point;
+            MapLoader.mapDisplay = Resources.Load<Texture2D>("nomap");
+            MapLoader.mapDisplay.filterMode = FilterMode.Point;
         }
         GetLevels();
     }
@@ -36,26 +26,31 @@ public class MapLoaderEditor : Editor
     {
         DrawDefaultInspector();
 
-        offset = EditorGUILayout.Vector3Field("Level offset", offset);
-        isOutside = EditorGUILayout.Toggle("Is outside", isOutside);
+        MapLoader.offset = EditorGUILayout.Vector3Field("Level offset", MapLoader.offset);
+        MapLoader.isOutside = EditorGUILayout.Toggle("Is outside", MapLoader.isOutside);
         EditorGUI.BeginChangeCheck();
-        selectedLevel = EditorGUILayout.Popup("Level", selectedLevel, mapNames.ToArray());
-        data = EditorGUILayout.ObjectField("Block data", data, typeof(BlockData), true) as BlockData;
-        wallColor = EditorGUILayout.ColorField("Wall Color", wallColor);
-        floorColor = EditorGUILayout.ColorField("Floor Color", floorColor);
-        ceilColor = EditorGUILayout.ColorField("Ceil Color", ceilColor);
+        MapLoader.selectedLevel = EditorGUILayout.Popup("Level", MapLoader.selectedLevel, mapNames.ToArray());
+        MapLoader.data = EditorGUILayout.ObjectField("Block data", MapLoader.data, typeof(BlockData), true) as BlockData;
+        MapLoader.wallColor = EditorGUILayout.ColorField("Wall Color", MapLoader.wallColor);
+        MapLoader.floorColor = EditorGUILayout.ColorField("Floor Color", MapLoader.floorColor);
+        MapLoader.ceilColor = EditorGUILayout.ColorField("Ceil Color", MapLoader.ceilColor);
+        //Todo fix
+        EditorGUILayout.BeginHorizontal();
+        MapLoader.floor = TextureField("Floor", MapLoader.floor);
+        MapLoader.ceil = TextureField("Ceiling", MapLoader.ceil);
+        EditorGUILayout.EndHorizontal();
 
         if (EditorGUI.EndChangeCheck())
         {
-            string file = "level/" + maps[selectedLevel].fileName;
-            mapDisplay = Resources.Load<Texture2D>(file);
-            mapDisplay.filterMode = FilterMode.Point;
-            mapDisplay.alphaIsTransparency = true;
+            string file = "level/" + maps[MapLoader.selectedLevel].fileName;
+            MapLoader.mapDisplay = Resources.Load<Texture2D>(file);
+            MapLoader.mapDisplay.filterMode = FilterMode.Point;
+            MapLoader.mapDisplay.alphaIsTransparency = true;
             LoadProfile();
         }
 
         int previewScale = 2;
-        EditorGUI.DrawPreviewTexture(new Rect(10, 170, 100 * previewScale, 100 * previewScale), mapDisplay);
+        EditorGUI.DrawPreviewTexture(new Rect(10, 270, 100 * previewScale, 100 * previewScale), MapLoader.mapDisplay);
         GUILayout.Space((100 * previewScale) + 20);
         bool profile = GUILayout.Button("Load Level profile");
         if (profile)
@@ -65,13 +60,13 @@ public class MapLoaderEditor : Editor
         bool load = GUILayout.Button("Load Level into scene");
         if (load)
         {
-            LoadLevelIntoScene(offset, isOutside);
+            LoadLevelIntoScene(MapLoader.offset, MapLoader.isOutside);
         }
     }
 
     void LoadProfile()
     {
-        string level = maps[selectedLevel].fileName;
+        string level = maps[MapLoader.selectedLevel].fileName;
         TextAsset file = Resources.Load<TextAsset>($"profiles/{level}");
         if (file != null)
         {
@@ -83,38 +78,38 @@ public class MapLoaderEditor : Editor
             Color wall, floor, ceil;
             if (ColorUtility.TryParseHtmlString(wallCol, out wall))
             {
-                wallColor = wall;
+                MapLoader.wallColor = wall;
             }
             if (ColorUtility.TryParseHtmlString(floorCol, out floor))
             {
-                floorColor = floor;
+                MapLoader.floorColor = floor;
             }
             if (ColorUtility.TryParseHtmlString(ceilCol, out ceil))
             {
-                ceilColor = ceil;
+                MapLoader.ceilColor = ceil;
             }
             Debug.Log("Successfully loaded profile for " + level);
         }
         else
         {
             Debug.LogError("Failed to find profile for " + level);
-            wallColor = Color.white;
-            floorColor = Color.white;
-            ceilColor = Color.white;
+            MapLoader.wallColor = Color.white;
+            MapLoader.floorColor = Color.white;
+            MapLoader.ceilColor = Color.white;
         }
     }
 
     void LoadLevelIntoScene(Vector3 offset, bool isOutdoors = false)
     {
-        int width = mapDisplay.width;
-        int height = mapDisplay.height;
+        int width = MapLoader.mapDisplay.width;
+        int height = MapLoader.mapDisplay.height;
         Debug.Log("Importing scene of size: " + width + ", " + height + " total tiles = " + (width * height));
-        GameObject map = new GameObject("Map_" + maps[selectedLevel].name);
+        GameObject map = new GameObject("Map_" + maps[MapLoader.selectedLevel].name);
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                Color pixel = mapDisplay.GetPixel(x, y);
+                Color pixel = MapLoader.mapDisplay.GetPixel(x, y);
                 if (pixel.a != 0)
                 {
                     string hex = ColorUtility.ToHtmlStringRGB(pixel);
@@ -124,7 +119,7 @@ public class MapLoaderEditor : Editor
                         GameObject plane = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y, offset.z + (1 * y)), map.transform);
                         plane.name = "Floor";
                         Block block = plane.GetComponent<Block>();
-                        block.color = !isOutside ? floorColor : Color.white; // pixel
+                        block.color = !MapLoader.isOutside ? MapLoader.floorColor : Color.white; // pixel
                         block.type = Block.BlockType.FLOOR;
                         block.hex = hex;
                         Texture texture = GetTexture(hex);
@@ -148,7 +143,7 @@ public class MapLoaderEditor : Editor
                             GameObject roof = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y + 1f, offset.z + (1 * y)), map.transform, 180);
                             roof.name = "Roof";
                             Block roofBlock = roof.GetComponent<Block>();
-                            roofBlock.color = ceilColor;
+                            roofBlock.color = MapLoader.ceilColor;
                             roofBlock.type = Block.BlockType.FLOOR;
                             roofBlock.hex = hex;
                             texture = GetTexture("000000"); // Floor hex
@@ -191,7 +186,7 @@ public class MapLoaderEditor : Editor
                         // Spawn the floor the entity will stand on
                         GameObject plane = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y, offset.z + (1 * y)), map.transform);
                         Block block = plane.GetComponent<Block>();
-                        block.color = floorColor; // pixel
+                        block.color = MapLoader.floorColor; // pixel
                         block.type = Block.BlockType.FLOOR;
                         block.hex = hex;
                         Texture texture = GetTexture("000000"); // Floor hex
@@ -216,7 +211,7 @@ public class MapLoaderEditor : Editor
                             GameObject roof = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y + 1f, offset.z + (1 * y)), map.transform, 180);
                             roof.name = "Roof";
                             Block roofBlock = roof.GetComponent<Block>();
-                            roofBlock.color = ceilColor;
+                            roofBlock.color = MapLoader.ceilColor;
                             roofBlock.type = Block.BlockType.FLOOR;
                             roofBlock.hex = hex;
                             texture = GetTexture("000000"); // Floor hex
@@ -237,7 +232,7 @@ public class MapLoaderEditor : Editor
                     {
                         GameObject cube = PlaceBlockAt(new Vector3(offset.x + (1 * x), offset.y + 0.5f, offset.z + (1 * y)), map.transform);
                         Block block = cube.GetComponent<Block>();
-                        block.color = wallColor; // pixel
+                        block.color = MapLoader.wallColor; // pixel
                         block.type = Block.BlockType.WALL;
                         block.hex = hex;
                         Texture texture = GetTexture(hex);
@@ -352,7 +347,7 @@ public class MapLoaderEditor : Editor
 
     Texture GetTexture(string hex)
     {
-        foreach (BlockEntry entry in data.blocks)
+        foreach (BlockEntry entry in MapLoader.data.blocks)
         {
             if (entry.hex.Equals(hex))
                 return entry.texture;
@@ -362,7 +357,7 @@ public class MapLoaderEditor : Editor
 
     Color GetOverlayColor(string hex)
     {
-        foreach (BlockEntry entry in data.blocks)
+        foreach (BlockEntry entry in MapLoader.data.blocks)
         {
             if (entry.hex.Equals(hex))
                 return entry.overlayColor;
@@ -372,12 +367,24 @@ public class MapLoaderEditor : Editor
 
     bool HasTrigger(string hex)
     {
-        foreach (BlockEntry entry in data.blocks)
+        foreach (BlockEntry entry in MapLoader.data.blocks)
         {
             if (entry.hex.Equals(hex))
                 return entry.hasTrigger;
         }
         return false;
+    }
+
+    private static Texture TextureField(string name, Texture texture)
+    {
+        GUILayout.BeginVertical();
+        var style = new GUIStyle(GUI.skin.label);
+        style.alignment = TextAnchor.UpperCenter;
+        style.fixedWidth = 70;
+        GUILayout.Label(name, style);
+        var result = (Texture)EditorGUILayout.ObjectField(texture, typeof(Texture), false, GUILayout.Width(70), GUILayout.Height(70));
+        GUILayout.EndVertical();
+        return result;
     }
 }
 
