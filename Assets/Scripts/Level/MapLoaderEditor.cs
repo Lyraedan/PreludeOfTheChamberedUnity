@@ -123,13 +123,10 @@ public class MapLoaderEditor : Editor
                         block.type = Block.BlockType.FLOOR;
                         block.hex = hex;
                         Texture texture = GetTexture(hex);
-                        if (texture != null)
-                        {
-                            block.texture = texture;
-                        }
+                        block.texture = texture == null ? MapLoader.floor : texture;
 
                         bool hasTrigger = HasTrigger(hex);
-                        if(hasTrigger)
+                        if (hasTrigger)
                         {
                             GameObject trigger = PlaceTriggerAt(new Vector3(offset.x + (1 * x), offset.y, offset.z + (1 * y)), plane.transform);
                             trigger.name = "Trigger";
@@ -146,11 +143,8 @@ public class MapLoaderEditor : Editor
                             roofBlock.color = MapLoader.ceilColor;
                             roofBlock.type = Block.BlockType.FLOOR;
                             roofBlock.hex = hex;
-                            texture = GetTexture("000000"); // Floor hex
-                            if (texture != null)
-                            {
-                                roofBlock.texture = texture;
-                            }
+                            Texture roofTexture = GetTexture(hex);
+                            roofBlock.texture = roofTexture == null ? MapLoader.floor : roofTexture;
                             roofBlock.loadProperties();
                         }
                     }
@@ -161,13 +155,14 @@ public class MapLoaderEditor : Editor
                         GameObject e = PlaceEntityAt(new Vector3(offset.x + (1 * x), offset.y + 0.5f, offset.z + (1 * y)), map.transform, entity);
                         e.name = "Entity";
                         Block entityBlock = e.GetComponent<Block>();
-                        if(entityBlock == null)
+                        if (entityBlock == null)
                         {
-                            if(e.transform.childCount > 0)
+                            if (e.transform.childCount > 0)
                             {
                                 // Incase we put a collider as the root object check the first child
                                 entityBlock = e.transform.GetChild(0).gameObject.GetComponent<Block>();
-                            } else
+                            }
+                            else
                             {
                                 Debug.Log("No Block script found on entity and no children found");
                             }
@@ -189,20 +184,18 @@ public class MapLoaderEditor : Editor
                         block.color = MapLoader.floorColor; // pixel
                         block.type = Block.BlockType.FLOOR;
                         block.hex = hex;
-                        Texture texture = GetTexture("000000"); // Floor hex
-                        if (texture != null)
+                        Texture texture = GetTexture(hex);
+                        if (entityBlock.GetComponent<LadderBridge>())
                         {
-                            if (entityBlock.GetComponent<LadderBridge>())
-                            {
-                                LadderBridge ladder = entityBlock.GetComponent<LadderBridge>();
-                                if (ladder.direction.Equals(LadderBridge.Direction.DOWN))
-                                    block.texture = ladder.texture;
-                                else
-                                    block.texture = texture;
-                            }
+                            LadderBridge ladder = entityBlock.GetComponent<LadderBridge>();
+                            if (ladder.direction.Equals(LadderBridge.Direction.DOWN))
+                                block.texture = ladder.texture;
                             else
-                                block.texture = texture;
+                                block.texture = MapLoader.floor;
                         }
+                        else
+                            block.texture = MapLoader.floor;
+
                         block.loadProperties();
 
                         // Spawn the ceiling if any
@@ -214,17 +207,17 @@ public class MapLoaderEditor : Editor
                             roofBlock.color = MapLoader.ceilColor;
                             roofBlock.type = Block.BlockType.FLOOR;
                             roofBlock.hex = hex;
-                            texture = GetTexture("000000"); // Floor hex
+                            Texture roofTexture = GetTexture(hex);
                             if (entityBlock.GetComponent<LadderBridge>())
                             {
                                 LadderBridge ladder = entityBlock.GetComponent<LadderBridge>();
                                 if (ladder.direction.Equals(LadderBridge.Direction.UP))
                                     roofBlock.texture = ladder.texture;
                                 else
-                                    roofBlock.texture = texture;
+                                    roofBlock.texture = MapLoader.ceil;
                             }
                             else
-                                roofBlock.texture = texture;
+                                roofBlock.texture = MapLoader.ceil;
                             roofBlock.loadProperties();
                         }
                     }
