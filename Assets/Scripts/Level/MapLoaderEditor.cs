@@ -166,6 +166,17 @@ public class MapLoaderEditor : Editor
                         GameObject e = PlaceEntityAt(new Vector3(offset.x + (1 * x), offset.y + 0.5f, offset.z + (1 * y)), map.transform, entity);
                         e.name = "Entity";
                         Block entityBlock = e.GetComponent<Block>();
+                        if(entityBlock == null)
+                        {
+                            if(e.transform.childCount > 0)
+                            {
+                                // Incase we put a collider as the root object check the first child
+                                entityBlock = e.transform.GetChild(0).gameObject.GetComponent<Block>();
+                            } else
+                            {
+                                Debug.Log("No Block script found on entity and no children found");
+                            }
+                        }
                         entityBlock.color = GetOverlayColor(hex); // pixel
                         entityBlock.type = Block.BlockType.ENTITY;
                         entityBlock.hex = hex;

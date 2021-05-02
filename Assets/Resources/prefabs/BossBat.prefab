@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 3851136293066305049}
   - component: {fileID: 6650121386129846340}
   - component: {fileID: 619856534537887842}
+  - component: {fileID: 4681913276797133060}
   m_Layer: 0
-  m_Name: Bat 1
+  m_Name: BossBat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,3 +128,24 @@ MonoBehaviour:
   collider: {fileID: 0}
   displayColor: 
   renderMode: 0
+--- !u!114 &4681913276797133060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8637017667638335831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 647aa7c7e7cf5114c88c24f3e357aea1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: BossBat
+  frames:
+  - {fileID: 2800000, guid: eccda3bd7ec08b2498f0b55a3eee6e31, type: 3}
+  - {fileID: 2800000, guid: ea6ccbd5e4b7fbc4bb35933993f83d52, type: 3}
+  data: {fileID: 11400000, guid: ee7189f349a035448ac54890378ae3e9, type: 2}
+  delay: 1
+  randomiseStartingIndex: 1
+  currentIndex: 0
+  isPlayingAnim: 1

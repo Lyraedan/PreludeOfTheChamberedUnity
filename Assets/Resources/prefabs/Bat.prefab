@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5345515756171705998}
   - component: {fileID: 2528507743773761747}
   - component: {fileID: 8630240988186489077}
+  - component: {fileID: 5443064624535766686}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Untagged
@@ -126,3 +127,25 @@ MonoBehaviour:
   texture: {fileID: 0}
   collider: {fileID: 0}
   displayColor: 
+  renderMode: 0
+--- !u!114 &5443064624535766686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613109128626293184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 647aa7c7e7cf5114c88c24f3e357aea1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: Bat
+  frames:
+  - {fileID: 2800000, guid: eccda3bd7ec08b2498f0b55a3eee6e31, type: 3}
+  - {fileID: 2800000, guid: ea6ccbd5e4b7fbc4bb35933993f83d52, type: 3}
+  data: {fileID: 11400000, guid: ee7189f349a035448ac54890378ae3e9, type: 2}
+  delay: 1
+  randomiseStartingIndex: 1
+  currentIndex: 0
+  isPlayingAnim: 1
