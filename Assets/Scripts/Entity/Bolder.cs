@@ -30,6 +30,9 @@ public class Bolder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (inHole)
+            return;
+
         animator.isPlayingAnim = IsMoving();
     }
 
@@ -41,14 +44,18 @@ public class Bolder : MonoBehaviour
 
     public void Slot(Collider collider)
     {
-        Debug.Log("Slot");
-        if (collider.gameObject.GetInstanceID().Equals(gameObject.GetInstanceID()))
+        Debug.Log("Slot " + collider.gameObject.GetInstanceID() + " >>> " + gameObject.GetInstanceID());
+        if (collider.CompareTag("Bolder"))
         {
+            if (inHole)
+                return;
+
+            inHole = true;
+            animator.isPlayingAnim = false;
             source.clip = slottedSfx;
             source.Play();
             body.velocity = Vector3.zero;
             GetComponent<Renderer>().material.mainTexture = slotted;
-            inHole = true;
         }
     }
 
