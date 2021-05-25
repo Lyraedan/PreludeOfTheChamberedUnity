@@ -2,5 +2,11 @@
  "name":"Overworld",
  "wallCol": "a0a0a0",
  "floorCol": "508253",
- "ceilCol": "FFFFFF"
+ "ceilCol": "FFFFFF",
+ "floorTex": "tex/Grass",
+ "ceilTex": "tex/Floor",
+ "outside": true,
+ "data": "profiles/BlockData",
+ "offset": { "x": 64.0, "y": 0.0, "z": 64.0 }
+
 }

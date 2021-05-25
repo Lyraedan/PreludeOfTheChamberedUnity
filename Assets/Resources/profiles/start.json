@@ -2,5 +2,10 @@
  "name":"Prison",
  "wallCol": "B3CEE2",
  "floorCol": "9CA09B",
- "ceilCol": "9CA09B"
+ "ceilCol": "9CA09B",
+ "floorTex": "tex/Floor",
+ "ceilTex": "tex/Floor",
+ "outside": false,
+ "data": "profiles/BlockData",
+ "offset": { "x": 0.0, "y": 0.0, "z": 0.0 }
 }

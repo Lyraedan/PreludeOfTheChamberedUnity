@@ -1,4 +1,9 @@
-﻿using SimpleJSON;
+﻿/*
+ 
+    Author: Zel
+ 
+ */
+using SimpleJSON;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -75,6 +80,12 @@ public class MapLoaderEditor : Editor
             string wallCol = "#" + node["wallCol"];
             string floorCol = "#" + node["floorCol"];
             string ceilCol = "#" + node["ceilCol"];
+            var floorTex = node["floorTex"];
+            var ceilTex = node["ceilTex"];
+            bool isOutside = node["outside"];
+            var data = node["data"];
+            Vector3 offset = new Vector3(node["offset"]["x"], node["offset"]["y"], node["offset"]["z"]);
+            MapLoader.offset = offset;
             Color wall, floor, ceil;
             if (ColorUtility.TryParseHtmlString(wallCol, out wall))
             {
@@ -87,6 +98,19 @@ public class MapLoaderEditor : Editor
             if (ColorUtility.TryParseHtmlString(ceilCol, out ceil))
             {
                 MapLoader.ceilColor = ceil;
+            }
+            if(!string.IsNullOrEmpty(floorTex))
+            {
+                MapLoader.floor = Resources.Load<Texture>(floorTex);
+            }
+            if(!string.IsNullOrEmpty(ceilTex))
+            {
+                MapLoader.ceil = Resources.Load<Texture>(ceilTex);
+            }
+            MapLoader.isOutside = isOutside;
+            if(!string.IsNullOrEmpty(data))
+            {
+                MapLoader.data = Resources.Load<BlockData>(data);
             }
             Debug.Log("Successfully loaded profile for " + level);
         }
@@ -206,9 +230,9 @@ public class MapLoaderEditor : Editor
                             roof.name = "Roof";
                             Block roofBlock = roof.GetComponent<Block>();
                             roofBlock.color = MapLoader.ceilColor;
-                            roofBlock.type = Block.BlockType.FLOOR;
+                            roofBlock.type = Block.BlockType.CEILING;
                             roofBlock.hex = hex;
-                            Texture roofTexture = GetTexture(hex);
+                            //Texture roofTexture = GetTexture(hex);
                             if (entityBlock.GetComponent<LadderBridge>())
                             {
                                 LadderBridge ladder = entityBlock.GetComponent<LadderBridge>();

@@ -2,5 +2,10 @@
  "name":"The Temple",
  "wallCol": "CFADDB",
  "floorCol": "8A6496",
- "ceilCol": "8A6496"
+ "ceilCol": "8A6496",
+ "floorTex": "tex/Floor",
+ "ceilTex": "tex/Floor",
+ "outside": false,
+ "data": "profiles/BlockData",
+ "offset": { "x": 64.0, "y": 0.0, "z": 0.0 }
 }

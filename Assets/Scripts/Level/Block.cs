@@ -9,7 +9,7 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     public enum BlockType {
-        UNDEFINED, WALL, FLOOR, ENTITY
+        UNDEFINED, WALL, FLOOR, ENTITY, CEILING
     }
 
     public Color color = Color.white;

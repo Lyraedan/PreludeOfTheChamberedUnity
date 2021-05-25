@@ -2,5 +2,10 @@
  "name":"The Frost Cave",
  "wallCol": "6BE8FF",
  "floorCol": "B8DBE0",
- "ceilCol": "B8DBE0"
+ "ceilCol": "B8DBE0",
+ "floorTex": "tex/Floor",
+ "ceilTex": "tex/Floor",
+ "outside": false,
+ "data": "profiles/BlockData",
+ "offset": { "x": 128.0, "y": 0.0, "z": 0.0 }
 }
