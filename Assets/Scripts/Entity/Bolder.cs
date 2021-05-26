@@ -25,6 +25,9 @@ public class Bolder : MonoBehaviour
     {
         source = GetComponent<AudioSource>();
         animator.isPlayingAnim = false;
+
+        body.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        body.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     // Update is called once per frame
@@ -32,8 +35,8 @@ public class Bolder : MonoBehaviour
     {
         if (inHole)
             return;
-
-        animator.isPlayingAnim = IsMoving();
+        bool moving = IsMoving();
+        animator.isPlayingAnim = moving;
     }
 
     public bool IsMoving()
@@ -42,41 +45,35 @@ public class Bolder : MonoBehaviour
         return body.velocity.magnitude > 0;
     }
 
-    public void Slot(Collider collider)
-    {
-        Debug.Log("Slot " + collider.gameObject.GetInstanceID() + " >>> " + gameObject.GetInstanceID());
-        if (collider.CompareTag("Bolder"))
-        {
-            if (inHole)
-                return;
-
-            inHole = true;
-            animator.isPlayingAnim = false;
-            source.clip = slottedSfx;
-            source.Play();
-            body.useGravity = false;
-            collider.enabled = false;
-            body.velocity = Vector3.zero;
-            GetComponent<Renderer>().material.mainTexture = slotted;
-        }
-    }
-
-    public IEnumerator doRoll()
+    public void Slot()
     {
         if (inHole)
-            yield return null;
+            return;
 
-        if (IsMoving())
-        {
-            body.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
-            body.constraints = RigidbodyConstraints.FreezeRotation;
-            yield return null;
-        }
+        inHole = true;
+        animator.isPlayingAnim = false;
+        source.clip = slottedSfx;
+        source.Play();
+        body.useGravity = false;
+        collider.enabled = false;
+        body.velocity = Vector3.zero;
+        GetComponent<Renderer>().material.mainTexture = slotted;
+    }
+
+    public void Push()
+    {
+        StartCoroutine(doRoll());
+    }
+
+    IEnumerator doRoll()
+    {
+        if (inHole)
+            yield break;
+
         body.constraints = RigidbodyConstraints.None;
         body.constraints = RigidbodyConstraints.FreezeRotation;
 
-        //                               Swap out for player position
-        var force = transform.position - Camera.main.transform.position;
+        var force = transform.position - Player.instance.transform.position;
         force.Normalize();
         body.AddForce(force * pushForce);
         yield return new WaitUntil(() => IsMoving());
@@ -84,16 +81,8 @@ public class Bolder : MonoBehaviour
         source.clip = pushedSfx;
         source.Play();
         yield return new WaitUntil(() => !IsMoving());
-        if (body == null) yield return null;
-        try
-        {
-            body.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
-            body.constraints = RigidbodyConstraints.FreezeRotation;
-        }
-        catch (Exception e)
-        {
-
-        }
+        body.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        body.constraints = RigidbodyConstraints.FreezeRotation;
         animator.isPlayingAnim = false;
     }
 }

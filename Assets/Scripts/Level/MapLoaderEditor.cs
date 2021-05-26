@@ -168,7 +168,7 @@ public class MapLoaderEditor : Editor
                             roofBlock.color = MapLoader.ceilColor;
                             roofBlock.type = Block.BlockType.FLOOR;
                             roofBlock.hex = hex;
-                            Texture roofTexture = GetTexture(hex);
+                            Texture roofTexture = GetTexture(hex, true);
                             roofBlock.texture = roofTexture == null ? MapLoader.floor : roofTexture;
                             roofBlock.loadProperties();
                         }
@@ -367,12 +367,17 @@ public class MapLoaderEditor : Editor
         }
     }
 
-    Texture GetTexture(string hex)
+    Texture GetTexture(string hex, bool useRoof = false)
     {
         foreach (BlockEntry entry in MapLoader.data.blocks)
         {
             if (entry.hex.Equals(hex))
-                return entry.texture;
+            {
+                if (!useRoof)
+                    return entry.texture;
+                else
+                    return entry.roofTexture;
+            }
         }
         return null;
     }
