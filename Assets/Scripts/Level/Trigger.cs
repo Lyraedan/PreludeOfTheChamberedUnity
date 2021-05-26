@@ -6,13 +6,22 @@ using UnityEngine.Events;
 
 public class Trigger : MonoBehaviour
 {
-    public TriggerEvent OnTriggerEntered, OnTriggerExited, OnTriggerStayed;
+    public bool isTrigger = true;
+    [Header("OnTrigger Events")]
+    public TriggerEvent OnTriggerEntered;
+    public TriggerEvent OnTriggerExited;
+    public TriggerEvent OnTriggerStayed;
+    [Header("OnCollision Events")]
+    public CollisionEvent OnCollisionEntered;
+    public CollisionEvent OnCollisionExited;
+    public CollisionEvent OnCollisionStayed;
 
     public new BoxCollider collider;
 
     public void Start()
     {
         collider = GetComponent<BoxCollider>();
+        collider.isTrigger = isTrigger;
     }
 
     public void OnTriggerEnter(Collider other)
@@ -29,9 +38,25 @@ public class Trigger : MonoBehaviour
     {
         OnTriggerStayed?.Invoke(this, other);
     }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        OnCollisionEntered?.Invoke(this, collision);
+    }
+
+    public void OnCollisionExit(Collision collision)
+    {
+        OnCollisionExited?.Invoke(this, collision);
+    }
+
+    public void OnCollisionStay(Collision collision)
+    {
+        OnCollisionStayed?.Invoke(this, collision);
+    }
 }
 
 [System.Serializable]
-public class TriggerEvent : UnityEvent<Trigger, Collider>
-{
-}
+public class TriggerEvent : UnityEvent<Trigger, Collider> { }
+
+[System.Serializable]
+public class CollisionEvent : UnityEvent<Trigger, Collision> { }
