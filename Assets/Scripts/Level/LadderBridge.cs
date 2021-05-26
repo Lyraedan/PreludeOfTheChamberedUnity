@@ -24,7 +24,7 @@ public class LadderBridge : MonoBehaviour
     {
         if (entrance != null && exit != null)
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.yellow;
             Gizmos.DrawLine(entrance.position, exit.position);
         }
     }

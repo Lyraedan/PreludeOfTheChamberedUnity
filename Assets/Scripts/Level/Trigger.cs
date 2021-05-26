@@ -53,6 +53,13 @@ public class Trigger : MonoBehaviour
     {
         OnCollisionStayed?.Invoke(this, collision);
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = isTrigger ? Color.green : Color.red;
+        BoxCollider collider = GetComponent<BoxCollider>();
+        Gizmos.DrawWireCube(transform.position + collider.center, collider.size);
+    }
 }
 
 [System.Serializable]
