@@ -14,6 +14,12 @@ public class LadderBridge : MonoBehaviour
     public Direction direction;
     [Tooltip("Texture that replaces the floor or ceiling")] public Texture texture;
 
+    private void OnCollisionEnter(Collision other)
+    {
+        Transform spawn = exit.transform.Find("SpawnPoint");
+        other.transform.position = spawn.position;
+    }
+
     private void OnDrawGizmos()
     {
         if (entrance != null && exit != null)
