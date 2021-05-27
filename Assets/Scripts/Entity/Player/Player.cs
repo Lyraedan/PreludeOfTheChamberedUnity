@@ -35,6 +35,12 @@ public class Player : MonoBehaviour
                 else if (collider.CompareTag("Bolder"))
                 {
                     collider.gameObject.transform.GetChild(0).gameObject.GetComponent<Bolder>().Push();
+                } else if(collider.CompareTag("Bars"))
+                {
+                    collider.gameObject.GetComponent<Bars>().Cut();
+                } else if(collider.CompareTag("Chest"))
+                {
+                    collider.gameObject.GetComponent<Chest>().Open();
                 }
             });
         }
