@@ -210,10 +210,11 @@ MonoBehaviour:
   slotted: {fileID: 2800000, guid: 3b83bdfa132dbf949a36cab4f7dfb323, type: 3}
   slottedSfx: {fileID: 8300000, guid: dbb76a5005b12a5429d042c728c56ae5, type: 3}
   pushedSfx: {fileID: 8300000, guid: c56170b45f6cb1747abcefc5217c8491, type: 3}
-  pushForce: 100
+  pushForce: 300
   collider: {fileID: 3262150724697083221}
   body: {fileID: 8899524393195139552}
   inHole: 0
+  navObstacle: {fileID: 5700729397242822167}
 --- !u!114 &7067956340937721104
 MonoBehaviour:
   m_ObjectHideFlags: 0

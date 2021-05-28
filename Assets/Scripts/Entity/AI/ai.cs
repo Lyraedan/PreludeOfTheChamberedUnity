@@ -9,11 +9,16 @@ public abstract class AI : MonoBehaviour
     public bool hostile = false;
     public float actionTimeout = 10f;
 
-    public Vector3 moveTo = Vector3.zero;
+    [Header("AI Properties")]
+    public float wanderRadius = 5f;
+    public GameObject target = null;
+    [HideInInspector] public Vector3 moveTo = Vector3.zero;
 
-    public bool reached = true;
-    public bool pathIsValid = false;
-    public bool undergoingAction = false;
+    [HideInInspector] public bool reached = true;
+    [HideInInspector] public bool pathIsValid = false;
+    [HideInInspector] public bool undergoingAction = false;
+
+    public static bool debugMode = true;
 
     private void Start()
     {
@@ -27,6 +32,54 @@ public abstract class AI : MonoBehaviour
     }
 
     public abstract void PerformAction();
+
+    public abstract void OnAttack();
+
+    public IEnumerator Wander()
+    {
+        undergoingAction = true;
+        moveTo = RandomNavmeshLocation(wanderRadius);
+        agent.SetDestination(moveTo);
+        yield return new WaitForEndOfFrame();
+        bool path = agent.CalculatePath(moveTo, agent.path);
+        if (path && agent.pathStatus == NavMeshPathStatus.PathPartial)
+        {
+            pathIsValid = false;
+            PerformAction();
+            undergoingAction = false;
+            yield break;
+        }
+        pathIsValid = true;
+        float timeout = Time.time + actionTimeout;
+        yield return new WaitUntil(() => reached || (Time.time > timeout));
+        PerformAction();
+        undergoingAction = false;
+    }
+
+    IEnumerator Search()
+    {
+        yield return null;
+    }
+
+    IEnumerator Persue()
+    {
+        if(target == null)
+        {
+            PerformAction();
+            yield break;
+        }
+        yield return null;
+    }
+
+    IEnumerator Attack()
+    {
+        if (target == null)
+        {
+            PerformAction();
+            yield break;
+        }
+        yield return null;
+    }
 
     public Vector3 RandomNavmeshLocation(float radius)
     {
@@ -43,7 +96,7 @@ public abstract class AI : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (pathIsValid && Application.isPlaying)
+        if (pathIsValid && Application.isPlaying && debugMode)
         {
             // Draw at destination
             Gizmos.color = Color.blue;

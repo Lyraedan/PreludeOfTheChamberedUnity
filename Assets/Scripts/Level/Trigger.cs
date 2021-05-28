@@ -2,10 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 public class Trigger : MonoBehaviour
 {
+    public NavMeshObstacle navObstacle;
+    public new BoxCollider collider;
     public bool isTrigger = true;
     [Header("OnTrigger Events")]
     public TriggerEvent OnTriggerEntered;
@@ -16,12 +19,11 @@ public class Trigger : MonoBehaviour
     public CollisionEvent OnCollisionExited;
     public CollisionEvent OnCollisionStayed;
 
-    public new BoxCollider collider;
-
     public void Start()
     {
-        collider = GetComponent<BoxCollider>();
         collider.isTrigger = isTrigger;
+
+        navObstacle.enabled = !isTrigger;
     }
 
     public void OnTriggerEnter(Collider other)

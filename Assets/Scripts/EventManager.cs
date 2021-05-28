@@ -26,6 +26,7 @@ public class EventManager : MonoBehaviour
             GameObject bolder = collider.gameObject.transform.GetChild(0).gameObject;
             bolder.GetComponent<Bolder>().Slot();
             collider.transform.position = trigger.transform.position + trigger.collider.center;
+            trigger.navObstacle.enabled = false;
             trigger.collider.enabled = false;
         }
     }

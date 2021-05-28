@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(AudioSource))]
 public class Bolder : MonoBehaviour
@@ -19,6 +20,8 @@ public class Bolder : MonoBehaviour
     public new SphereCollider collider;
     public Rigidbody body;
     public bool inHole = false;
+    [Header("Navmesh")]
+    public NavMeshObstacle navObstacle;
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +60,7 @@ public class Bolder : MonoBehaviour
         body.useGravity = false;
         collider.enabled = false;
         body.velocity = Vector3.zero;
+        navObstacle.enabled = false;
         GetComponent<Renderer>().material.mainTexture = slotted;
     }
 
