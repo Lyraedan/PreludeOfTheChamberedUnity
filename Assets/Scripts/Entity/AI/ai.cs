@@ -9,21 +9,21 @@ public abstract class AI : MonoBehaviour
     public bool hostile = false;
     public float actionTimeout = 10f;
 
-    protected Vector3 moveTo = Vector3.zero;
+    public Vector3 moveTo = Vector3.zero;
 
-    protected bool undergoingAction = false;
-
-    public bool ActionFinished
-    {
-        get
-        {
-            return agent.remainingDistance == 0;
-        }
-    }
+    public bool reached = true;
+    public bool pathIsValid = false;
+    public bool undergoingAction = false;
 
     private void Start()
     {
         PerformAction();
+    }
+
+    private void Update()
+    {
+        // Calculate the distance. If not assume they reached their destination
+        reached = agent.hasPath ? agent.remainingDistance <= 1f : true;
     }
 
     public abstract void PerformAction();
@@ -43,7 +43,7 @@ public abstract class AI : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (Application.isPlaying)
+        if (pathIsValid && Application.isPlaying)
         {
             // Draw at destination
             Gizmos.color = Color.blue;

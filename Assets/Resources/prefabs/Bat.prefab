@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5804222269955425940}
   - component: {fileID: 3783086292877271888}
   - component: {fileID: 3820566776811627302}
+  - component: {fileID: 2913879528009996669}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Untagged
@@ -62,6 +63,10 @@ MonoBehaviour:
   agent: {fileID: 3820566776811627302}
   hostile: 1
   actionTimeout: 10
+  moveTo: {x: 0, y: 0, z: 0}
+  reached: 1
+  pathIsValid: 0
+  undergoingAction: 0
   wanderRadius: 15
 --- !u!195 &3820566776811627302
 NavMeshAgent:
@@ -85,6 +90,22 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
+--- !u!208 &2913879528009996669
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613109128626293184}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &5388654447946850237
 GameObject:
   m_ObjectHideFlags: 0

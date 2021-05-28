@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class AIBat : AI
 {
 
-    public float wanderRadius = 15f;
+    public float wanderRadius = 5f;
 
     public override void PerformAction()
     {
@@ -17,22 +17,21 @@ public class AIBat : AI
     IEnumerator Wander()
     {
         undergoingAction = true;
-        Debug.Log("Wandering");
         moveTo = RandomNavmeshLocation(wanderRadius);
         agent.SetDestination(moveTo);
         yield return new WaitForEndOfFrame();
         bool path = agent.CalculatePath(moveTo, agent.path);
-        if(path && agent.pathStatus == NavMeshPathStatus.PathInvalid)
+        if(path && agent.pathStatus == NavMeshPathStatus.PathPartial)
         {
-            Debug.LogError("Invalid path!");
-        }
-        float timeout = Time.time + actionTimeout;
-        yield return new WaitUntil(() => ActionFinished || (Time.time > timeout));
-        if(!ActionFinished)
-        {
-            Debug.Log("Action timed out");
+            pathIsValid = false;
             PerformAction();
+            undergoingAction = false;
+            yield break;
         }
+        pathIsValid = true;
+        float timeout = Time.time + actionTimeout;
+        yield return new WaitUntil(() => reached || (Time.time > timeout));
+        PerformAction();
         undergoingAction = false;
     }
 
