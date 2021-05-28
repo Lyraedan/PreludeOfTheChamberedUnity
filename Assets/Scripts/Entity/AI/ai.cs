@@ -92,13 +92,14 @@ public abstract class AI : MonoBehaviour
             PerformAction();
             yield break;
         }
-        undergoingAction = false;
+        undergoingAction = true;
         moveTo = transform.position + -transform.forward * fleeMultiplier;
 
         NavMeshHit hit;
         if (NavMesh.SamplePosition(moveTo, out hit, fleeDistance, 1))
         {
-            agent.SetDestination(hit.position);
+            moveTo = hit.position;
+            agent.SetDestination(moveTo);
             float timeout = Time.time + actionTimeout;
             yield return new WaitForEndOfFrame();
             bool path = agent.CalculatePath(moveTo, agent.path);
