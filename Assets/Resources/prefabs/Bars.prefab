@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 1945296642482800482}
   - component: {fileID: 2802887182868684232}
   - component: {fileID: 3711910435503511698}
+  - component: {fileID: 1899140944544668338}
   m_Layer: 0
   m_Name: Bars
   m_TagString: Bars
@@ -268,6 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 7003200212768212508}
+  navObstacle: {fileID: 1899140944544668338}
   openTexture: {fileID: 2800000, guid: 941a26d17c8faa440aee009f2d48d8e3, type: 3}
   openSfx: {fileID: 8300000, guid: a827fc85b698fb44e8b1008d30eb4dfb, type: 3}
   OnCutOpen:
@@ -285,3 +287,19 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   open: 0
+--- !u!208 &1899140944544668338
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6826670723117336012}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

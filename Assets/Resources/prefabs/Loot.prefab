@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5099798406155749698}
   - component: {fileID: 6934643630305702602}
   - component: {fileID: 182044994687981502}
+  - component: {fileID: 4369653078454517882}
   m_Layer: 0
   m_Name: Loot
   m_TagString: Untagged
@@ -170,6 +171,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &4369653078454517882
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3520666162910871114}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &5716293849918356602
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5670181013467446583}
   - component: {fileID: 5918439775469711519}
   - component: {fileID: 4148491292471638125}
+  - component: {fileID: 1350635933951214731}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Chest
@@ -162,6 +163,22 @@ MonoBehaviour:
       m_Calls: []
   openedTexture: {fileID: 2800000, guid: 8cb10594915ad8645a5b4b8c8714f331, type: 3}
   opened: 0
+--- !u!208 &1350635933951214731
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3036014506778905820}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &7879594219097147017
 GameObject:
   m_ObjectHideFlags: 0

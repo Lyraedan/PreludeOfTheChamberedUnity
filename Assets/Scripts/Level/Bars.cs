@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(AudioSource))]
 public class Bars : MonoBehaviour
 {
     public new Renderer renderer;
+    public NavMeshObstacle navObstacle;
     public Texture openTexture;
     public AudioClip openSfx;
     public UnityEvent OnCutOpen;
@@ -26,6 +28,7 @@ public class Bars : MonoBehaviour
 
         OnCutOpen?.Invoke();
         renderer.material.mainTexture = openTexture;
+        navObstacle.enabled = false;
         src.clip = openSfx;
         src.Play();
         open = true;
