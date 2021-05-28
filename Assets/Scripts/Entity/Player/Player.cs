@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Raycast(10, collider =>
+            Raycast(1, collider =>
             {
                 // If its a breakable block
                 if (collider.CompareTag("BreakableBlock"))
@@ -41,6 +41,9 @@ public class Player : MonoBehaviour
                 } else if(collider.CompareTag("Chest"))
                 {
                     collider.gameObject.GetComponent<Chest>().Open();
+                } else if(collider.CompareTag("Entity"))
+                {
+                    collider.gameObject.GetComponent<Entity>().Hurt(1);
                 }
             });
         }
@@ -52,7 +55,7 @@ public class Player : MonoBehaviour
         layerMask = ~layerMask;
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, distance, layerMask))
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             Debug.LogFormat("Hit {0}", hit.collider.name);
