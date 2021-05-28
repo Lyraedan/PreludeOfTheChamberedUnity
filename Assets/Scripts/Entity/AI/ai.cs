@@ -96,7 +96,7 @@ public abstract class AI : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (pathIsValid && Application.isPlaying && debugMode)
+        if (pathIsValid && debugMode)
         {
             // Draw at destination
             Gizmos.color = Color.blue;
@@ -112,8 +112,8 @@ public abstract class AI : MonoBehaviour
             {
                 line = this.gameObject.AddComponent<LineRenderer>();
                 line.material = new Material(Shader.Find("Sprites/Default")) { color = Color.yellow };
-                line.startWidth = 0.25f;
-                line.endWidth = 0.25f;
+                line.startWidth = 0.1f;
+                line.endWidth = 0.1f;
                 line.startColor = Color.yellow;
                 line.endColor = Color.yellow;
             }
