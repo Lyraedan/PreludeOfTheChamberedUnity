@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MapLoader : MonoBehaviour
 {
+    public static string levelName = string.Empty;
+    public static string fileName = string.Empty;
     public static Texture floor;
     public static Texture ceil;
     public static BlockData data;

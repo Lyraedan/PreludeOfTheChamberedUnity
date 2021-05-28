@@ -31,6 +31,7 @@ public class MapLoaderEditor : Editor
     {
         DrawDefaultInspector();
 
+        MapLoader.levelName = EditorGUILayout.TextField("Level Name:", MapLoader.levelName);
         MapLoader.offset = EditorGUILayout.Vector3Field("Level offset", MapLoader.offset);
         MapLoader.isOutside = EditorGUILayout.Toggle("Is outside", MapLoader.isOutside);
         EditorGUI.BeginChangeCheck();
@@ -55,7 +56,7 @@ public class MapLoaderEditor : Editor
         }
 
         int previewScale = 2;
-        EditorGUI.DrawPreviewTexture(new Rect(10, 270, 100 * previewScale, 100 * previewScale), MapLoader.mapDisplay);
+        EditorGUI.DrawPreviewTexture(new Rect(10, 285, 100 * previewScale, 100 * previewScale), MapLoader.mapDisplay);
         GUILayout.Space((100 * previewScale) + 20);
         bool profile = GUILayout.Button("Load Level profile");
         if (profile)
@@ -67,16 +68,33 @@ public class MapLoaderEditor : Editor
         {
             LoadLevelIntoScene(MapLoader.offset, MapLoader.isOutside);
         }
+        bool link = GUILayout.Button("Link levels");
+        if(link)
+        {
+            SetupLinkedObjects();
+        }
+    }
+
+    JSONNode LoadProfileNodes(string level)
+    {
+        TextAsset file = Resources.Load<TextAsset>($"profiles/{level}");
+        if (file != null)
+        {
+            JSONNode node = JSON.Parse(file.text);
+            return node;
+        }
+        return null;
     }
 
     void LoadProfile()
     {
         string level = maps[MapLoader.selectedLevel].fileName;
-        TextAsset file = Resources.Load<TextAsset>($"profiles/{level}");
-        if (file != null)
+        JSONNode node = LoadProfileNodes(level);
+        if (node != null)
         {
-            Debug.Log("Loading profile for " + level);
-            JSONNode node = JSON.Parse(file.text);
+            string levelName = node["name"];
+            MapLoader.levelName = levelName;
+            MapLoader.fileName = level;
             string wallCol = "#" + node["wallCol"];
             string floorCol = "#" + node["floorCol"];
             string ceilCol = "#" + node["ceilCol"];
@@ -112,11 +130,9 @@ public class MapLoaderEditor : Editor
             {
                 MapLoader.data = Resources.Load<BlockData>(data);
             }
-            Debug.Log("Successfully loaded profile for " + level);
         }
         else
         {
-            Debug.LogError("Failed to find profile for " + level);
             MapLoader.wallColor = Color.white;
             MapLoader.floorColor = Color.white;
             MapLoader.ceilColor = Color.white;
@@ -129,6 +145,10 @@ public class MapLoaderEditor : Editor
         int height = MapLoader.mapDisplay.height;
         Debug.Log("Importing scene of size: " + width + ", " + height + " total tiles = " + (width * height));
         GameObject map = new GameObject("Map_" + maps[MapLoader.selectedLevel].name);
+        LevelDetails details = map.AddComponent<LevelDetails>();
+        details.levelName = MapLoader.levelName;
+        details.levelId = MapLoader.selectedLevel;
+        details.fileName = MapLoader.fileName;
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -263,6 +283,40 @@ public class MapLoaderEditor : Editor
                     }
                 }
             }
+        }
+        //SetupLinkedObjects();
+    }
+
+    void SetupLinkedObjects()
+    {
+        var ladders = FindObjectsOfType<LadderBridge>();
+        var levels = FindObjectsOfType<LevelDetails>();
+
+        for (int i = 0; i < ladders.Length; i++)
+        {
+            LadderBridge ladder = ladders[i];
+            ladder.id = i;
+            ladder.gameObject.name = $"Ladder_{i}";
+            Debug.Log("Trying to link ladder " + i);
+            //foreach(LevelDetails level in levels)
+            //{
+                JSONNode node = LoadProfileNodes(MapLoader.fileName);
+                Debug.Log("Loaded nodes: " + node.ToString());
+                var links = node["links"];
+                for(int j = 0; j < links.Count; j++)
+                {
+                    var nextLadderId = links[$"ladder_{j}"]["goto"];
+                    GameObject linkedLadder = GameObject.Find($"Ladder_{nextLadderId}");
+                    if (!linkedLadder)
+                    {
+                        Debug.LogError("Failed to find ladder " + nextLadderId);
+                    } else
+                    {
+                        ladder.entrance = ladder.transform;
+                        ladder.exit = linkedLadder.transform; 
+                    }
+                }
+            //}
         }
     }
 

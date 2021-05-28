@@ -9,6 +9,7 @@ public class LadderBridge : MonoBehaviour
         UP, DOWN
     }
 
+    public int id = -1;
     public Transform entrance;
     public Transform exit;
     public Direction direction;

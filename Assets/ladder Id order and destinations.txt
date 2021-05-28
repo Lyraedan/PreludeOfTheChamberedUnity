@@ -1,0 +1,21 @@
+Ice
+ LadderId = 7 -> Overworld -> 5
+
+Temple
+ LadderId = 0 -> Overworld -> 3
+
+Prison
+ LadderId = 1 -> Dungeon -> 8
+ LadderId = 2 -> Overword -> 4
+
+Dungeon
+ LadderId = 8 -> Prison -> 1
+
+Overworld
+ LadderId = 4 -> Prison -> 2
+ LadderId = 5 -> Ice -> 7
+ LadderId = 3 -> Temple -> 0
+ LadderId = 6 -> Crypt -> 9
+
+Crypt
+ LadderId = 9 -> Overworld -> 6

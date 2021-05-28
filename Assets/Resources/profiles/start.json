@@ -7,5 +7,21 @@
  "ceilTex": "tex/Floor",
  "outside": false,
  "data": "profiles/BlockData",
- "offset": { "x": 0.0, "y": 0.0, "z": 0.0 }
+ "offset": { "x": 0.0, "y": 0.0, "z": 0.0 },
+ "ladders": {
+     "ladder_0": {
+         "goto": 0
+     },
+     "ladder_1": {
+        "goto": 4
+    }
+ },
+ "holes": {
+     "hole_0": {
+         "trigger": false
+     },
+     "hole_1": {
+         "trigger": false
+     }
+ }
 }
