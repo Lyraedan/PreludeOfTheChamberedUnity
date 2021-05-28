@@ -13,7 +13,14 @@ public class AIBat : AI
 
     public override void PerformAction()
     {
-        StartCoroutine(Wander());
+        if (entity.isHit)
+        {
+            StartCoroutine(Flee());
+        }
+        else
+        {
+            StartCoroutine(Wander());
+        }
     }
 
 }

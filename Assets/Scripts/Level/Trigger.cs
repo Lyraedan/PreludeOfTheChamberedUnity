@@ -10,14 +10,6 @@ public class Trigger : MonoBehaviour
     public NavMeshObstacle navObstacle;
     public new BoxCollider collider;
     public bool isTrigger = true;
-    [Header("OnTrigger Events")]
-    public TriggerEvent OnTriggerEntered;
-    public TriggerEvent OnTriggerExited;
-    public TriggerEvent OnTriggerStayed;
-    [Header("OnCollision Events")]
-    public CollisionEvent OnCollisionEntered;
-    public CollisionEvent OnCollisionExited;
-    public CollisionEvent OnCollisionStayed;
 
     public void Start()
     {
@@ -28,32 +20,32 @@ public class Trigger : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        OnTriggerEntered?.Invoke(this, other);
+        EventManager.instance.TriggerEntered(this, collider);
     }
 
     public void OnTriggerExit(Collider other)
     {
-        OnTriggerExited?.Invoke(this, other);
+        EventManager.instance.TriggerExit(this, collider);
     }
 
     public void OnTriggerStay(Collider other)
     {
-        OnTriggerStayed?.Invoke(this, other);
+        EventManager.instance.TriggerStay(this, collider);
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        OnCollisionEntered?.Invoke(this, collision);
+        EventManager.instance.CollisionEnter(this, collision);
     }
 
     public void OnCollisionExit(Collision collision)
     {
-        OnCollisionExited?.Invoke(this, collision);
+        EventManager.instance.CollisionExit(this, collision);
     }
 
     public void OnCollisionStay(Collision collision)
     {
-        OnCollisionStayed?.Invoke(this, collision);
+        EventManager.instance.CollisionStay(this, collision);
     }
 
     private void OnDrawGizmos()

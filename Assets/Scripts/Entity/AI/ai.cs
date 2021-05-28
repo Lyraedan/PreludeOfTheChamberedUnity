@@ -5,12 +5,15 @@ using UnityEngine.AI;
 
 public abstract class AI : MonoBehaviour
 {
+    public Entity entity;
     public NavMeshAgent agent;
     public bool hostile = false;
     public float actionTimeout = 10f;
 
     [Header("AI Properties")]
     public float wanderRadius = 5f;
+    public float fleeMultiplier = 3f;
+    public float fleeDistance = 15f;
     public GameObject target = null;
     [HideInInspector] public Vector3 moveTo = Vector3.zero;
 
@@ -51,17 +54,17 @@ public abstract class AI : MonoBehaviour
         }
         pathIsValid = true;
         float timeout = Time.time + actionTimeout;
-        yield return new WaitUntil(() => reached || (Time.time > timeout));
+        yield return new WaitUntil(() => reached || (Time.time > timeout) || entity.isHit);
         PerformAction();
         undergoingAction = false;
     }
 
-    IEnumerator Search()
+    public IEnumerator Search()
     {
         yield return null;
     }
 
-    IEnumerator Persue()
+    public IEnumerator Persue()
     {
         if(target == null)
         {
@@ -71,7 +74,7 @@ public abstract class AI : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator Attack()
+    public IEnumerator Attack()
     {
         if (target == null)
         {
@@ -79,6 +82,39 @@ public abstract class AI : MonoBehaviour
             yield break;
         }
         yield return null;
+    }
+
+    public IEnumerator Flee()
+    {
+
+        if(!entity.isHit)
+        {
+            PerformAction();
+            yield break;
+        }
+        undergoingAction = false;
+        moveTo = transform.position + -transform.forward * fleeMultiplier;
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(moveTo, out hit, fleeDistance, 1))
+        {
+            agent.SetDestination(hit.position);
+            float timeout = Time.time + actionTimeout;
+            yield return new WaitForEndOfFrame();
+            bool path = agent.CalculatePath(moveTo, agent.path);
+            if (path && agent.pathStatus == NavMeshPathStatus.PathPartial)
+            {
+                pathIsValid = false;
+                PerformAction();
+                undergoingAction = false;
+                yield break;
+            }
+            pathIsValid = true;
+            Debug.Log("Fleeing");
+            yield return new WaitUntil(() => reached || (Time.time > timeout) || entity.isHit);
+            PerformAction();
+            undergoingAction = false;
+        }
     }
 
     public Vector3 RandomNavmeshLocation(float radius)

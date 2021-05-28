@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d3560496e2be504b8fa9632a81e5415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entity: {fileID: 45536188382181193}
   agent: {fileID: 3820566776811627302}
   hostile: 1
   actionTimeout: 10

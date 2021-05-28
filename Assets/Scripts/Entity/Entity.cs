@@ -29,6 +29,7 @@ public class Entity : MonoBehaviour
         }
     }
     private AudioSource src;
+    public bool isHit { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +53,7 @@ public class Entity : MonoBehaviour
 
     IEnumerator Damage(Vector3 dir, float amt, float knockbackForce)
     {
+        isHit = true;
         src.clip = hurtSfx;
         src.Play();
         renderer.material.color = hurtColor;
@@ -64,6 +66,7 @@ public class Entity : MonoBehaviour
             StartCoroutine(Death());
         yield return new WaitForSeconds(hurtSfx.length);
         renderer.material.color = baseColor;
+        isHit = false;
     }
 
     IEnumerator Restore(float amt)
