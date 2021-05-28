@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
                     collider.gameObject.GetComponent<Chest>().Open();
                 } else if(collider.CompareTag("Entity"))
                 {
-                    collider.gameObject.GetComponent<Entity>().Hurt(1);
+                    collider.gameObject.GetComponent<Entity>().Hurt(transform.position, 1, 400);
                 }
             });
         }

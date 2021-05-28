@@ -12,6 +12,7 @@ public class Entity : MonoBehaviour
     public GameObject billboard;
     public new Collider collider;
     public NavMeshObstacle navObstacle;
+    public Rigidbody body;
 
     [Header("Properties")]
     public float maxHealth = 10;
@@ -36,10 +37,10 @@ public class Entity : MonoBehaviour
         baseColor = renderer.material.color;
     }
 
-    public void Hurt(float amt)
+    public void Hurt(Vector3 dir, float amt, float knockbackForce)
     {
         if (dead) return;
-        StartCoroutine(Damage(amt));
+        StartCoroutine(Damage(dir, amt, knockbackForce));
         
     }
 
@@ -49,12 +50,15 @@ public class Entity : MonoBehaviour
         StartCoroutine(Restore(amt));
     }
 
-    IEnumerator Damage(float amt)
+    IEnumerator Damage(Vector3 dir, float amt, float knockbackForce)
     {
         src.clip = hurtSfx;
         src.Play();
         renderer.material.color = hurtColor;
         health -= amt;
+
+        var knockback = body.transform.position - dir;
+        body.AddForce(knockback.normalized * knockbackForce);
 
         if (dead)
             StartCoroutine(Death());
