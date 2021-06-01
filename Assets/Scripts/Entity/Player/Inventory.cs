@@ -117,6 +117,11 @@ public class Inventory : MonoBehaviour
             cells[slot].icon.sprite = cells[slot].item.icon;
             cells[slot].UpdateCell();
 
+            if(slot == currentlySelectedIndex)
+            {
+                SwitchItem(slot);
+            }
+
             Debug.Log("Added " + item.name + " to slot " + slot);
         }
     }
