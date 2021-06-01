@@ -34,7 +34,6 @@ public class Bolder : MonoBehaviour
 
     void Freeze()
     {
-        Debug.Log("Freezing Rigidbody");
         body.constraints = RigidbodyConstraints.FreezeAll;
     }
 
@@ -89,7 +88,6 @@ public class Bolder : MonoBehaviour
         source.clip = pushedSfx;
         source.Play();
         yield return new WaitUntil(() => !source.isPlaying);
-        //body.constraints = RigidbodyConstraints.FreezeRotation;
         Freeze();
         animator.isPlayingAnim = false;
     }

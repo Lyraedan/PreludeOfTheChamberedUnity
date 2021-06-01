@@ -7,7 +7,7 @@ public class ItemNone : Item
     public ItemNone()
     {
         id = Inventory.ITEM_NONE;
-        name = "Nothing";
+        name = "";
         stackable = false;
         stackAmount = 0;
     }

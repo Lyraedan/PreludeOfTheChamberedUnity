@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class Inventory : MonoBehaviour
     /// This is our display, responsible for updating animation and playing sound (if any)
     /// </summary>
     public HeldItem held;
+    public Text itemName;
 
     public static int ITEM_NONE = 0;
     public static int ITEM_POWERGLOVE = 1;
@@ -167,6 +169,8 @@ public class Inventory : MonoBehaviour
         currentItem = cells[index].item;
         cells[index].selected = true;
         cells[index].UpdateCell();
+
+        itemName.text = currentItem.name;
 
         UpdateHeld();
         Debug.Log("Switched to " + currentItem.name);
