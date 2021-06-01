@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
+    public Vector3 moveDirection = Vector3.zero;
     public float speed = 100.0f;
     public Rigidbody body;
 
@@ -17,8 +18,8 @@ public class CharacterController : MonoBehaviour
     {
         float verticalMovement = Input.GetAxis("Vertical");
         float horizontalMovement = Input.GetAxis("Horizontal");
-        var move = (horizontalMovement * transform.right + verticalMovement * transform.forward).normalized;
-        body.velocity = move * speed * Time.deltaTime;
+        moveDirection = (horizontalMovement * transform.right + verticalMovement * transform.forward).normalized;
+        body.velocity = moveDirection * speed * Time.deltaTime;
 
         if (Input.GetKeyDown("escape"))
         {

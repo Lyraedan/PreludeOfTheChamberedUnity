@@ -14266,6 +14266,7 @@ MonoBehaviour:
   hurtColor: {r: 1, g: 0, b: 0, a: 1}
   healColor: {r: 0, g: 1, b: 0, a: 1}
   baseColor: {r: 1, g: 1, b: 1, a: 1}
+  knockedBackPower: 200
 --- !u!208 &456959338
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -15160,7 +15161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navObstacle: {fileID: 482839864}
   collider: {fileID: 482839866}
-  isTrigger: 1
+  isTrigger: 0
 --- !u!65 &482839866
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22992,7 +22993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navObstacle: {fileID: 739190147}
   collider: {fileID: 739190149}
-  isTrigger: 1
+  isTrigger: 0
 --- !u!65 &739190149
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25368,8 +25369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: -1
-  entrance: {fileID: 0}
-  exit: {fileID: 0}
+  teleportTo: {fileID: 0}
   direction: 1
   texture: {fileID: 2800000, guid: 1e21aaba6816e964dba83e086db461e9, type: 3}
 --- !u!114 &800501030
@@ -26674,6 +26674,7 @@ MonoBehaviour:
   hurtColor: {r: 1, g: 0, b: 0, a: 1}
   healColor: {r: 0, g: 1, b: 0, a: 1}
   baseColor: {r: 1, g: 1, b: 1, a: 1}
+  knockedBackPower: 200
 --- !u!208 &845190645
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -29071,6 +29072,80 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 909274809}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &909879227
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 25.928465
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.403
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 36.031094
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.43538547
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9002441
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -51.620003
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256235990260812859, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256235990541816386, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9a9e6cafbbbfaf445bc92473ae35df0f, type: 3}
 --- !u!21 &910352142
 Material:
   serializedVersion: 6
@@ -52356,6 +52431,7 @@ MonoBehaviour:
   hurtColor: {r: 1, g: 0, b: 0, a: 1}
   healColor: {r: 0, g: 1, b: 0, a: 1}
   baseColor: {r: 1, g: 1, b: 1, a: 1}
+  knockedBackPower: 200
 --- !u!208 &1508694792
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -52431,80 +52507,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1001 &1509605478
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 26.055443
-      objectReference: {fileID: 0}
-    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 36.083538
-      objectReference: {fileID: 0}
-    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.41915548
-      objectReference: {fileID: 0}
-    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.90791446
-      objectReference: {fileID: 0}
-    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -49.563004
-      objectReference: {fileID: 0}
-    - target: {fileID: 8256235990260812850, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8256235990260812859, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
-        type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8256235990541816386, guid: 9a9e6cafbbbfaf445bc92473ae35df0f,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9a9e6cafbbbfaf445bc92473ae35df0f, type: 3}
 --- !u!21 &1520775695
 Material:
   serializedVersion: 6
@@ -55356,8 +55358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: -1
-  entrance: {fileID: 0}
-  exit: {fileID: 0}
+  teleportTo: {fileID: 0}
   direction: 0
   texture: {fileID: 2800000, guid: 1e21aaba6816e964dba83e086db461e9, type: 3}
 --- !u!114 &1579414166
@@ -75003,6 +75004,7 @@ MonoBehaviour:
   hurtColor: {r: 1, g: 0, b: 0, a: 1}
   healColor: {r: 0, g: 1, b: 0, a: 1}
   baseColor: {r: 1, g: 1, b: 1, a: 1}
+  knockedBackPower: 200
 --- !u!208 &2108337196
 NavMeshObstacle:
   m_ObjectHideFlags: 0

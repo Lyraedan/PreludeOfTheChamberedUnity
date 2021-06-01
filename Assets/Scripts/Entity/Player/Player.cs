@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
     public float health = 20;
     public float score = 0;
     public float keys = 0;
-    public float knockbackStrength = 1f;
 
     public KeyCode attackKey = KeyCode.Space;
 
@@ -57,8 +56,11 @@ public class Player : MonoBehaviour
                 }
                 else if (collider.CompareTag("Entity"))
                 {
-                    Entity entity = collider.gameObject.GetComponent<Entity>();
-                    entity.Hurt(transform.position, 1, entity.knockedBackPower * knockbackStrength);
+                    if (Inventory.instance.isHolding(Inventory.ITEM_POWERGLOVE))
+                    {
+                        Entity entity = collider.gameObject.GetComponent<Entity>();
+                        entity.Hurt(transform.position, 1, entity.knockedBackPower * (Inventory.instance.isHolding(Inventory.ITEM_POWERGLOVE) ? 1.3f : 1f));
+                    }
                 }
             });
         }
