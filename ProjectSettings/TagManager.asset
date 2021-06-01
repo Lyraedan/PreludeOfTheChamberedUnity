@@ -9,6 +9,7 @@ TagManager:
   - Bars
   - Chest
   - Entity
+  - PressurePlate
   layers:
   - Default
   - TransparentFX
