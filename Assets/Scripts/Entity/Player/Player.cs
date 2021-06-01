@@ -8,6 +8,15 @@ public class Player : MonoBehaviour
 
     public static Player instance;
 
+    public bool godMode = false;
+    public float maxHealth = 20;
+    public float health = 20;
+    public float score = 0;
+    public float keys = 0;
+    public float knockbackStrength = 1f;
+
+    public KeyCode attackKey = KeyCode.Space;
+
     private void Awake()
     {
         if (instance == null)
@@ -23,7 +32,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(attackKey))
         {
             Raycast(1, collider =>
             {
@@ -34,16 +43,22 @@ public class Player : MonoBehaviour
                 }
                 else if (collider.CompareTag("Bolder"))
                 {
-                    collider.gameObject.transform.GetChild(0).gameObject.GetComponent<Bolder>().Push();
-                } else if(collider.CompareTag("Bars"))
+                    if(Inventory.instance.isHolding(Inventory.ITEM_POWERGLOVE))
+                        collider.gameObject.transform.GetChild(0).gameObject.GetComponent<Bolder>().Push();
+                }
+                else if (collider.CompareTag("Bars"))
                 {
-                    collider.gameObject.GetComponent<Bars>().Cut();
-                } else if(collider.CompareTag("Chest"))
+                    if(Inventory.instance.isHolding(Inventory.ITEM_CUTTERS))
+                        collider.gameObject.GetComponent<Bars>().Cut();
+                }
+                else if (collider.CompareTag("Chest"))
                 {
                     collider.gameObject.GetComponent<Chest>().Open();
-                } else if(collider.CompareTag("Entity"))
+                }
+                else if (collider.CompareTag("Entity"))
                 {
-                    collider.gameObject.GetComponent<Entity>().Hurt(transform.position, 1, 400);
+                    Entity entity = collider.gameObject.GetComponent<Entity>();
+                    entity.Hurt(transform.position, 1, entity.knockedBackPower * knockbackStrength);
                 }
             });
         }

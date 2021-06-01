@@ -10,23 +10,24 @@ public class LadderBridge : MonoBehaviour
     }
 
     public int id = -1;
-    public Transform entrance;
-    public Transform exit;
+    public Transform teleportTo;
     public Direction direction;
     [Tooltip("Texture that replaces the floor or ceiling")] public Texture texture;
 
     private void OnCollisionEnter(Collision other)
     {
-        Transform spawn = exit.transform.Find("SpawnPoint");
-        other.transform.position = spawn.position;
+        if (teleportTo != null)
+        {
+            other.transform.position = teleportTo.position;
+        }
     }
 
     private void OnDrawGizmos()
     {
-        if (entrance != null && exit != null)
+        if (teleportTo != null)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawLine(entrance.position, exit.position);
+            Gizmos.DrawLine(transform.position, teleportTo.position);
         }
     }
 }

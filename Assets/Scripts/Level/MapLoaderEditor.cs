@@ -312,8 +312,7 @@ public class MapLoaderEditor : Editor
                         Debug.LogError("Failed to find ladder " + nextLadderId);
                     } else
                     {
-                        ladder.entrance = ladder.transform;
-                        ladder.exit = linkedLadder.transform; 
+                        ladder.teleportTo = linkedLadder.transform; 
                     }
                 }
             //}

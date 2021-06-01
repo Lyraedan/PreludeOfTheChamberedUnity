@@ -29,8 +29,13 @@ public class Bolder : MonoBehaviour
         source = GetComponent<AudioSource>();
         animator.isPlayingAnim = false;
 
-        body.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
-        body.constraints = RigidbodyConstraints.FreezeRotation;
+        Freeze();
+    }
+
+    void Freeze()
+    {
+        Debug.Log("Freezing Rigidbody");
+        body.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     // Update is called once per frame
@@ -74,7 +79,6 @@ public class Bolder : MonoBehaviour
         if (inHole)
             yield break;
 
-        body.constraints = RigidbodyConstraints.None;
         body.constraints = RigidbodyConstraints.FreezeRotation;
 
         var force = transform.position - Player.instance.transform.position;
@@ -84,9 +88,9 @@ public class Bolder : MonoBehaviour
         animator.isPlayingAnim = true;
         source.clip = pushedSfx;
         source.Play();
-        yield return new WaitUntil(() => !IsMoving());
-        body.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
-        body.constraints = RigidbodyConstraints.FreezeRotation;
+        yield return new WaitUntil(() => !source.isPlaying);
+        //body.constraints = RigidbodyConstraints.FreezeRotation;
+        Freeze();
         animator.isPlayingAnim = false;
     }
 }

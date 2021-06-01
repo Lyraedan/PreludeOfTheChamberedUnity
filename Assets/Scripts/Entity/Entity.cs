@@ -23,6 +23,8 @@ public class Entity : MonoBehaviour
     public Color hurtColor = Color.red;
     public Color healColor = Color.green;
     public Color baseColor = Color.white;
+    public float knockedBackPower = 200f;
+
     public bool dead {
         get {
             return health <= 0;
@@ -42,7 +44,6 @@ public class Entity : MonoBehaviour
     {
         if (dead) return;
         StartCoroutine(Damage(dir, amt, knockbackForce));
-        
     }
 
     public void Heal(float amt)

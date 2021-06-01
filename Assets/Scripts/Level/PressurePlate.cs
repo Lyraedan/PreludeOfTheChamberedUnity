@@ -15,7 +15,7 @@ public class PressurePlate : MonoBehaviour
     public UnityEvent onPressed;
     [Header("Unpressed")]
     public AudioClip unpressedSfx;
-    public Texture unPressedTexture
+    public Texture unPressedTexture;
     public UnityEvent onUnpressed;
 
     private AudioSource src;
