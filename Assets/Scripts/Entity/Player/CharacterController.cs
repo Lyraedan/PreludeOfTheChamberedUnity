@@ -16,6 +16,8 @@ public class CharacterController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (Player.pauseGameplay) return;
+
         float verticalMovement = Input.GetAxis("Vertical");
         float horizontalMovement = Input.GetAxis("Horizontal");
         moveDirection = (horizontalMovement * transform.right + verticalMovement * transform.forward).normalized;

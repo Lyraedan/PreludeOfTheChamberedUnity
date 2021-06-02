@@ -18,7 +18,9 @@ public class Inventory : MonoBehaviour
     /// This is our display, responsible for updating animation and playing sound (if any)
     /// </summary>
     public HeldItem held;
+    [Header("UI")]
     public Text itemName;
+    public PickupMenu pickupMenu;
 
     public static int ITEM_NONE = 0;
     public static int ITEM_POWERGLOVE = 1;
@@ -114,6 +116,9 @@ public class Inventory : MonoBehaviour
         else
         {
             Debug.Log("Item does not exist. Adding!");
+            pickupMenu.header.text = "You picked up " + item.name;
+            pickupMenu.description.text = item.description;
+            pickupMenu.Open();
             int slot = FindFirstFreeSlot();
             cells[slot].item = item;
             cells[slot].icon.sprite = cells[slot].item.icon;

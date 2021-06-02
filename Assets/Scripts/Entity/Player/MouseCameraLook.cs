@@ -14,6 +14,8 @@ public class MouseCameraLook : MonoBehaviour
 
     void Update()
     {
+        if (Player.pauseGameplay) return;
+
         var md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
         md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
         smoothV.x = Mathf.Lerp(smoothV.x, md.x, 1f / smoothing);

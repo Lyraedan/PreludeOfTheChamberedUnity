@@ -20,6 +20,8 @@ public class Headbob : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Player.pauseGameplay) return;
+
         if (Mathf.Abs(controller.moveDirection.x) > 0.1f || Mathf.Abs(controller.moveDirection.z) > 0.1f)
         {
             //Player is moving

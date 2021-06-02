@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
 
     public KeyCode attackKey = KeyCode.Space;
 
+    public static bool pauseGameplay = false;
+
     private void Awake()
     {
         if (instance == null)

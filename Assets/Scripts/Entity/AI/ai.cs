@@ -11,6 +11,7 @@ public abstract class AI : MonoBehaviour
     public float actionTimeout = 10f;
 
     [Header("AI Properties")]
+    public float movementSpeed = 1f;
     public float wanderRadius = 5f;
     public float fleeMultiplier = 3f;
     public float fleeDistance = 15f;
@@ -25,6 +26,7 @@ public abstract class AI : MonoBehaviour
 
     private void Start()
     {
+        agent.speed = movementSpeed;
         PerformAction();
     }
 
@@ -32,6 +34,7 @@ public abstract class AI : MonoBehaviour
     {
         // Calculate the distance. If not assume they reached their destination
         reached = agent.hasPath ? agent.remainingDistance <= 1f : true;
+        agent.speed = !Player.pauseGameplay ? movementSpeed : 0f;
     }
 
     public abstract void PerformAction();
