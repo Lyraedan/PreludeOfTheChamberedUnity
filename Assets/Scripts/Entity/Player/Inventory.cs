@@ -65,9 +65,10 @@ public class Inventory : MonoBehaviour
             {
                 held.sprite.sprite = currentItem.useSprite;
             }
-        } else if(Input.GetKeyUp(Player.instance.attackKey))
+        }
+        else if (Input.GetKeyUp(Player.instance.attackKey))
         {
-            if(currentItem.id != ITEM_NONE)
+            if (currentItem.id != ITEM_NONE)
             {
                 held.sprite.sprite = currentItem.idleSprite;
             }
@@ -89,9 +90,17 @@ public class Inventory : MonoBehaviour
         {
             // If our inventory slot is empty
             if (cells[i].item.id == 0)
-            {
                 return i;
-            }
+        }
+        return -1;
+    }
+
+    public int GetItemSlot(int itemId)
+    {
+        for (int i = 0; i < inventorySlots; i++)
+        {
+            if (cells[i].item.id == itemId)
+                return i;
         }
         return -1;
     }
@@ -114,19 +123,27 @@ public class Inventory : MonoBehaviour
         if (exists)
         {
             Debug.Log("Item exists!");
+            int slot = GetItemSlot(item.id);
+            if(cells[slot].item.stackable)
+            {
+                cells[slot].item.stackAmount++;
+            }
         }
         else
         {
             Debug.Log("Item does not exist. Adding!");
-            pickupMenu.header.text = "You picked up " + item.name;
+            pickupMenu.header.text = "You found the " + item.name + "!";
             pickupMenu.description.text = item.description;
+            pickupMenu.icon.sprite = item.icon;
+            pickupMenu.icon.color = item.HexToColor();
             pickupMenu.Open();
+
             int slot = FindFirstFreeSlot();
             cells[slot].item = item;
             cells[slot].icon.sprite = cells[slot].item.icon;
             cells[slot].UpdateCell();
 
-            if(slot == currentlySelectedIndex)
+            if (slot == currentlySelectedIndex)
             {
                 SwitchItem(slot);
             }
@@ -194,7 +211,8 @@ public class Inventory : MonoBehaviour
             held.useSprite = currentItem.useSprite;
             held.sprite.sprite = currentItem.idleSprite;
             held.sprite.color = color;
-        } else
+        }
+        else
         {
             held.idleSprite = null;
             held.useSprite = null;

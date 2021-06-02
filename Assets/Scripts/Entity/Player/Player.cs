@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(attackKey))
+        if (Input.GetKeyDown(attackKey) && !pauseGameplay)
         {
             Raycast(1, collider =>
             {

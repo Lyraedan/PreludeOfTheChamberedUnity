@@ -8,6 +8,7 @@ public class PickupMenu : MonoBehaviour
 {
     public CharacterController controller;
     public GameObject menu;
+    public Image icon;
     public Text header;
     public Text description;
     public Text clickToExit;

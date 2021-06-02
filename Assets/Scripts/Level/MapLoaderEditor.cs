@@ -403,9 +403,9 @@ public class MapLoaderEditor : Editor
                 return "Bolder";
             case "009300":
                 return "BolderHole";
-            case "9E009E":
-                return "LadderUp";
             case "FF66FF":
+                return "LadderUp";
+            case "9E009E":
                 return "LadderDown";
             case "FFFF64":
                 return "Chest";

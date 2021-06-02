@@ -7,6 +7,18 @@ using UnityEngine.Events;
 public class Chest : MonoBehaviour
 {
 
+    public enum ChestLoot
+    {
+        EMPTY,
+        POWERGLOVE,
+        SKATES,
+        CUTTERS,
+        POTION,
+        PISTOL
+    }
+
+    public ChestLoot treasure = ChestLoot.EMPTY;
+    [Space(5)]
     public new Renderer renderer;
     public AudioClip openSfx;
     public UnityEvent OnOpened;
@@ -29,7 +41,19 @@ public class Chest : MonoBehaviour
         renderer.material.mainTexture = openedTexture;
         src.clip = openSfx;
         src.Play();
+        Inventory.instance.AddItemToInventory(LootItem());
         opened = true;
+    }
+
+    Item LootItem()
+    {
+        switch(treasure)
+        {
+            case ChestLoot.POWERGLOVE:
+                return new ItemPowerGlove();
+            default:
+                return new ItemNone();
+        }
     }
 
 }
