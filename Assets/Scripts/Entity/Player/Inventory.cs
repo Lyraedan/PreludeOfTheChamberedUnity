@@ -56,6 +56,8 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
+        if (Player.pauseGameplay) return;
+
         if (Input.GetKeyDown(Player.instance.attackKey))
         {
             currentItem.Use();

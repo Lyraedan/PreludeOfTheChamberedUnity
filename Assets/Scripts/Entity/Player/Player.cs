@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public float keys = 0;
 
     public KeyCode attackKey = KeyCode.Space;
+    public KeyCode pauseKey = KeyCode.Escape;
 
     public static bool pauseGameplay = false;
 

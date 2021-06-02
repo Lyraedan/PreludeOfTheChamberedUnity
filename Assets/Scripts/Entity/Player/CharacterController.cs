@@ -23,7 +23,7 @@ public class CharacterController : MonoBehaviour
         moveDirection = (horizontalMovement * transform.right + verticalMovement * transform.forward).normalized;
         body.velocity = moveDirection * speed * Time.deltaTime;
 
-        if (Input.GetKeyDown("escape"))
+        if (Input.GetKeyDown(Player.instance.pauseKey))
         {
             // turn on the cursor
             Cursor.lockState = CursorLockMode.None;
