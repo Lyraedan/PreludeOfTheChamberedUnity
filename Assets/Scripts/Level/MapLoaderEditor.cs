@@ -230,9 +230,9 @@ public class MapLoaderEditor : Editor
                         block.type = Block.BlockType.FLOOR;
                         block.hex = hex;
                         Texture texture = GetTexture(hex);
-                        if (entityBlock.GetComponent<LadderBridge>())
+                        if (e.GetComponent<LadderBridge>())
                         {
-                            LadderBridge ladder = entityBlock.GetComponent<LadderBridge>();
+                            LadderBridge ladder = e.GetComponent<LadderBridge>();
                             if (ladder.direction.Equals(LadderBridge.Direction.DOWN))
                                 block.texture = ladder.texture;
                             else
@@ -249,13 +249,25 @@ public class MapLoaderEditor : Editor
                             GameObject roof = PlacePlaneAt(new Vector3(offset.x + (1 * x), offset.y + 1f, offset.z + (1 * y)), map.transform, 180);
                             roof.name = "Roof";
                             Block roofBlock = roof.GetComponent<Block>();
+                            if (roofBlock == null)
+                            {
+                                if (roof.transform.childCount > 0)
+                                {
+                                    // Incase we put a collider as the root object check the first child
+                                    roofBlock = roof.transform.GetChild(0).gameObject.GetComponent<Block>();
+                                }
+                                else
+                                {
+                                    Debug.Log("No Block script found on entity and no children found");
+                                }
+                            }
                             roofBlock.color = MapLoader.ceilColor;
                             roofBlock.type = Block.BlockType.CEILING;
                             roofBlock.hex = hex;
                             //Texture roofTexture = GetTexture(hex);
-                            if (entityBlock.GetComponent<LadderBridge>())
+                            if (roof.GetComponent<LadderBridge>())
                             {
-                                LadderBridge ladder = entityBlock.GetComponent<LadderBridge>();
+                                LadderBridge ladder = roof.GetComponent<LadderBridge>();
                                 if (ladder.direction.Equals(LadderBridge.Direction.UP))
                                     roofBlock.texture = ladder.texture;
                                 else

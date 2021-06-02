@@ -9,6 +9,7 @@ public class Pickup : MonoBehaviour
 
     public AudioClip pickupSfx;
     public UnityEvent OnPickedUp;
+    [Tooltip("How much score should this pickup give?")] public uint value = 1;
     private AudioSource src;
 
     private void Start()
@@ -24,6 +25,7 @@ public class Pickup : MonoBehaviour
     IEnumerator Collect()
     {
         OnPickedUp?.Invoke();
+        Player.instance.score += value;
         src.clip = pickupSfx;
         src.Play();
         yield return new WaitUntil(() => !src.isPlaying);

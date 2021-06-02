@@ -34,7 +34,8 @@ public abstract class AI : MonoBehaviour
     {
         // Calculate the distance. If not assume they reached their destination
         reached = agent.hasPath ? agent.remainingDistance <= 1f : true;
-        agent.speed = !Player.pauseGameplay ? movementSpeed : 0f;
+        agent.isStopped = !(FocusMenu.instance.focused && agent.velocity != Vector3.zero);
+
     }
 
     public abstract void PerformAction();
@@ -57,7 +58,7 @@ public abstract class AI : MonoBehaviour
         }
         pathIsValid = true;
         float timeout = Time.time + actionTimeout;
-        yield return new WaitUntil(() => reached || (Time.time > timeout) || entity.isHit);
+        yield return new WaitUntil(() => reached || (Time.time > timeout && agent.velocity != Vector3.zero) || entity.isHit);
         PerformAction();
         undergoingAction = false;
     }

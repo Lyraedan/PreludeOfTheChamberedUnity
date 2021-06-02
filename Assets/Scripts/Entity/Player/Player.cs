@@ -2,18 +2,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
 
     public static Player instance;
 
+    [Header("Properties")]
     public bool godMode = false;
-    public float maxHealth = 20;
-    public float health = 20;
-    public float score = 0;
-    public float keys = 0;
+    public uint maxHealth = 20;
+    public uint health = 20;
+    public uint score = 0;
+    public uint maxKeys = 4;
+    public uint keys = 0;
 
+    [Header("UI")]
+    public Text healthDisplay;
+    public Text scoreDisplay;
+    public Text keyDisplay;
+
+    [Header("Controls")]
     public KeyCode attackKey = KeyCode.Space;
     public KeyCode pauseKey = KeyCode.Escape;
 
@@ -34,6 +43,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        healthDisplay.text = $"{health}/{maxHealth}";
+        scoreDisplay.text = $"{score}";
+        keyDisplay.text = $"{keys}/{maxKeys}";
+
         if (Input.GetKeyDown(attackKey) && !pauseGameplay)
         {
             Raycast(1, collider =>

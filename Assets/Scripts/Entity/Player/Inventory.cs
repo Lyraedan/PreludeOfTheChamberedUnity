@@ -82,6 +82,8 @@ public class Inventory : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
             AddItemToInventory(new ItemPowerGlove());
+        else if (Input.GetKeyDown(KeyCode.L))
+            AddItemToInventory(new ItemCutters());
     }
 
     public int FindFirstFreeSlot()
