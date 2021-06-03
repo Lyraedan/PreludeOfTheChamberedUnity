@@ -52,6 +52,16 @@ public class Chest : MonoBehaviour
         {
             case ChestLoot.POWERGLOVE:
                 return new ItemPowerGlove();
+            case ChestLoot.CUTTERS:
+                return new ItemCutters();
+            case ChestLoot.FLIPPERS:
+                return new ItemFlippers();
+            case ChestLoot.PISTOL:
+                return new ItemPistol();
+            case ChestLoot.POTION:
+                return new ItemPotion();
+            case ChestLoot.SKATES:
+                return new ItemSkates();
             default:
                 return new ItemNone();
         }

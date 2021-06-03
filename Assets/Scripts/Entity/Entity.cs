@@ -10,6 +10,8 @@ public class Entity : MonoBehaviour
     [Header("Components")]
     public new Renderer renderer;
     public GameObject billboard;
+    public SpriteAnimator animator;
+    public NavMeshAgent navAgent;
     public new Collider collider;
     public NavMeshObstacle navObstacle;
     public Rigidbody body;
@@ -20,6 +22,8 @@ public class Entity : MonoBehaviour
     public AudioClip hurtSfx;
     public AudioClip healSfx;
     public AudioClip deathSfx;
+    public Texture deathGfx;
+    public Color deathColor = Color.gray;
     public Color hurtColor = Color.red;
     public Color healColor = Color.green;
     public Color baseColor = Color.white;
@@ -85,8 +89,11 @@ public class Entity : MonoBehaviour
 
     IEnumerator Death()
     {
+        animator.isPlayingAnim = false;
+        navAgent.isStopped = true;
         src.clip = deathSfx;
-        billboard.SetActive(false);
+        renderer.material.mainTexture = deathGfx;
+        renderer.material.color = deathColor;
         collider.enabled = false;
         navObstacle.enabled = false;
         src.Play();

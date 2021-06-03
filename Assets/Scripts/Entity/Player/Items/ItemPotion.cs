@@ -23,17 +23,21 @@ public class ItemPotion : Item
     {
         if (stackAmount > 0)
         {
-            Inventory.instance.UpdateHeldToUseSprite();
-            Player.instance.itemAudioSource.clip = useSfx;
-            Player.instance.itemAudioSource.Play();
-            Player.instance.Heal(3);
-            RemoveFromStack(1);
-            UpdateStackCountDisplay();
+            EventManager.instance.ExecuteCoroutine(Drink());
         }
     }
 
-    public override void Idle()
+    public override void Idle() { }
+
+    IEnumerator Drink()
     {
+        Inventory.instance.UpdateHeldToUseSprite();
+        Player.instance.itemAudioSource.clip = useSfx;
+        Player.instance.itemAudioSource.Play();
+        Player.instance.Heal(3);
+        RemoveFromStack(1);
+        UpdateStackCountDisplay();
+        yield return new WaitUntil(() => !Player.instance.itemAudioSource.isPlaying);
         Inventory.instance.UpdateHeldToIdleSprite();
     }
 }

@@ -67,6 +67,7 @@ MonoBehaviour:
   agent: {fileID: 3820566776811627302}
   hostile: 1
   actionTimeout: 10
+  movementSpeed: 1
   wanderRadius: 15
   fleeMultiplier: 3
   fleeDistance: 15
@@ -127,6 +128,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderer: {fileID: 8272606016980166007}
   billboard: {fileID: 5388654447946850237}
+  animator: {fileID: 1661743508742085355}
+  navAgent: {fileID: 3820566776811627302}
   collider: {fileID: 5804222269955425940}
   navObstacle: {fileID: 2913879528009996669}
   body: {fileID: 1676985570619404245}
@@ -135,9 +138,12 @@ MonoBehaviour:
   hurtSfx: {fileID: 8300000, guid: 7776de2986d671641ad996a3960a6285, type: 3}
   healSfx: {fileID: 8300000, guid: b5aa1df88dcd0fd4ba0b61c1d87e9855, type: 3}
   deathSfx: {fileID: 8300000, guid: 66fd3f54487146341a0792f402e8b8a2, type: 3}
+  deathGfx: {fileID: 2800000, guid: 4416369f1d5be2f4b812bbf64012459c, type: 3}
+  deathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   hurtColor: {r: 1, g: 0, b: 0, a: 1}
   healColor: {r: 0, g: 1, b: 0, a: 1}
   baseColor: {r: 1, g: 1, b: 1, a: 1}
+  knockedBackPower: 200
 --- !u!82 &2758325605768668969
 AudioSource:
   m_ObjectHideFlags: 0

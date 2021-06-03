@@ -15,6 +15,8 @@ public class EventManager : MonoBehaviour
             Destroy(this);
     }
 
+    // Collision Events
+
     public void TriggerEntered(Trigger trigger, Collider collider)
     {
         if(collider.CompareTag("PressurePlate"))
@@ -56,6 +58,50 @@ public class EventManager : MonoBehaviour
     public void CollisionStay(Trigger trigger, Collision collider)
     {
 
+    }
+
+    public void OnProjectileHit(Vector3 projectileDir, Collision collision)
+    {
+        if (collision.transform.CompareTag("Entity"))
+        {
+            Entity entity = collision.gameObject.GetComponent<Entity>();
+            entity.Hurt(projectileDir, 2.5f, entity.knockedBackPower * 1f);
+        }
+    }
+
+    // Utilities
+
+    /// <summary>
+    /// Used to instantiate prefab from non monobehaviour object
+    /// </summary>
+    /// <param name="parent"></param>
+    /// <returns></returns>
+    public GameObject InstantiateGameObject(string prefab, Transform parent)
+    {
+        return Instantiate(Resources.Load(prefab) as GameObject, parent);
+    }
+
+    /// <summary>
+    /// Used to instantiate prefab from non monobehaviour object without a parent
+    /// </summary>
+    /// <param name="parent"></param>
+    /// <returns></returns>
+    public GameObject InstantiateGameObject(string prefab)
+    {
+        return Instantiate(Resources.Load(prefab) as GameObject);
+    }
+
+    /// <summary>
+    /// Used to access Destroy from non monobehaviour object
+    /// </summary>
+    /// <param name="obj"></param>
+    public void DestroyGameObject(GameObject obj) {
+        Destroy(obj);
+    }
+   
+    public void ExecuteCoroutine(IEnumerator method)
+    {
+        StartCoroutine(method);
     }
 
 }

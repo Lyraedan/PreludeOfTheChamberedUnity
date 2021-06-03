@@ -1617,6 +1617,7 @@ MonoBehaviour:
   score: 0
   maxKeys: 4
   keys: 0
+  projectileSpawn: {fileID: 0}
   healthDisplay: {fileID: 8161645995825360460}
   scoreDisplay: {fileID: 3625422212844543108}
   keyDisplay: {fileID: 7504149727432530454}
