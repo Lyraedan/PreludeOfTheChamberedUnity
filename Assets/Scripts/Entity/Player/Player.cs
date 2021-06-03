@@ -3,11 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Player : MonoBehaviour
 {
 
     public static Player instance;
+    [Header("Components")]
+    public Camera camera;
+    public Rigidbody body;
+    public AudioSource itemAudioSource;
+    public AudioSource playerAudioSource;
 
     [Header("Properties")]
     public bool godMode = false;
@@ -16,6 +22,14 @@ public class Player : MonoBehaviour
     public int score = 0;
     public int maxKeys = 4;
     public int keys = 0;
+
+    public GameObject hurtEffect;
+    public AudioClip deathSfx;
+    public List<AudioClip> hurtSounds = new List<AudioClip>();
+    [Header("Height adjustments")]
+    public Transform normalHeight;
+    public Transform submergedPosition;
+    public Transform deathPosition;
 
     [Header("UI")]
     public Text healthDisplay;
@@ -27,8 +41,8 @@ public class Player : MonoBehaviour
     public KeyCode pauseKey = KeyCode.Escape;
 
     public static bool pauseGameplay = false;
-
-    public AudioSource itemAudioSource;
+    // Stop us getting spammed to death
+    private bool isHurt = false;
 
     public bool dead {
         get {
@@ -90,22 +104,62 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.CompareTag("Entity"))
+        {
+            Entity entity = collision.gameObject.GetComponent<Entity>();
+            Hurt(entity.damageVal, entity.transform.forward);
+        } else if(collision.transform.CompareTag("Projectile"))
+        {
+            Projectile projectile = collision.gameObject.GetComponent<Projectile>();
+            Hurt(projectile.damageVal, projectile.transform.forward);
+        }
+    }
+
     public void Heal(int amt)
     {
-        if (dead) return;
+        if (dead || godMode) return;
 
         health += amt;
         if (health > maxHealth)
             health = maxHealth;
     }
 
-    public void Hurt(int amt)
+    public void Hurt(int amt, Vector3 hurtDir)
     {
-        if (dead) return;
+        if (dead || godMode || isHurt) return;
 
+        StartCoroutine(DoHurt(amt, hurtDir));
+    }
+
+    IEnumerator DoHurt(int amt, Vector3 hurtDir)
+    {
+        isHurt = true;
+        hurtEffect.SetActive(true);
+        playerAudioSource.clip = hurtSounds[Random.Range(0, hurtSounds.Count)];
+        playerAudioSource.Play();
         health -= amt;
+        var knockback = body.transform.position - hurtDir;
+        body.AddForce(knockback.normalized * 1.5f);
         if (health < 0)
             health = 0;
+        if (dead)
+            StartCoroutine(Death());
+        yield return new WaitUntil(() => !playerAudioSource.isPlaying);
+        hurtEffect.SetActive(false);
+        isHurt = false;
+    }
+
+    IEnumerator Death()
+    {
+        pauseGameplay = true;
+        camera.transform.position = deathPosition.position;
+        playerAudioSource.clip = deathSfx;
+        playerAudioSource.Play();
+        camera.transform.Rotate(0, 0f, 90f);
+        yield return new WaitForSeconds(3f);
+        Debug.Log("Show gameover screen");
     }
 
     RaycastHit Raycast(float distance, Action<Collider> onHit)

@@ -10,6 +10,7 @@ TagManager:
   - Chest
   - Entity
   - PressurePlate
+  - Projectile
   layers:
   - Default
   - TransparentFX

@@ -19,6 +19,7 @@ public class Entity : MonoBehaviour
     [Header("Properties")]
     public float maxHealth = 10;
     public float health = 10;
+    public int damageVal = 1;
     public AudioClip hurtSfx;
     public AudioClip healSfx;
     public AudioClip deathSfx;

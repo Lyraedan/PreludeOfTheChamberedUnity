@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Projectile : MonoBehaviour
 {
 
+    public int damageVal = 2;
     public float speed = 1.3f;
     public float lifeSpan = 5f;
     public Rigidbody body;
@@ -32,7 +33,7 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        EventManager.instance.OnProjectileHit(launchDirection, collision);
+        EventManager.instance.OnProjectileHit(this, launchDirection, collision);
         Destroy();
     }
 

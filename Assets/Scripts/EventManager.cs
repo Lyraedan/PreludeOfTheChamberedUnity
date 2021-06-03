@@ -60,12 +60,12 @@ public class EventManager : MonoBehaviour
 
     }
 
-    public void OnProjectileHit(Vector3 projectileDir, Collision collision)
+    public void OnProjectileHit(Projectile projectile, Vector3 projectileDir, Collision collision)
     {
         if (collision.transform.CompareTag("Entity"))
         {
             Entity entity = collision.gameObject.GetComponent<Entity>();
-            entity.Hurt(projectileDir, 2.5f, entity.knockedBackPower * 1f);
+            entity.Hurt(projectileDir, projectile.damageVal, entity.knockedBackPower * 1f);
         }
     }
 
