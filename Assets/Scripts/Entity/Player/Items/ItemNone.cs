@@ -10,10 +10,13 @@ public class ItemNone : Item
         name = "";
         stackable = false;
         stackAmount = 0;
+        hexCode = "000000";
+        idleSprite = Resources.Load<Sprite>("tex/blank");
+        useSprite = Resources.Load<Sprite>("tex/blank");
+        icon = Resources.Load<Sprite>("tex/blank");
     }
 
-    public override void Use()
-    {
-        Debug.Log("Nothing was used!");
-    }
+    public override void Use() { }
+
+    public override void Idle() { }
 }

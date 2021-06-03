@@ -18,8 +18,8 @@ public class ItemFlippers : Item
         icon = Resources.Load<Sprite>("tex/icon_flippers");
     }
 
-    public override void Use()
-    {
-        Debug.Log("Flippers go slish splash");
-    }
+    public override void Use() { }
+
+    public override void Idle() { }
+
 }

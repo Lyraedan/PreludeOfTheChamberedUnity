@@ -7,9 +7,15 @@ using UnityEngine.Events;
 public class Pickup : MonoBehaviour
 {
 
+    public enum PickupType
+    {
+        LOOT, KEY
+    }
+
+    public PickupType pickupType = PickupType.LOOT;
     public AudioClip pickupSfx;
     public UnityEvent OnPickedUp;
-    [Tooltip("How much score should this pickup give?")] public uint value = 1;
+    [Tooltip("How much score should this pickup give?")] public int value = 1;
     private AudioSource src;
 
     private void Start()
@@ -25,7 +31,8 @@ public class Pickup : MonoBehaviour
     IEnumerator Collect()
     {
         OnPickedUp?.Invoke();
-        Player.instance.score += value;
+        if(pickupType.Equals(PickupType.LOOT))
+            Player.instance.score += value;
         src.clip = pickupSfx;
         src.Play();
         yield return new WaitUntil(() => !src.isPlaying);

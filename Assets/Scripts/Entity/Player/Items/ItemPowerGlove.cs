@@ -20,6 +20,11 @@ public class ItemPowerGlove : Item
 
     public override void Use()
     {
-        Debug.Log("Powerglove go swoosh!");
+        Inventory.instance.UpdateHeldToUseSprite();
+    }
+
+    public override void Idle()
+    {
+        Inventory.instance.UpdateHeldToIdleSprite();
     }
 }

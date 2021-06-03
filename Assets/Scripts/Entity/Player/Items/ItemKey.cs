@@ -20,6 +20,11 @@ public class ItemKey : Item
 
     public override void Use()
     {
-        Debug.Log("Used key");
+        Inventory.instance.UpdateHeldToUseSprite();
+    }
+
+    public override void Idle()
+    {
+        Inventory.instance.UpdateHeldToIdleSprite();
     }
 }

@@ -10,7 +10,7 @@ public class ItemPistol : Item
         id = Inventory.ITEM_PISTOL;
         name = "Pistol";
         description = "Pew, pew, pew!";
-        stackable = false;
+        stackable = true;
         stackAmount = 0;
         ammo = 30;
         hexCode = "EAEAEA";
@@ -21,6 +21,17 @@ public class ItemPistol : Item
 
     public override void Use()
     {
-        Debug.Log("Shoot pistol here");
+        if (stackAmount > 0)
+        {
+            Inventory.instance.UpdateHeldToUseSprite();
+            RemoveFromStack(1);
+            UpdateStackCountDisplay();
+        }
+    }
+
+    public override void Idle()
+    {
+        Inventory.instance.UpdateHeldToIdleSprite();
+
     }
 }

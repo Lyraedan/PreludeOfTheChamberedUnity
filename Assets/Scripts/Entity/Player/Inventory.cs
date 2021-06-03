@@ -64,17 +64,10 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown(Player.instance.attackKey))
         {
             currentItem.Use();
-            if (currentItem.id != ITEM_NONE)
-            {
-                held.sprite.sprite = currentItem.useSprite;
-            }
         }
         else if (Input.GetKeyUp(Player.instance.attackKey))
         {
-            if (currentItem.id != ITEM_NONE)
-            {
-                held.sprite.sprite = currentItem.idleSprite;
-            }
+            currentItem.Idle();
         }
 
         // Handle item switching
@@ -98,6 +91,10 @@ public class Inventory : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.B))
             AddItemToInventory(new ItemKey());
     }
+
+    public void UpdateHeldToUseSprite() => held.sprite.sprite = currentItem.useSprite;
+    
+    public void UpdateHeldToIdleSprite() => held.sprite.sprite = currentItem.idleSprite;
 
     public int FindFirstFreeSlot()
     {
@@ -135,33 +132,35 @@ public class Inventory : MonoBehaviour
     public void AddItemToInventory(Item item)
     {
         bool exists = ItemExistsInInventory(item.id);
+        pickupMenu.header.text = "You found the " + item.name + "!";
+        pickupMenu.description.text = item.description;
+        pickupMenu.icon.sprite = item.icon;
+        pickupMenu.icon.color = item.HexToColor();
+        pickupMenu.Open();
+
         if (exists)
         {
-            Debug.Log("Item exists!");
             int slot = GetItemSlot(item.id);
             if(cells[slot].item.stackable)
             {
                 cells[slot].item.stackAmount += item.ammo;
+                cells[slot].UpdateCell();
             }
         }
         else
         {
             Debug.Log("Item does not exist. Adding!");
-            pickupMenu.header.text = "You found the " + item.name + "!";
-            pickupMenu.description.text = item.description;
-            pickupMenu.icon.sprite = item.icon;
-            pickupMenu.icon.color = item.HexToColor();
-            pickupMenu.Open();
-
+            
             int slot = FindFirstFreeSlot();
             cells[slot].item = item;
             cells[slot].icon.sprite = cells[slot].item.icon;
-            cells[slot].UpdateCell();
 
             if (cells[slot].item.stackable)
             {
                 cells[slot].item.stackAmount += item.ammo;
             }
+
+            cells[slot].UpdateCell();
 
             if (slot == currentlySelectedIndex)
             {
@@ -225,20 +224,10 @@ public class Inventory : MonoBehaviour
         Color color = currentItem.HexToColor();
         color.a = currentItem.id != ITEM_NONE ? 1f : 0f;
         held.overlayColor = color;
-        if (currentItem.id != ITEM_NONE)
-        {
-            held.idleSprite = currentItem.idleSprite;
-            held.useSprite = currentItem.useSprite;
-            held.sprite.sprite = currentItem.idleSprite;
-            held.sprite.color = color;
-        }
-        else
-        {
-            held.idleSprite = null;
-            held.useSprite = null;
-            held.sprite.color = new Color(255, 255, 255, 0);
-            held.sprite.sprite = null;
-        }
+        held.idleSprite = currentItem.idleSprite;
+        held.useSprite = currentItem.useSprite;
+        held.sprite.sprite = currentItem.idleSprite;
+        held.sprite.color = color;
     }
 
     public bool isHolding(int itemId)

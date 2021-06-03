@@ -18,8 +18,7 @@ public class ItemSkates : Item
         icon = Resources.Load<Sprite>("tex/icon_skates");
     }
 
-    public override void Use()
-    {
-        Debug.Log("Used skates");
-    }
+    public override void Use() { }
+
+    public override void Idle() { }
 }

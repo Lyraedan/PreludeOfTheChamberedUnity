@@ -18,8 +18,13 @@ public class ItemCutters : Item
         icon = Resources.Load<Sprite>("tex/icon_cutters");
     }
 
+    public override void Idle()
+    {
+        Inventory.instance.UpdateHeldToIdleSprite();
+    }
+
     public override void Use()
     {
-        Debug.Log("Cutters go snip!");
+        Inventory.instance.UpdateHeldToUseSprite();
     }
 }

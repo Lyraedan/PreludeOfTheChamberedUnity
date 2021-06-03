@@ -11,11 +11,11 @@ public class Player : MonoBehaviour
 
     [Header("Properties")]
     public bool godMode = false;
-    public uint maxHealth = 20;
-    public uint health = 20;
-    public uint score = 0;
-    public uint maxKeys = 4;
-    public uint keys = 0;
+    public int maxHealth = 20;
+    public int health = 20;
+    public int score = 0;
+    public int maxKeys = 4;
+    public int keys = 0;
 
     [Header("UI")]
     public Text healthDisplay;
@@ -27,6 +27,14 @@ public class Player : MonoBehaviour
     public KeyCode pauseKey = KeyCode.Escape;
 
     public static bool pauseGameplay = false;
+
+    public AudioSource itemAudioSource;
+
+    public bool dead {
+        get {
+            return health <= 0;
+        }
+    }
 
     private void Awake()
     {
@@ -80,6 +88,24 @@ public class Player : MonoBehaviour
                 }
             });
         }
+    }
+
+    public void Heal(int amt)
+    {
+        if (dead) return;
+
+        health += amt;
+        if (health > maxHealth)
+            health = maxHealth;
+    }
+
+    public void Hurt(int amt)
+    {
+        if (dead) return;
+
+        health -= amt;
+        if (health < 0)
+            health = 0;
     }
 
     RaycastHit Raycast(float distance, Action<Collider> onHit)
