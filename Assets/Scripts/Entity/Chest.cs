@@ -14,7 +14,8 @@ public class Chest : MonoBehaviour
         SKATES,
         CUTTERS,
         POTION,
-        PISTOL
+        PISTOL,
+        FLIPPERS
     }
 
     public ChestLoot treasure = ChestLoot.EMPTY;

@@ -22,12 +22,15 @@ public class Inventory : MonoBehaviour
     public Text itemName;
     public PickupMenu pickupMenu;
 
+    // Item ID's
     public static int ITEM_NONE = 0;
     public static int ITEM_POWERGLOVE = 1;
     public static int ITEM_SKATES = 2;
     public static int ITEM_CUTTERS = 3;
     public static int ITEM_POTION = 4;
     public static int ITEM_PISTOL = 5;
+    public static int ITEM_FLIPPERSs = 6;
+    public static int ITEM_KEY = 7;
 
 
     private void Awake()
