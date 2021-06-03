@@ -35,6 +35,9 @@ public class Player : MonoBehaviour
     public Text healthDisplay;
     public Text scoreDisplay;
     public Text keyDisplay;
+    [Header("Displays")]
+    public GameObject inGame;
+    public GameObject gameover;
 
     [Header("Controls")]
     public KeyCode attackKey = KeyCode.Space;
@@ -158,8 +161,9 @@ public class Player : MonoBehaviour
         playerAudioSource.clip = deathSfx;
         playerAudioSource.Play();
         camera.transform.Rotate(0, 0f, 90f);
-        yield return new WaitForSeconds(3f);
-        Debug.Log("Show gameover screen");
+        yield return new WaitForSeconds(deathSfx.length);
+        inGame.SetActive(false);
+        gameover.SetActive(true);
     }
 
     RaycastHit Raycast(float distance, Action<Collider> onHit)
