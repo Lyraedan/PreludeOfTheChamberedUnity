@@ -17,12 +17,18 @@ public class EventManager : MonoBehaviour
 
     public void TriggerEntered(Trigger trigger, Collider collider)
     {
-
+        if(collider.CompareTag("PressurePlate"))
+        {
+            // Activate pressureplate here
+        }
     }
 
     public void TriggerExit(Trigger trigger, Collider collider)
     {
-
+        if (collider.CompareTag("PressurePlate"))
+        {
+            // Deactivate pressureplate here
+        }
     }
 
     public void TriggerStay(Trigger trigger, Collider collider)
