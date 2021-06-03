@@ -29,7 +29,7 @@ public class Inventory : MonoBehaviour
     public static int ITEM_CUTTERS = 3;
     public static int ITEM_POTION = 4;
     public static int ITEM_PISTOL = 5;
-    public static int ITEM_FLIPPERSs = 6;
+    public static int ITEM_FLIPPERS = 6;
     public static int ITEM_KEY = 7;
 
 
@@ -87,6 +87,16 @@ public class Inventory : MonoBehaviour
             AddItemToInventory(new ItemPowerGlove());
         else if (Input.GetKeyDown(KeyCode.L))
             AddItemToInventory(new ItemCutters());
+        else if (Input.GetKeyDown(KeyCode.O))
+            AddItemToInventory(new ItemFlippers());
+        else if (Input.GetKeyDown(KeyCode.K))
+            AddItemToInventory(new ItemPistol());
+        else if (Input.GetKeyDown(KeyCode.N))
+            AddItemToInventory(new ItemPotion());
+        else if (Input.GetKeyDown(KeyCode.M))
+            AddItemToInventory(new ItemSkates());
+        else if (Input.GetKeyDown(KeyCode.B))
+            AddItemToInventory(new ItemKey());
     }
 
     public int FindFirstFreeSlot()
@@ -110,11 +120,11 @@ public class Inventory : MonoBehaviour
         return -1;
     }
 
-    public bool ItemExistsInInventory(Item item)
+    public bool ItemExistsInInventory(int itemId)
     {
         for (int i = 0; i < inventorySlots; i++)
         {
-            if (cells[i].item.id == item.id)
+            if (cells[i].item.id == itemId)
             {
                 return true;
             }
@@ -124,14 +134,14 @@ public class Inventory : MonoBehaviour
 
     public void AddItemToInventory(Item item)
     {
-        bool exists = ItemExistsInInventory(item);
+        bool exists = ItemExistsInInventory(item.id);
         if (exists)
         {
             Debug.Log("Item exists!");
             int slot = GetItemSlot(item.id);
             if(cells[slot].item.stackable)
             {
-                cells[slot].item.stackAmount++;
+                cells[slot].item.stackAmount += item.ammo;
             }
         }
         else
@@ -147,6 +157,11 @@ public class Inventory : MonoBehaviour
             cells[slot].item = item;
             cells[slot].icon.sprite = cells[slot].item.icon;
             cells[slot].UpdateCell();
+
+            if (cells[slot].item.stackable)
+            {
+                cells[slot].item.stackAmount += item.ammo;
+            }
 
             if (slot == currentlySelectedIndex)
             {

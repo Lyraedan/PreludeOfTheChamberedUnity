@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemSkates : Item
+public class ItemFlippers : Item
 {
 
-    public ItemSkates()
+    public ItemFlippers()
     {
-        id = Inventory.ITEM_SKATES;
-        name = "Skates";
-        description = "Sharp!";
+        id = Inventory.ITEM_FLIPPERS;
+        name = "Flippers";
+        description = "Slish splash!";
         stackable = false;
         stackAmount = 0;
-        hexCode = "AE70FF";
+        hexCode = "7CBBFF";
         idleSprite = Resources.Load<Sprite>("tex/blank");
         useSprite = Resources.Load<Sprite>("tex/blank");
-        icon = Resources.Load<Sprite>("tex/icon_skates");
+        icon = Resources.Load<Sprite>("tex/icon_flippers");
     }
 
     public override void Use()
     {
-        Debug.Log("Used skates");
+        Debug.Log("Flippers go slish splash");
     }
 }

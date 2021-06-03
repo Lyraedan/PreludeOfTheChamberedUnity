@@ -11,6 +11,7 @@ public abstract class Item
     public string description = string.Empty;
     public bool stackable = false;
     public int stackAmount = 0;
+    public int ammo = 1;
     public Sprite idleSprite;
     public Sprite useSprite;
     public Sprite icon;

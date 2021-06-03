@@ -1568,7 +1568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32879bc755ac253478017e7df476b1da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySlots: 8
+  inventorySlots: 7
   currentlySelectedIndex: 0
   cells: []
   inventoryCellHolder: {fileID: 7162002308623295049}

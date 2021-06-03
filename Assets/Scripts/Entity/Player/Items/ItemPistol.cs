@@ -2,17 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemPistol : MonoBehaviour
+public class ItemPistol : Item
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public ItemPistol()
     {
-        
+        id = Inventory.ITEM_PISTOL;
+        name = "Pistol";
+        description = "Pew, pew, pew!";
+        stackable = false;
+        stackAmount = 0;
+        ammo = 30;
+        hexCode = "EAEAEA";
+        idleSprite = Resources.Load<Sprite>("tex/item_pistol_idle");
+        useSprite = Resources.Load<Sprite>("tex/item_pistol_use");
+        icon = Resources.Load<Sprite>("tex/icon_pistol");
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Use()
     {
-        
+        Debug.Log("Shoot pistol here");
     }
 }
