@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 [CustomEditor(typeof(PressurePlate))]
@@ -18,6 +19,7 @@ public class PressurePlateEditor : Editor
             plate.pressedTexture = Resources.Load<Texture>("tex/PressurePlate2");
             plate.unpressedSfx = Resources.Load<AudioClip>("snd/click2");
             plate.unPressedTexture = Resources.Load<Texture>("tex/PressurePlate");
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
     }
 }

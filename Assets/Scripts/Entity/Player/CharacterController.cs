@@ -16,7 +16,14 @@ public class CharacterController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Player.pauseGameplay) return;
+        if (Player.pauseGameplay)
+        {
+            body.constraints = RigidbodyConstraints.FreezeAll;
+            return;
+        } else
+        {
+            body.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        }
 
         float verticalMovement = Input.GetAxis("Vertical");
         float horizontalMovement = Input.GetAxis("Horizontal");

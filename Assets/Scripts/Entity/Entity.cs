@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(AudioSource))]
 public class Entity : MonoBehaviour
@@ -24,6 +25,7 @@ public class Entity : MonoBehaviour
     public AudioClip healSfx;
     public AudioClip deathSfx;
     public Texture deathGfx;
+    public UnityEvent OnDeath;
     public Color deathColor = Color.gray;
     public Color hurtColor = Color.red;
     public Color healColor = Color.green;
@@ -100,6 +102,13 @@ public class Entity : MonoBehaviour
         navObstacle.enabled = false;
         src.Play();
         yield return new WaitUntil(() => !src.isPlaying);
+        OnDeath?.Invoke();
         Destroy(gameObject);
+    }
+
+    public void DropKey()
+    {
+        GameObject key = Instantiate(Resources.Load("prefabs/Key") as GameObject);
+        key.transform.position = transform.position;
     }
 }

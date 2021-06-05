@@ -133,12 +133,16 @@ MonoBehaviour:
   collider: {fileID: 5804222269955425940}
   navObstacle: {fileID: 2913879528009996669}
   body: {fileID: 1676985570619404245}
-  maxHealth: 10
-  health: 10
+  maxHealth: 2
+  health: 2
+  damageVal: 1
   hurtSfx: {fileID: 8300000, guid: 7776de2986d671641ad996a3960a6285, type: 3}
   healSfx: {fileID: 8300000, guid: b5aa1df88dcd0fd4ba0b61c1d87e9855, type: 3}
   deathSfx: {fileID: 8300000, guid: 66fd3f54487146341a0792f402e8b8a2, type: 3}
   deathGfx: {fileID: 2800000, guid: 4416369f1d5be2f4b812bbf64012459c, type: 3}
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
   deathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   hurtColor: {r: 1, g: 0, b: 0, a: 1}
   healColor: {r: 0, g: 1, b: 0, a: 1}
