@@ -29,7 +29,9 @@ public class ItemPistol : Item
         }
     }
 
-    public override void Idle() { }
+    public override void Idle() {
+        Inventory.instance.UpdateHeldToIdleSprite();
+    }
 
     IEnumerator Fire()
     {

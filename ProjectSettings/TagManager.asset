@@ -11,6 +11,7 @@ TagManager:
   - Entity
   - PressurePlate
   - Projectile
+  - Door
   layers:
   - Default
   - TransparentFX

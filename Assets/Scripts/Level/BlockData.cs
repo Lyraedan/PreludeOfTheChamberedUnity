@@ -22,6 +22,9 @@ public class BlockEntry
     public string id = string.Empty;
     public string hex = string.Empty;
     public Texture texture;
+    public Texture normalMap;
+    public Texture bumpMap;
+    public Texture specularMap;
     [Tooltip("What texture should the ceiling use if any? Default = Floor")] public Texture roofTexture;
     public bool useWallColor = false;
     public bool useFloorColor = false;

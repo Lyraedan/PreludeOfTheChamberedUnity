@@ -143,12 +143,13 @@ public class MapLoaderEditor : Editor
     {
         int width = MapLoader.mapDisplay.width;
         int height = MapLoader.mapDisplay.height;
-        Debug.Log("Importing scene of size: " + width + ", " + height + " total tiles = " + (width * height));
         GameObject map = new GameObject("Map_" + maps[MapLoader.selectedLevel].name);
         LevelDetails details = map.AddComponent<LevelDetails>();
         details.levelName = MapLoader.levelName;
         details.levelId = MapLoader.selectedLevel;
         details.fileName = MapLoader.fileName;
+        int tileCount = 0;
+        int emptyTiles = 0;
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -156,6 +157,7 @@ public class MapLoaderEditor : Editor
                 Color pixel = MapLoader.mapDisplay.GetPixel(x, y);
                 if (pixel.a != 0)
                 {
+                    tileCount++;
                     string hex = ColorUtility.ToHtmlStringRGB(pixel);
                     if (hexIsPlane(hex))
                     {
@@ -265,9 +267,9 @@ public class MapLoaderEditor : Editor
                             roofBlock.type = Block.BlockType.CEILING;
                             roofBlock.hex = hex;
                             //Texture roofTexture = GetTexture(hex);
-                            if (roof.GetComponent<LadderBridge>())
+                            if (e.GetComponent<LadderBridge>())
                             {
-                                LadderBridge ladder = roof.GetComponent<LadderBridge>();
+                                LadderBridge ladder = e.GetComponent<LadderBridge>();
                                 if (ladder.direction.Equals(LadderBridge.Direction.UP))
                                     roofBlock.texture = ladder.texture;
                                 else
@@ -294,9 +296,13 @@ public class MapLoaderEditor : Editor
                         block.loadProperties();
                     }
                 }
+                else
+                    emptyTiles++;
+                
             }
         }
         //SetupLinkedObjects();
+        Debug.Log("Importing scene of size: " + width + ", " + height + "\nTiles: " + tileCount + "\nEmpty tiles: " + emptyTiles);
     }
 
     void SetupLinkedObjects()

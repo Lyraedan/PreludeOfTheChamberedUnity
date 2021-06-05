@@ -102,6 +102,11 @@ public class Player : MonoBehaviour
                         Entity entity = collider.gameObject.GetComponent<Entity>();
                         entity.Hurt(transform.position, 1, entity.knockedBackPower * (Inventory.instance.isHolding(Inventory.ITEM_POWERGLOVE) ? 1.3f : 1f));
                     }
+                } else if (collider.CompareTag("Door"))
+                {
+                    Door door = collider.gameObject.GetComponent<Door>();
+                    if(!door.locked)
+                        door.ToggleDoor();
                 }
             });
         }
@@ -175,7 +180,6 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, distance, layerMask))
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-            Debug.LogFormat("Hit {0}", hit.collider.name);
             onHit?.Invoke(hit.collider);
         }
         else

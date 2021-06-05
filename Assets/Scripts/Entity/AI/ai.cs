@@ -42,7 +42,7 @@ public abstract class AI : MonoBehaviour
 
     public abstract void OnAttack();
 
-    public IEnumerator Wander()
+    public virtual IEnumerator Wander()
     {
         undergoingAction = true;
         moveTo = RandomNavmeshLocation(wanderRadius);
@@ -63,12 +63,12 @@ public abstract class AI : MonoBehaviour
         undergoingAction = false;
     }
 
-    public IEnumerator Search()
+    public virtual IEnumerator Search()
     {
         yield return null;
     }
 
-    public IEnumerator Persue()
+    public virtual IEnumerator Persue()
     {
         if(target == null)
         {
@@ -78,7 +78,7 @@ public abstract class AI : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator Attack()
+    public virtual IEnumerator Attack()
     {
         if (target == null)
         {
@@ -88,7 +88,7 @@ public abstract class AI : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator Flee()
+    public virtual IEnumerator Flee()
     {
 
         if(!entity.isHit)
