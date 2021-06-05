@@ -402,7 +402,8 @@ public class MapLoaderEditor : Editor
         return hex.Equals("4C4C4C") || hex.Equals("FF3A02") || hex.Equals("FF0000") ||
                hex.Equals("AA5500") || hex.Equals("9E009E") || hex.Equals("009380") ||
                hex.Equals("FF66FF") || hex.Equals("FFFF64") || hex.Equals("C1C14D") ||
-               hex.Equals("FFFF00") || hex.Equals("FF0001") || hex.Equals("00FFFF") ;
+               hex.Equals("FFFF00") || hex.Equals("FF0001") || hex.Equals("00FFFF") ||
+               hex.Equals("C6C6C6") || hex.Equals("C6C697");
     }
 
     string hexToEntity(string hex)
@@ -433,6 +434,10 @@ public class MapLoaderEditor : Editor
                 return "Spawn";
             case "00FFFF":
                 return "BreakableBlock";
+            case "C6C6C6":
+                return "OpenableDoor";
+            case "C6C697":
+                return "LockedDoor";
             default:
                 throw new ArgumentException("Found hex marked as entity but found no assosiated entity");
         }

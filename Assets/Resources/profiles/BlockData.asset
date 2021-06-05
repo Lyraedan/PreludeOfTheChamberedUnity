@@ -16,6 +16,9 @@ MonoBehaviour:
   - id: Wall
     hex: FFFFFF
     texture: {fileID: 2800000, guid: 349b53f171bb35d458533b00f13921e0, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 0}
     useWallColor: 1
     useFloorColor: 0
@@ -26,6 +29,9 @@ MonoBehaviour:
   - id: BreakableBlock
     hex: 00FFFF
     texture: {fileID: 2800000, guid: dbbb926be5a6ff8409141025a4651de4, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 0}
     useWallColor: 1
     useFloorColor: 0
@@ -36,6 +42,9 @@ MonoBehaviour:
   - id: Bars
     hex: 4C4C4C
     texture: {fileID: 2800000, guid: c4a921e79cbb55e4ba12c68400640b31, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 0}
     useWallColor: 0
     useFloorColor: 0
@@ -46,6 +55,9 @@ MonoBehaviour:
   - id: Bat
     hex: FF0000
     texture: {fileID: 2800000, guid: eccda3bd7ec08b2498f0b55a3eee6e31, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 0}
     useWallColor: 0
     useFloorColor: 0
@@ -56,6 +68,9 @@ MonoBehaviour:
   - id: Bolder
     hex: AA5500
     texture: {fileID: 2800000, guid: a5ba5ed59e7981546ac30c67184a21e8, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 0}
     useWallColor: 0
     useFloorColor: 0
@@ -66,6 +81,9 @@ MonoBehaviour:
   - id: BolderHole
     hex: 009300
     texture: {fileID: 2800000, guid: 1e21aaba6816e964dba83e086db461e9, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 2800000, guid: b95df335cae97624cb8e6e0e0dc7f6ee, type: 3}
     useWallColor: 0
     useFloorColor: 1
@@ -76,6 +94,9 @@ MonoBehaviour:
   - id: LadderDown
     hex: 9E009E
     texture: {fileID: 2800000, guid: 239622a27d25047419432c0e5f3611ca, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 0}
     useWallColor: 0
     useFloorColor: 0
@@ -86,6 +107,9 @@ MonoBehaviour:
   - id: Torch
     hex: FF3A02
     texture: {fileID: 2800000, guid: 6c00f744d2e331f4aa14747ee60d9381, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 0}
     useWallColor: 0
     useFloorColor: 0
@@ -96,6 +120,9 @@ MonoBehaviour:
   - id: LadderUp
     hex: FF66FF
     texture: {fileID: 2800000, guid: b079c67913752b64c915bd4d0576d11a, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 0}
     useWallColor: 0
     useFloorColor: 0
@@ -106,6 +133,9 @@ MonoBehaviour:
   - id: Chest
     hex: FFFF64
     texture: {fileID: 2800000, guid: b6910f08ee867c749b6a9960de643abc, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 0}
     useWallColor: 0
     useFloorColor: 0
@@ -116,6 +146,9 @@ MonoBehaviour:
   - id: Loot
     hex: C1C14D
     texture: {fileID: 2800000, guid: a03377fc07e51fa4ea3325ae696444d9, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 0}
     useWallColor: 0
     useFloorColor: 0
@@ -126,6 +159,9 @@ MonoBehaviour:
   - id: BossBat
     hex: FF0001
     texture: {fileID: 2800000, guid: eccda3bd7ec08b2498f0b55a3eee6e31, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 0}
     useWallColor: 0
     useFloorColor: 0
@@ -136,6 +172,9 @@ MonoBehaviour:
   - id: PressurePlate
     hex: 009380
     texture: {fileID: 2800000, guid: c9e34f1fc2351f94689b3f9edac84f55, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 0}
     useWallColor: 0
     useFloorColor: 1
@@ -146,6 +185,9 @@ MonoBehaviour:
   - id: Water
     hex: 0000FF
     texture: {fileID: 2800000, guid: dfc97cc4553136c45a52dd770f4e4b34, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 0}
     useWallColor: 0
     useFloorColor: 0
@@ -156,6 +198,9 @@ MonoBehaviour:
   - id: Wood
     hex: 653A00
     texture: {fileID: 2800000, guid: 09e4f09bae6e3744e8e74853f4b3d212, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 0}
     useWallColor: 0
     useFloorColor: 0
@@ -166,6 +211,9 @@ MonoBehaviour:
   - id: Ice
     hex: 3F3F60
     texture: {fileID: 2800000, guid: 2e8da33117ee92645996a651f0f2522c, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 0}
     useWallColor: 0
     useFloorColor: 0
@@ -176,10 +224,39 @@ MonoBehaviour:
   - id: Leaves
     hex: 93FF9B
     texture: {fileID: 2800000, guid: ebb37289c085b594f8e7230f4fec5a7b, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
     roofTexture: {fileID: 0}
     useWallColor: 0
     useFloorColor: 0
     useCeilingColor: 0
     overlayColor: {r: 0.3137255, g: 0.7647059, b: 0.3254902, a: 1}
+    hasTrigger: 0
+    navmeshArea: 1
+  - id: OopenableDoor
+    hex: C6C6C6
+    texture: {fileID: 2800000, guid: 1556f3d0f2274fe438e08dd7bd675f63, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
+    roofTexture: {fileID: 0}
+    useWallColor: 0
+    useFloorColor: 0
+    useCeilingColor: 0
+    overlayColor: {r: 1, g: 1, b: 1, a: 1}
+    hasTrigger: 0
+    navmeshArea: 1
+  - id: LockedDoor
+    hex: C6C697
+    texture: {fileID: 2800000, guid: b984a6cc22ab1fe48964faa76c7f627f, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
+    roofTexture: {fileID: 0}
+    useWallColor: 0
+    useFloorColor: 0
+    useCeilingColor: 0
+    overlayColor: {r: 1, g: 1, b: 1, a: 1}
     hasTrigger: 0
     navmeshArea: 1
