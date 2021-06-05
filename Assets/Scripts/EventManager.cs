@@ -19,23 +19,29 @@ public class EventManager : MonoBehaviour
 
     public void TriggerEntered(Trigger trigger, Collider collider)
     {
-        if(collider.CompareTag("PressurePlate"))
+        if(trigger.transform.parent.CompareTag("PressurePlate"))
         {
-            // Activate pressureplate here
+            PressurePlate plate = trigger.transform.parent.GetComponent<PressurePlate>();
+            plate.OnPressed();
         }
     }
 
     public void TriggerExit(Trigger trigger, Collider collider)
     {
-        if (collider.CompareTag("PressurePlate"))
+        if (trigger.transform.parent.CompareTag("PressurePlate"))
         {
-            // Deactivate pressureplate here
+            PressurePlate plate = trigger.transform.parent.GetComponent<PressurePlate>();
+            plate.OnUnpressed();
         }
     }
 
     public void TriggerStay(Trigger trigger, Collider collider)
     {
-
+        if (trigger.transform.parent.CompareTag("PressurePlate"))
+        {
+            PressurePlate plate = trigger.transform.parent.GetComponent<PressurePlate>();
+            plate.OnPressed();
+        }
     }
 
     public void CollisionEnter(Trigger trigger, Collision collider)

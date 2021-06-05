@@ -31,5 +31,6 @@ public class BlockEntry
     public bool useCeilingColor = false;
     public Color overlayColor = Color.white;
     public bool hasTrigger = false;
+    public List<UnityEditor.MonoScript> scripts = new List<UnityEditor.MonoScript>();
     public NavMeshArea navmeshArea = NavMeshArea.NotWalkable;
 }

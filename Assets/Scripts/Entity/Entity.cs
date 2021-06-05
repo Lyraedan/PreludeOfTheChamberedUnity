@@ -42,6 +42,7 @@ public class Entity : MonoBehaviour
     void Start()
     {
         src = GetComponent<AudioSource>();
+        src.spatialBlend = 1f;
         baseColor = renderer.material.color;
     }
 

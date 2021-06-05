@@ -25,6 +25,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 1, g: 1, b: 1, a: 1}
     hasTrigger: 0
+    scripts: []
     navmeshArea: 1
   - id: BreakableBlock
     hex: 00FFFF
@@ -38,6 +39,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 1, g: 1, b: 1, a: 1}
     hasTrigger: 0
+    scripts: []
     navmeshArea: 1
   - id: Bars
     hex: 4C4C4C
@@ -51,6 +53,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
     hasTrigger: 0
+    scripts: []
     navmeshArea: 1
   - id: Bat
     hex: FF0000
@@ -64,6 +67,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 0.50980395, g: 0.4, b: 0.43137255, a: 1}
     hasTrigger: 0
+    scripts: []
     navmeshArea: 1
   - id: Bolder
     hex: AA5500
@@ -77,6 +81,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 0.6862745, g: 0.63529414, b: 0.5764706, a: 1}
     hasTrigger: 0
+    scripts: []
     navmeshArea: 1
   - id: BolderHole
     hex: 009300
@@ -90,6 +95,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 1, g: 1, b: 1, a: 1}
     hasTrigger: 1
+    scripts: []
     navmeshArea: 1
   - id: LadderDown
     hex: 9E009E
@@ -103,6 +109,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 0.85882354, g: 0.5568628, b: 0.3254902, a: 1}
     hasTrigger: 1
+    scripts: []
     navmeshArea: 1
   - id: Torch
     hex: FF3A02
@@ -116,6 +123,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 1, g: 1, b: 0, a: 1}
     hasTrigger: 0
+    scripts: []
     navmeshArea: 1
   - id: LadderUp
     hex: FF66FF
@@ -129,6 +137,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 0.85882354, g: 0.5568628, b: 0.3254902, a: 1}
     hasTrigger: 1
+    scripts: []
     navmeshArea: 1
   - id: Chest
     hex: FFFF64
@@ -142,6 +151,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 1, g: 1, b: 0, a: 1}
     hasTrigger: 0
+    scripts: []
     navmeshArea: 1
   - id: Loot
     hex: C1C14D
@@ -155,6 +165,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 1, g: 1, b: 0, a: 1}
     hasTrigger: 1
+    scripts: []
     navmeshArea: 1
   - id: BossBat
     hex: FF0001
@@ -168,6 +179,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 1, g: 1, b: 0, a: 1}
     hasTrigger: 0
+    scripts: []
     navmeshArea: 1
   - id: PressurePlate
     hex: 009380
@@ -181,6 +193,8 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 1, g: 1, b: 0, a: 1}
     hasTrigger: 1
+    scripts:
+    - {fileID: 11500000, guid: e4295904a3ef65449a66c21528f85e4b, type: 3}
     navmeshArea: 0
   - id: Water
     hex: 0000FF
@@ -194,6 +208,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 0, g: 0, b: 1, a: 1}
     hasTrigger: 0
+    scripts: []
     navmeshArea: 1
   - id: Wood
     hex: 653A00
@@ -207,6 +222,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 0.85882354, g: 0.5568628, b: 0.3254902, a: 1}
     hasTrigger: 0
+    scripts: []
     navmeshArea: 1
   - id: Ice
     hex: 3F3F60
@@ -220,6 +236,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 0.5019608, g: 0.5019608, b: 1, a: 1}
     hasTrigger: 0
+    scripts: []
     navmeshArea: 1
   - id: Leaves
     hex: 93FF9B
@@ -233,6 +250,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 0.3137255, g: 0.7647059, b: 0.3254902, a: 1}
     hasTrigger: 0
+    scripts: []
     navmeshArea: 1
   - id: OopenableDoor
     hex: C6C6C6
@@ -246,6 +264,7 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 1, g: 1, b: 1, a: 1}
     hasTrigger: 0
+    scripts: []
     navmeshArea: 1
   - id: LockedDoor
     hex: C6C697
@@ -259,4 +278,5 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 1, g: 1, b: 1, a: 1}
     hasTrigger: 0
+    scripts: []
     navmeshArea: 1

@@ -11,6 +11,9 @@ public class Trigger : MonoBehaviour
     public new BoxCollider collider;
     public bool isTrigger = true;
 
+    public TriggerEvent TriggerEnter, TriggerExit, TriggerStay;
+    public CollisionEvent CollisionEnter, CollisionExit, CollisionStay;
+
     public void Start()
     {
         collider.isTrigger = isTrigger;
@@ -20,31 +23,37 @@ public class Trigger : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        TriggerEnter?.Invoke(this, other);
         EventManager.instance.TriggerEntered(this, collider);
     }
 
     public void OnTriggerExit(Collider other)
     {
+        TriggerExit?.Invoke(this, other);
         EventManager.instance.TriggerExit(this, collider);
     }
 
     public void OnTriggerStay(Collider other)
     {
+        TriggerStay?.Invoke(this, other);
         EventManager.instance.TriggerStay(this, collider);
     }
 
     public void OnCollisionEnter(Collision collision)
     {
+        CollisionEnter?.Invoke(this, collision);
         EventManager.instance.CollisionEnter(this, collision);
     }
 
     public void OnCollisionExit(Collision collision)
     {
+        CollisionExit?.Invoke(this, collision);
         EventManager.instance.CollisionExit(this, collision);
     }
 
     public void OnCollisionStay(Collision collision)
     {
+        CollisionStay?.Invoke(this, collision);
         EventManager.instance.CollisionStay(this, collision);
     }
 

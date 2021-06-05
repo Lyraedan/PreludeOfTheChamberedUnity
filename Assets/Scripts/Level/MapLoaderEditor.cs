@@ -11,7 +11,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(MapLoader))]
+[CustomEditor(typeof(MapLoader)), CanEditMultipleObjects]
 public class MapLoaderEditor : Editor
 {
     List<LevelEditor> maps = new List<LevelEditor>();
@@ -69,7 +69,7 @@ public class MapLoaderEditor : Editor
             LoadLevelIntoScene(MapLoader.offset, MapLoader.isOutside);
         }
         bool link = GUILayout.Button("Link levels");
-        if(link)
+        if (link)
         {
             SetupLinkedObjects();
         }
@@ -117,16 +117,16 @@ public class MapLoaderEditor : Editor
             {
                 MapLoader.ceilColor = ceil;
             }
-            if(!string.IsNullOrEmpty(floorTex))
+            if (!string.IsNullOrEmpty(floorTex))
             {
                 MapLoader.floor = Resources.Load<Texture>(floorTex);
             }
-            if(!string.IsNullOrEmpty(ceilTex))
+            if (!string.IsNullOrEmpty(ceilTex))
             {
                 MapLoader.ceil = Resources.Load<Texture>(ceilTex);
             }
             MapLoader.isOutside = isOutside;
-            if(!string.IsNullOrEmpty(data))
+            if (!string.IsNullOrEmpty(data))
             {
                 MapLoader.data = Resources.Load<BlockData>(data);
             }
@@ -180,6 +180,16 @@ public class MapLoaderEditor : Editor
                         }
 
                         block.loadProperties();
+
+                        // Add any additional scripts
+                        List<MonoScript> scripts = GetScripts(hex);
+                        if (scripts.Count > 0)
+                        {
+                            foreach (MonoScript script in scripts)
+                            {
+                                block.gameObject.AddComponent(script.GetClass());
+                            }
+                        }
 
                         if (!isOutdoors)
                         {
@@ -298,7 +308,7 @@ public class MapLoaderEditor : Editor
                 }
                 else
                     emptyTiles++;
-                
+
             }
         }
         //SetupLinkedObjects();
@@ -318,21 +328,22 @@ public class MapLoaderEditor : Editor
             Debug.Log("Trying to link ladder " + i);
             //foreach(LevelDetails level in levels)
             //{
-                JSONNode node = LoadProfileNodes(MapLoader.fileName);
-                Debug.Log("Loaded nodes: " + node.ToString());
-                var links = node["links"];
-                for(int j = 0; j < links.Count; j++)
+            JSONNode node = LoadProfileNodes(MapLoader.fileName);
+            Debug.Log("Loaded nodes: " + node.ToString());
+            var links = node["links"];
+            for (int j = 0; j < links.Count; j++)
+            {
+                var nextLadderId = links[$"ladder_{j}"]["goto"];
+                GameObject linkedLadder = GameObject.Find($"Ladder_{nextLadderId}");
+                if (!linkedLadder)
                 {
-                    var nextLadderId = links[$"ladder_{j}"]["goto"];
-                    GameObject linkedLadder = GameObject.Find($"Ladder_{nextLadderId}");
-                    if (!linkedLadder)
-                    {
-                        Debug.LogError("Failed to find ladder " + nextLadderId);
-                    } else
-                    {
-                        ladder.teleportTo = linkedLadder.transform; 
-                    }
+                    Debug.LogError("Failed to find ladder " + nextLadderId);
                 }
+                else
+                {
+                    ladder.teleportTo = linkedLadder.transform;
+                }
+            }
             //}
         }
     }
@@ -468,11 +479,11 @@ public class MapLoaderEditor : Editor
                 {
                     return MapLoader.wallColor;
                 }
-                else if(entry.useFloorColor)
+                else if (entry.useFloorColor)
                 {
                     return MapLoader.floorColor;
                 }
-                else if(entry.useCeilingColor)
+                else if (entry.useCeilingColor)
                 {
                     return MapLoader.ceilColor;
                 }
@@ -505,6 +516,17 @@ public class MapLoaderEditor : Editor
                 return entry.hasTrigger;
         }
         return false;
+    }
+
+    List<MonoScript> GetScripts(string hex)
+    {
+        foreach (BlockEntry entry in MapLoader.data.blocks)
+        {
+            if (entry.hex.Equals(hex))
+                return entry.scripts;
+        }
+        // Return an empty list
+        return new List<MonoScript>();
     }
 
     private static Texture TextureField(string name, Texture texture)

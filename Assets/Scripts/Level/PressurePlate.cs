@@ -8,7 +8,6 @@ public class PressurePlate : MonoBehaviour
 {
 
     public new Renderer renderer;
-    public List<Door> doors = new List<Door>();
     [Header("Pressed")]
     public AudioClip pressedSfx;
     public Texture pressedTexture;
@@ -18,26 +17,40 @@ public class PressurePlate : MonoBehaviour
     public Texture unPressedTexture;
     public UnityEvent onUnpressed;
 
+    public bool pressed = false;
+
     private AudioSource src;
 
     private void Start()
     {
         src = GetComponent<AudioSource>();
+        if(src == null)
+        {
+            src = gameObject.AddComponent<AudioSource>();
+        }
+        src.spatialBlend = 1f;
+        tag = "PressurePlate";
     }
 
     public void OnPressed()
     {
+        if (pressed) return;
+
         renderer.material.mainTexture = pressedTexture;
         src.clip = pressedSfx;
         src.Play();
         onPressed?.Invoke();
+        pressed = true;
     }
 
     public void OnUnpressed()
     {
+        if (!pressed) return;
+
         renderer.material.mainTexture = unPressedTexture;
         src.clip = unpressedSfx;
         src.Play();
         onUnpressed?.Invoke();
+        pressed = false;
     }
 }

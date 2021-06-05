@@ -23,6 +23,7 @@ public class Door : MonoBehaviour
     {
         target = opened ? closedPosition : openedPosition;
         src = GetComponent<AudioSource>();
+        src.spatialBlend = 1f;
     }
 
     private void Update()
