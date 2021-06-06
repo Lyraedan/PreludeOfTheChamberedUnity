@@ -68,11 +68,6 @@ public class MapLoaderEditor : Editor
         {
             LoadLevelIntoScene(MapLoader.offset, MapLoader.isOutside);
         }
-        bool link = GUILayout.Button("Link levels");
-        if (link)
-        {
-            SetupLinkedObjects();
-        }
     }
 
     JSONNode LoadProfileNodes(string level)
@@ -315,39 +310,6 @@ public class MapLoaderEditor : Editor
         Debug.Log("Importing scene of size: " + width + ", " + height + "\nTiles: " + tileCount + "\nEmpty tiles: " + emptyTiles);
     }
 
-    void SetupLinkedObjects()
-    {
-        var ladders = FindObjectsOfType<LadderBridge>();
-        var levels = FindObjectsOfType<LevelDetails>();
-
-        for (int i = 0; i < ladders.Length; i++)
-        {
-            LadderBridge ladder = ladders[i];
-            ladder.id = i;
-            ladder.gameObject.name = $"Ladder_{i}";
-            Debug.Log("Trying to link ladder " + i);
-            //foreach(LevelDetails level in levels)
-            //{
-            JSONNode node = LoadProfileNodes(MapLoader.fileName);
-            Debug.Log("Loaded nodes: " + node.ToString());
-            var links = node["links"];
-            for (int j = 0; j < links.Count; j++)
-            {
-                var nextLadderId = links[$"ladder_{j}"]["goto"];
-                GameObject linkedLadder = GameObject.Find($"Ladder_{nextLadderId}");
-                if (!linkedLadder)
-                {
-                    Debug.LogError("Failed to find ladder " + nextLadderId);
-                }
-                else
-                {
-                    ladder.teleportTo = linkedLadder.transform;
-                }
-            }
-            //}
-        }
-    }
-
     GameObject PlaceBlockAt(Vector3 pos, Transform parent)
     {
         GameObject cube = Instantiate(Resources.Load("prefabs/Cube") as GameObject, parent);
@@ -414,7 +376,8 @@ public class MapLoaderEditor : Editor
                hex.Equals("AA5500") || hex.Equals("9E009E") || hex.Equals("009380") ||
                hex.Equals("FF66FF") || hex.Equals("FFFF64") || hex.Equals("C1C14D") ||
                hex.Equals("FFFF00") || hex.Equals("FF0001") || hex.Equals("00FFFF") ||
-               hex.Equals("C6C6C6") || hex.Equals("C6C697");
+               hex.Equals("C6C6C6") || hex.Equals("C6C697") || hex.Equals("FF0004") ||
+               hex.Equals("FF0005");
     }
 
     string hexToEntity(string hex)
@@ -449,6 +412,10 @@ public class MapLoaderEditor : Editor
                 return "OpenableDoor";
             case "C6C697":
                 return "LockedDoor";
+            case "FF0004":
+                return "Eye";
+            case "FF0005":
+                return "BossEye";
             default:
                 throw new ArgumentException("Found hex marked as entity but found no assosiated entity");
         }

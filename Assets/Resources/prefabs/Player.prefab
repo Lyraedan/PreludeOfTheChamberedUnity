@@ -1846,8 +1846,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00012207031, y: -25}
-  m_SizeDelta: {x: 700, y: 100}
+  m_AnchoredPosition: {x: 0.0000061989, y: -13.162}
+  m_SizeDelta: {x: 664.9005, y: 73.675766}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6761328450950333565
 CanvasRenderer:
@@ -1878,10 +1878,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 3a1e084f13d1f9b4685f66a8db46d8dc, type: 3}
-    m_FontSize: 16
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 16
+    m_MinSize: 1
     m_MaxSize: 91
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -2516,6 +2516,8 @@ GameObject:
   - component: {fileID: 2244714246597183062}
   - component: {fileID: 710872207621388219}
   - component: {fileID: 1074877695425614252}
+  - component: {fileID: 6155792909594507960}
+  - component: {fileID: 3814198219732175334}
   m_Layer: 8
   m_Name: LocationDisplay
   m_TagString: Untagged
@@ -2580,3 +2582,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &6155792909594507960
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8391607674614098810}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9dd7ca5d22a2f16488d3bf3d13820a1b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3814198219732175334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8391607674614098810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ee7fb0dfb544b4fa1679c140abbf87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animatior: {fileID: 6155792909594507960}
+  location: {fileID: 2403533742339719890}

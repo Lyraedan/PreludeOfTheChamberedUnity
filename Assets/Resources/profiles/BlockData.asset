@@ -280,3 +280,31 @@ MonoBehaviour:
     hasTrigger: 0
     scripts: []
     navmeshArea: 1
+  - id: Eye
+    hex: FF0004
+    texture: {fileID: 2800000, guid: 3383b5118975bba499da302a6f8ee8e0, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
+    roofTexture: {fileID: 0}
+    useWallColor: 0
+    useFloorColor: 0
+    useCeilingColor: 0
+    overlayColor: {r: 0.5176471, g: 0.9254902, b: 1, a: 1}
+    hasTrigger: 0
+    scripts: []
+    navmeshArea: 1
+  - id: BossEye
+    hex: FF0005
+    texture: {fileID: 2800000, guid: 3383b5118975bba499da302a6f8ee8e0, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
+    roofTexture: {fileID: 0}
+    useWallColor: 0
+    useFloorColor: 0
+    useCeilingColor: 0
+    overlayColor: {r: 1, g: 1, b: 0, a: 1}
+    hasTrigger: 1
+    scripts: []
+    navmeshArea: 1

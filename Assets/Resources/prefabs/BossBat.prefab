@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 56498180819761664}
   - component: {fileID: 3587938645396075260}
   m_Layer: 0
-  m_Name: Bat 1
+  m_Name: BossBat
   m_TagString: Entity
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,11 +135,25 @@ MonoBehaviour:
   body: {fileID: 3587938645396075260}
   maxHealth: 10
   health: 10
-  damageVal: 1
+  damageVal: 2
   hurtSfx: {fileID: 8300000, guid: 7776de2986d671641ad996a3960a6285, type: 3}
   healSfx: {fileID: 8300000, guid: b5aa1df88dcd0fd4ba0b61c1d87e9855, type: 3}
   deathSfx: {fileID: 8300000, guid: 66fd3f54487146341a0792f402e8b8a2, type: 3}
   deathGfx: {fileID: 2800000, guid: 4416369f1d5be2f4b812bbf64012459c, type: 3}
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2751405398730926688}
+        m_MethodName: DropKey
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   deathColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   hurtColor: {r: 1, g: 0, b: 0, a: 1}
   healColor: {r: 0, g: 1, b: 0, a: 1}
