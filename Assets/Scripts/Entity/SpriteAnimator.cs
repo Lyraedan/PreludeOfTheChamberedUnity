@@ -22,13 +22,15 @@ public class SpriteAnimator : MonoBehaviour
         if (randomiseStartingIndex) currentIndex = Random.Range(0, frames.Count);
         if (currentIndex > frames.Count && !randomiseStartingIndex) currentIndex = 0;
         else if (currentIndex > frames.Count && randomiseStartingIndex) currentIndex = Random.Range(0, frames.Count);
-        UpdateTexture();
+        if(frames.Count > 0)
+            UpdateTexture();
     }
 
     // Update is called once per frame
     void Update()
     {
-        PlayAnimation();
+        if(frames.Count > 0)
+            PlayAnimation();
     }
 
     public void PlayAnimation()

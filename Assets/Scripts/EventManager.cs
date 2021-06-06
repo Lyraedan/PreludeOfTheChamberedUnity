@@ -21,6 +21,8 @@ public class EventManager : MonoBehaviour
     {
         if(trigger.transform.parent.CompareTag("PressurePlate"))
         {
+            if (collider.transform.CompareTag("Entity")) return;
+
             PressurePlate plate = trigger.transform.parent.GetComponent<PressurePlate>();
             plate.OnPressed();
         }
@@ -30,6 +32,8 @@ public class EventManager : MonoBehaviour
     {
         if (trigger.transform.parent.CompareTag("PressurePlate"))
         {
+            if (collider.transform.CompareTag("Entity")) return;
+
             PressurePlate plate = trigger.transform.parent.GetComponent<PressurePlate>();
             plate.OnUnpressed();
         }
@@ -39,6 +43,8 @@ public class EventManager : MonoBehaviour
     {
         if (trigger.transform.parent.CompareTag("PressurePlate"))
         {
+            if (collider.transform.CompareTag("Entity")) return;
+
             PressurePlate plate = trigger.transform.parent.GetComponent<PressurePlate>();
             plate.OnPressed();
         }

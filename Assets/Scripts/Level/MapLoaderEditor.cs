@@ -186,6 +186,23 @@ public class MapLoaderEditor : Editor
                             }
                         }
 
+                        string tag = GetTag(hex);
+                        plane.tag = tag;
+
+                        PhysicMaterial phyMat = GetPhysicsMaterial(hex);
+                        if(phyMat != null)
+                        {
+                            Collider collider = plane.GetComponent<Collider>();
+                            if (collider != null)
+                                collider.material = phyMat;
+                            else
+                                Debug.LogError("Failed to update physics material for object " + plane.name + " no collider found!");
+                        }
+
+                        // Setup navmesh surface
+                        int nav = GetNavmeshSurface(hex);
+                        GameObjectUtility.SetNavMeshArea(plane, nav);
+
                         if (!isOutdoors)
                         {
                             // Roof
@@ -377,7 +394,7 @@ public class MapLoaderEditor : Editor
                hex.Equals("FF66FF") || hex.Equals("FFFF64") || hex.Equals("C1C14D") ||
                hex.Equals("FFFF00") || hex.Equals("FF0001") || hex.Equals("00FFFF") ||
                hex.Equals("C6C6C6") || hex.Equals("C6C697") || hex.Equals("FF0004") ||
-               hex.Equals("FF0005");
+               hex.Equals("FF0005") || hex.Equals("000056");
     }
 
     string hexToEntity(string hex)
@@ -416,6 +433,8 @@ public class MapLoaderEditor : Editor
                 return "Eye";
             case "FF0005":
                 return "BossEye";
+            case "000056":
+                return "Win";
             default:
                 throw new ArgumentException("Found hex marked as entity but found no assosiated entity");
         }
@@ -494,6 +513,36 @@ public class MapLoaderEditor : Editor
         }
         // Return an empty list
         return new List<MonoScript>();
+    }
+
+    int GetNavmeshSurface(string hex)
+    {
+        foreach (BlockEntry entry in MapLoader.data.blocks)
+        {
+            if (entry.hex.Equals(hex))
+                return (int) entry.navmeshArea;
+        }
+        return (int) BlockEntry.NavMeshArea.Walkable;
+    }
+
+    PhysicMaterial GetPhysicsMaterial(string hex)
+    {
+        foreach (BlockEntry entry in MapLoader.data.blocks)
+        {
+            if (entry.hex.Equals(hex))
+                return entry.physicsMaterial;
+        }
+        return null;
+    }
+
+    string GetTag(string hex)
+    {
+        foreach (BlockEntry entry in MapLoader.data.blocks)
+        {
+            if (entry.hex.Equals(hex))
+                return entry.tag;
+        }
+        return "Untagged";
     }
 
     private static Texture TextureField(string name, Texture texture)

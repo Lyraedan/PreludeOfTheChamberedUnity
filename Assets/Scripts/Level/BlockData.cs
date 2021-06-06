@@ -33,4 +33,6 @@ public class BlockEntry
     public bool hasTrigger = false;
     public List<UnityEditor.MonoScript> scripts = new List<UnityEditor.MonoScript>();
     public NavMeshArea navmeshArea = NavMeshArea.NotWalkable;
+    public string tag = "Untagged";
+    public PhysicMaterial physicsMaterial;
 }

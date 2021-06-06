@@ -115,7 +115,6 @@ public abstract class AI : MonoBehaviour
                 yield break;
             }
             pathIsValid = true;
-            Debug.Log("Fleeing");
             yield return new WaitUntil(() => reached || (Time.time > timeout) || entity.isHit);
             PerformAction();
             undergoingAction = false;

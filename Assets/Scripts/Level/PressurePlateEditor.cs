@@ -20,6 +20,10 @@ public class PressurePlateEditor : Editor
             plate.unpressedSfx = Resources.Load<AudioClip>("snd/click2");
             plate.unPressedTexture = Resources.Load<Texture>("tex/PressurePlate");
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            plate.GetComponent<AudioSource>().minDistance = 1f;
+            plate.GetComponent<AudioSource>().maxDistance = 3f;
+            plate.GetComponent<AudioSource>().rolloffMode = AudioRolloffMode.Linear;
+            plate.GetComponent<AudioSource>().spatialBlend = 1f;
         }
     }
 }

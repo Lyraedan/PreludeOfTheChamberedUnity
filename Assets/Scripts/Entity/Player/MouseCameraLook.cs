@@ -14,16 +14,25 @@ public class MouseCameraLook : MonoBehaviour
 
     void Update()
     {
-        if (Player.pauseGameplay) return;
+        bool doLock = Player.pauseGameplay || (Player.instance.isOnIce && Player.instance.body.velocity != Vector3.zero && !Player.pauseGameplay);
 
-        var md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
-        md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
-        smoothV.x = Mathf.Lerp(smoothV.x, md.x, 1f / smoothing);
-        smoothV.y = Mathf.Lerp(smoothV.y, md.y, 1f / smoothing);
-        mouseLook += smoothV;
+        // Issue when frozen it glitches ouot todo fix
+        var md = !doLock ? new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) : Vector2.zero;
+
+        // This makes it so we can at least stop mouse rotation
+        if (!doLock)
+        {
+            md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
+            smoothV.x = Mathf.Lerp(smoothV.x, md.x, 1f / smoothing);
+            smoothV.y = Mathf.Lerp(smoothV.y, md.y, 1f / smoothing);
+            mouseLook += smoothV;
+        }
 
         mouseLook.y = Mathf.Clamp(mouseLook.y, -90, 90);
-        transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
-        character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, character.transform.up);
+        if (!doLock)
+        {
+            transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
+            character.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, character.transform.up);
+        }
     }
 }

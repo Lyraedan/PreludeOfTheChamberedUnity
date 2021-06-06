@@ -29,6 +29,8 @@ public class PressurePlate : MonoBehaviour
             src = gameObject.AddComponent<AudioSource>();
         }
         src.spatialBlend = 1f;
+        src.maxDistance = 3f;
+        src.minDistance = 0f;
         tag = "PressurePlate";
     }
 

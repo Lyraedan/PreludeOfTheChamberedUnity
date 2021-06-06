@@ -16,12 +16,17 @@ public class CharacterController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(Player.instance.isOnIce) return;
+
         if (Player.pauseGameplay)
         {
             body.constraints = RigidbodyConstraints.FreezeAll;
+            body.velocity = Vector3.zero;
+            body.angularVelocity = Vector3.zero;
             return;
         } else
         {
+            //Spammy camera?
             body.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         }
 

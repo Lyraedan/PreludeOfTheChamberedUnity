@@ -12,6 +12,7 @@ TagManager:
   - PressurePlate
   - Projectile
   - Door
+  - Ice
   layers:
   - Default
   - TransparentFX

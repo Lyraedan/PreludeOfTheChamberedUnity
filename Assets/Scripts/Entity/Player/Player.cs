@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     public int score = 0;
     public int maxKeys = 4;
     public int keys = 0;
+    public bool won = false;
 
     public GameObject hurtEffect;
     public AudioClip deathSfx;
@@ -38,6 +39,12 @@ public class Player : MonoBehaviour
     [Header("Displays")]
     public GameObject inGame;
     public GameObject gameover;
+    public GameObject win;
+
+    [Header("Physics")]
+    public float distanceToTheGround = 1f;
+    public bool isOnIce = false;
+    public bool isInWater = false;
 
     [Header("Controls")]
     public KeyCode attackKey = KeyCode.Space;
@@ -46,6 +53,8 @@ public class Player : MonoBehaviour
     public static bool pauseGameplay = false;
     // Stop us getting spammed to death
     private bool isHurt = false;
+
+    public RaycastHit surface;
 
     public bool dead {
         get {
@@ -110,6 +119,13 @@ public class Player : MonoBehaviour
                 }
             });
         }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+            Debug.Log("Is Grounded: " + IsGrounded);
+        else if(Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("Stood on: " + GetStoodOnTag());
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -171,6 +187,13 @@ public class Player : MonoBehaviour
         gameover.SetActive(true);
     }
 
+    public void Win()
+    {
+        won = true;
+        win.SetActive(true);
+        pauseGameplay = true;
+    }
+
     RaycastHit Raycast(float distance, Action<Collider> onHit)
     {
         int layerMask = 1 << 8;
@@ -187,5 +210,38 @@ public class Player : MonoBehaviour
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * Mathf.Infinity, Color.white);
         }
         return hit;
+    }
+
+    public bool IsGrounded
+    {
+        get
+        {
+            return Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out surface, distanceToTheGround + 0.1f);
+        }
+    }
+
+    public bool StoodOn(string tag)
+    {
+        if (surface.transform == null)
+            return false;
+        return surface.transform.CompareTag(tag);
+    }
+
+    public string GetStoodOnTag()
+    {
+        return surface.transform != null ? surface.transform.tag : "Untagged";
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(IsGrounded)
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(-Vector3.up) * surface.distance, Color.yellow);
+
+        }
+        else
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(-Vector3.up) * (distanceToTheGround + 0.1f), Color.white);
+        }
     }
 }

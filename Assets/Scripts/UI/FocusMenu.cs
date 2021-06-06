@@ -41,7 +41,7 @@ public class FocusMenu : MonoBehaviour
         if (focused) return;
 
         focused = true;
-        Player.pauseGameplay = false;
+        Player.pauseGameplay = Player.instance.won;
         menu.SetActive(false);
     }
 

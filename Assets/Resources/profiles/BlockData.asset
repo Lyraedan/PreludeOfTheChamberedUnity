@@ -27,6 +27,8 @@ MonoBehaviour:
     hasTrigger: 0
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: BreakableBlock
     hex: 00FFFF
     texture: {fileID: 2800000, guid: dbbb926be5a6ff8409141025a4651de4, type: 3}
@@ -41,6 +43,8 @@ MonoBehaviour:
     hasTrigger: 0
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: Bars
     hex: 4C4C4C
     texture: {fileID: 2800000, guid: c4a921e79cbb55e4ba12c68400640b31, type: 3}
@@ -55,6 +59,8 @@ MonoBehaviour:
     hasTrigger: 0
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: Bat
     hex: FF0000
     texture: {fileID: 2800000, guid: eccda3bd7ec08b2498f0b55a3eee6e31, type: 3}
@@ -69,6 +75,8 @@ MonoBehaviour:
     hasTrigger: 0
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: Bolder
     hex: AA5500
     texture: {fileID: 2800000, guid: a5ba5ed59e7981546ac30c67184a21e8, type: 3}
@@ -83,6 +91,8 @@ MonoBehaviour:
     hasTrigger: 0
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: BolderHole
     hex: 009300
     texture: {fileID: 2800000, guid: 1e21aaba6816e964dba83e086db461e9, type: 3}
@@ -97,6 +107,8 @@ MonoBehaviour:
     hasTrigger: 1
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: LadderDown
     hex: 9E009E
     texture: {fileID: 2800000, guid: 239622a27d25047419432c0e5f3611ca, type: 3}
@@ -111,6 +123,8 @@ MonoBehaviour:
     hasTrigger: 1
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: Torch
     hex: FF3A02
     texture: {fileID: 2800000, guid: 6c00f744d2e331f4aa14747ee60d9381, type: 3}
@@ -125,6 +139,8 @@ MonoBehaviour:
     hasTrigger: 0
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: LadderUp
     hex: FF66FF
     texture: {fileID: 2800000, guid: b079c67913752b64c915bd4d0576d11a, type: 3}
@@ -139,6 +155,8 @@ MonoBehaviour:
     hasTrigger: 1
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: Chest
     hex: FFFF64
     texture: {fileID: 2800000, guid: b6910f08ee867c749b6a9960de643abc, type: 3}
@@ -153,6 +171,8 @@ MonoBehaviour:
     hasTrigger: 0
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: Loot
     hex: C1C14D
     texture: {fileID: 2800000, guid: a03377fc07e51fa4ea3325ae696444d9, type: 3}
@@ -167,6 +187,8 @@ MonoBehaviour:
     hasTrigger: 1
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: BossBat
     hex: FF0001
     texture: {fileID: 2800000, guid: eccda3bd7ec08b2498f0b55a3eee6e31, type: 3}
@@ -181,6 +203,8 @@ MonoBehaviour:
     hasTrigger: 0
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: PressurePlate
     hex: 009380
     texture: {fileID: 2800000, guid: c9e34f1fc2351f94689b3f9edac84f55, type: 3}
@@ -196,6 +220,8 @@ MonoBehaviour:
     scripts:
     - {fileID: 11500000, guid: e4295904a3ef65449a66c21528f85e4b, type: 3}
     navmeshArea: 0
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: Water
     hex: 0000FF
     texture: {fileID: 2800000, guid: dfc97cc4553136c45a52dd770f4e4b34, type: 3}
@@ -208,8 +234,11 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 0, g: 0, b: 1, a: 1}
     hasTrigger: 0
-    scripts: []
+    scripts:
+    - {fileID: 11500000, guid: 647aa7c7e7cf5114c88c24f3e357aea1, type: 3}
     navmeshArea: 1
+    tag: Water
+    physicsMaterial: {fileID: 0}
   - id: Wood
     hex: 653A00
     texture: {fileID: 2800000, guid: 09e4f09bae6e3744e8e74853f4b3d212, type: 3}
@@ -224,6 +253,8 @@ MonoBehaviour:
     hasTrigger: 0
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: Ice
     hex: 3F3F60
     texture: {fileID: 2800000, guid: 2e8da33117ee92645996a651f0f2522c, type: 3}
@@ -236,8 +267,11 @@ MonoBehaviour:
     useCeilingColor: 0
     overlayColor: {r: 0.5019608, g: 0.5019608, b: 1, a: 1}
     hasTrigger: 0
-    scripts: []
+    scripts:
+    - {fileID: 11500000, guid: d9d9c8317464dd240902cfcb1a006def, type: 3}
     navmeshArea: 1
+    tag: Ice
+    physicsMaterial: {fileID: 0}
   - id: Leaves
     hex: 93FF9B
     texture: {fileID: 2800000, guid: ebb37289c085b594f8e7230f4fec5a7b, type: 3}
@@ -252,6 +286,8 @@ MonoBehaviour:
     hasTrigger: 0
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: OopenableDoor
     hex: C6C6C6
     texture: {fileID: 2800000, guid: 1556f3d0f2274fe438e08dd7bd675f63, type: 3}
@@ -266,6 +302,8 @@ MonoBehaviour:
     hasTrigger: 0
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: LockedDoor
     hex: C6C697
     texture: {fileID: 2800000, guid: b984a6cc22ab1fe48964faa76c7f627f, type: 3}
@@ -280,6 +318,8 @@ MonoBehaviour:
     hasTrigger: 0
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: Eye
     hex: FF0004
     texture: {fileID: 2800000, guid: 3383b5118975bba499da302a6f8ee8e0, type: 3}
@@ -294,6 +334,8 @@ MonoBehaviour:
     hasTrigger: 0
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: BossEye
     hex: FF0005
     texture: {fileID: 2800000, guid: 3383b5118975bba499da302a6f8ee8e0, type: 3}
@@ -308,6 +350,8 @@ MonoBehaviour:
     hasTrigger: 1
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
   - id: Key
     hex: F0FCFF
     texture: {fileID: 2800000, guid: d4c7d5689b5d20146b3985b08fdbd2e3, type: 3}
@@ -322,3 +366,21 @@ MonoBehaviour:
     hasTrigger: 1
     scripts: []
     navmeshArea: 1
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
+  - id: Win
+    hex: 000056
+    texture: {fileID: 2800000, guid: d4c7d5689b5d20146b3985b08fdbd2e3, type: 3}
+    normalMap: {fileID: 0}
+    bumpMap: {fileID: 0}
+    specularMap: {fileID: 0}
+    roofTexture: {fileID: 0}
+    useWallColor: 0
+    useFloorColor: 0
+    useCeilingColor: 0
+    overlayColor: {r: 1, g: 1, b: 1, a: 1}
+    hasTrigger: 0
+    scripts: []
+    navmeshArea: 0
+    tag: Untagged
+    physicsMaterial: {fileID: 0}
