@@ -27,7 +27,7 @@ public class LadderBridge : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (teleportTo != null)
+        if (teleportTo != null && other.transform.CompareTag("Player"))
         {
             LocationDisplay.instance.location.text = LocationDisplay.instance.GetLocation(teleportTo.transform.root);
             OnTravelled?.Invoke();

@@ -31,8 +31,10 @@ public class Pickup : MonoBehaviour
     IEnumerator Collect()
     {
         OnPickedUp?.Invoke();
-        if(pickupType.Equals(PickupType.LOOT))
+        if (pickupType.Equals(PickupType.LOOT))
             Player.instance.score += value;
+        else if (pickupType.Equals(PickupType.KEY))
+            Player.instance.keys += value;
         src.clip = pickupSfx;
         src.Play();
         yield return new WaitUntil(() => !src.isPlaying);

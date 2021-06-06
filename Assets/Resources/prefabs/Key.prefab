@@ -204,7 +204,6 @@ GameObject:
   - component: {fileID: 1029630015202595213}
   - component: {fileID: 6736780942996856132}
   - component: {fileID: 4786420761310801930}
-  - component: {fileID: 840179802012852537}
   m_Layer: 0
   m_Name: Billboard
   m_TagString: Untagged
@@ -252,7 +251,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f74505460fe02d34f89a9efc1e42a271, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -311,10 +310,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2a3e108313447a4fb196e0d94f3b057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 1, b: 1, a: 1}
+  color: {r: 0, g: 1, b: 1, a: 1}
   hex: 
   type: 0
-  texture: {fileID: 0}
+  texture: {fileID: 2800000, guid: d4c7d5689b5d20146b3985b08fdbd2e3, type: 3}
   collider: {fileID: 0}
   displayColor: 
   renderMode: 0
@@ -414,21 +413,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &840179802012852537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6273065936449951138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0145704b1636bba44b20883b9840a4fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupType: 0
-  pickupSfx: {fileID: 0}
-  OnPickedUp:
-    m_PersistentCalls:
-      m_Calls: []
-  value: 1
