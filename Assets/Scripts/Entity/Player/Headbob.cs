@@ -22,7 +22,7 @@ public class Headbob : MonoBehaviour
     {
         if (Player.pauseGameplay) return;
 
-        if (Mathf.Abs(controller.moveDirection.x) > 0.1f || Mathf.Abs(controller.moveDirection.z) > 0.1f)
+        if (Mathf.Abs(controller.moveDirection.x) > 0.1f || Mathf.Abs(controller.moveDirection.y) > 0.1f)
         {
             //Player is moving
             timer += Time.deltaTime * walkingBobbingSpeed;

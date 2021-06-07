@@ -9,6 +9,7 @@ public class Ice : MonoBehaviour
     public AudioClip slide;
 
     private AudioSource src;
+    private bool canReslide = false;
 
     private void Start()
     {
@@ -30,16 +31,17 @@ public class Ice : MonoBehaviour
         bool onIce = Player.instance.StoodOn("Ice");
         if (onIce)
         {
-            if(!Player.instance.isOnIce)
+            if (!Player.instance.isOnIce)
             {
                 src.clip = slide;
                 src.Play();
                 Player.instance.isOnIce = true;
             }
             Slide();
-        } else
+        }
+        else
         {
-            if(Player.instance.isOnIce)
+            if (Player.instance.isOnIce)
             {
                 Player.instance.isOnIce = false;
             }
@@ -48,11 +50,8 @@ public class Ice : MonoBehaviour
 
     void Slide()
     {
-        if (Player.instance.body.velocity == Vector3.zero)
-        {
-            Vector3 force = Player.instance.transform.forward * (slideSpeed * 10);
-            Player.instance.body.AddForce(force);
-        }
+        Vector3 force = Player.instance.transform.forward * slideSpeed;
+        Player.instance.body.velocity = force;
     }
 
 }

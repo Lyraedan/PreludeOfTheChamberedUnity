@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
     public static bool pauseGameplay = false;
     // Stop us getting spammed to death
     private bool isHurt = false;
+    public bool IsGrounded = false;
 
     public RaycastHit surface;
 
@@ -80,6 +81,8 @@ public class Player : MonoBehaviour
         healthDisplay.text = $"{health}/{maxHealth}";
         scoreDisplay.text = $"{score}";
         keyDisplay.text = $"{keys}/{maxKeys}";
+
+        IsGrounded = Grounded();
 
         if (Input.GetKeyDown(attackKey) && !pauseGameplay)
         {
@@ -118,13 +121,6 @@ public class Player : MonoBehaviour
                         door.ToggleDoor();
                 }
             });
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-            Debug.Log("Is Grounded: " + IsGrounded);
-        else if(Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("Stood on: " + GetStoodOnTag());
         }
     }
 
@@ -212,9 +208,8 @@ public class Player : MonoBehaviour
         return hit;
     }
 
-    public bool IsGrounded
+    public bool Grounded()
     {
-        get
         {
             return Physics.Raycast(transform.position, transform.TransformDirection(-Vector3.up), out surface, distanceToTheGround + 0.1f);
         }

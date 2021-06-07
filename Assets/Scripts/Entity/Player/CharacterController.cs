@@ -6,6 +6,7 @@ public class CharacterController : MonoBehaviour
 {
     public Vector3 moveDirection = Vector3.zero;
     public float speed = 100.0f;
+    public float maxSpeed = 200.0f;
     public Rigidbody body;
 
     void Start()
@@ -16,24 +17,13 @@ public class CharacterController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(Player.instance.isOnIce) return;
-
-        if (Player.pauseGameplay)
-        {
-            body.constraints = RigidbodyConstraints.FreezeAll;
-            body.velocity = Vector3.zero;
-            body.angularVelocity = Vector3.zero;
-            return;
-        } else
-        {
-            //Spammy camera?
-            body.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-        }
+        if (Player.pauseGameplay || Player.instance.isOnIce) return;
 
         float verticalMovement = Input.GetAxis("Vertical");
         float horizontalMovement = Input.GetAxis("Horizontal");
         moveDirection = (horizontalMovement * transform.right + verticalMovement * transform.forward).normalized;
-        body.velocity = moveDirection * speed * Time.deltaTime;
+        var velocity = moveDirection * speed * Time.deltaTime;
+        body.velocity = velocity;
 
         if (Input.GetKeyDown(Player.instance.pauseKey))
         {
