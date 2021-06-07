@@ -2567,9 +2567,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9417d3474b830fb4c95306830f0152d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 5
-  smoothing: 2
   character: {fileID: 8256235990260812859}
+  axes: 0
+  sensitivityX: 15
+  sensitivityY: 15
+  minimumX: -360
+  maximumX: 360
+  minimumY: -60
+  maximumY: 60
+  frameCounter: 20
 --- !u!114 &6530628239564762517
 MonoBehaviour:
   m_ObjectHideFlags: 0
