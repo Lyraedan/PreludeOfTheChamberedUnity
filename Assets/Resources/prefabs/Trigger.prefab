@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3918302770292491225
 Transform:
@@ -61,22 +61,22 @@ MonoBehaviour:
   navObstacle: {fileID: 5015448419433040511}
   collider: {fileID: 1263563347367602564}
   isTrigger: 1
-  OnTriggerEntered:
+  TriggerEnter:
     m_PersistentCalls:
       m_Calls: []
-  OnTriggerExited:
+  TriggerExit:
     m_PersistentCalls:
       m_Calls: []
-  OnTriggerStayed:
+  TriggerStay:
     m_PersistentCalls:
       m_Calls: []
-  OnCollisionEntered:
+  CollisionEnter:
     m_PersistentCalls:
       m_Calls: []
-  OnCollisionExited:
+  CollisionExit:
     m_PersistentCalls:
       m_Calls: []
-  OnCollisionStayed:
+  CollisionStay:
     m_PersistentCalls:
       m_Calls: []
 --- !u!208 &5015448419433040511

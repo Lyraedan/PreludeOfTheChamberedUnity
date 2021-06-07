@@ -17,7 +17,7 @@ public class CharacterController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Player.pauseGameplay || Player.instance.isOnIce) return;
+        if (Player.pauseGameplay || (Player.instance.isOnIce && !Inventory.instance.isHolding(Inventory.ITEM_SKATES))) return;
 
         float verticalMovement = Input.GetAxis("Vertical");
         float horizontalMovement = Input.GetAxis("Horizontal");

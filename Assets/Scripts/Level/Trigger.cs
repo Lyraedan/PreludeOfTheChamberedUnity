@@ -21,6 +21,12 @@ public class Trigger : MonoBehaviour
         navObstacle.enabled = !isTrigger;
     }
 
+    private void Update()
+    {
+        collider.isTrigger = isTrigger;
+        gameObject.name = isTrigger ? "Trigger" : "Collider";
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         TriggerEnter?.Invoke(this, other);

@@ -233,9 +233,10 @@ MonoBehaviour:
     useFloorColor: 0
     useCeilingColor: 0
     overlayColor: {r: 0, g: 0, b: 1, a: 1}
-    hasTrigger: 0
+    hasTrigger: 1
     scripts:
-    - {fileID: 11500000, guid: 647aa7c7e7cf5114c88c24f3e357aea1, type: 3}
+    - {fileID: 11500000, guid: 143f9ba4e38194e4eba15dc3a6320289, type: 3}
+    - {fileID: 11500000, guid: 968e712c5296c204692a3029573f2ecf, type: 3}
     navmeshArea: 1
     tag: Water
     physicsMaterial: {fileID: 0}

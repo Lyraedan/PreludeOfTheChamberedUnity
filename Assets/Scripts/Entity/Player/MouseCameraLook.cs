@@ -18,7 +18,11 @@ public class MouseCameraLook : MonoBehaviour
     {
         if (Player.pauseGameplay) return;
 
-        bool doLock = Player.pauseGameplay || (Player.instance.isOnIce && Player.instance.body.velocity != Vector3.zero && !Player.pauseGameplay);
+        bool doLock = Player.pauseGameplay ||
+                     (Player.instance.isOnIce &&
+                     !Inventory.instance.isHolding(Inventory.ITEM_SKATES) &&
+                     Player.instance.body.velocity != Vector3.zero &&
+                     !Player.pauseGameplay);
 
         var mouseX = Input.GetAxisRaw("Mouse X");
         var mouseY = Input.GetAxisRaw("Mouse Y");
@@ -36,9 +40,7 @@ public class MouseCameraLook : MonoBehaviour
         mouseLook += smoothV;
 
         if (horizontal != 0)
-        {
             rotZ = horizontal * tiltStrengh;
-        }
 
         mouseLook.y = Mathf.Clamp(mouseLook.y, -90, 90);
 
