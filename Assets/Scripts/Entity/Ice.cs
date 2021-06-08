@@ -52,7 +52,7 @@ public class Ice : MonoBehaviour
     {
         if (!Inventory.instance.isHolding(Inventory.ITEM_SKATES))
         {
-            Vector3 force = Player.instance.transform.forward * slideSpeed;
+            Vector3 force = Player.instance.forward * slideSpeed;
             Player.instance.body.velocity = force;
         }
     }

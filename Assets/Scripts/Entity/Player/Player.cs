@@ -57,6 +57,12 @@ public class Player : MonoBehaviour
 
     public RaycastHit surface;
 
+    public Vector3 forward {
+        get {
+            return transform.TransformDirection(Vector3.forward);
+        }
+    }
+
     public bool dead {
         get {
             return health <= 0;
@@ -196,7 +202,7 @@ public class Player : MonoBehaviour
         layerMask = ~layerMask;
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, distance, layerMask))
+        if (Physics.Raycast(transform.position, forward, out hit, distance, layerMask))
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             onHit?.Invoke(hit.collider);
