@@ -27,4 +27,10 @@ public class LocationDisplay : MonoBehaviour
     {
         return root.GetComponent<LevelDetails>().levelName;
     }
+
+    public string GetLocationName {
+        get {
+            return location.text;
+        }
+    }
 }
